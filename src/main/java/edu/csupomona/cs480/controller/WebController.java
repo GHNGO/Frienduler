@@ -1,5 +1,7 @@
 package edu.csupomona.cs480.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,6 +132,20 @@ public class WebController {
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
+	}
+	
+	/************ A3 Added Methods ************/
+	/**
+	 * By following the request mapping methods in WebController.java, 
+	 * you need to add a new method in that class to create a new HTTP API.
+	 */
+	
+	@RequestMapping(value = "/cs480/genn", method = RequestMethod.GET)
+	String returnDateAndTime() {
+		Date dNow = new Date( );
+	    SimpleDateFormat ft = new SimpleDateFormat ("EEE, MMM d, yyyy 'at' hh:mm:ss a zzz");
+
+		return ("You ran this page on: " + ft.format(dNow));
 	}
 
 }
