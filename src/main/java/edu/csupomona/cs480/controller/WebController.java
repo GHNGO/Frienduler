@@ -162,7 +162,7 @@ public class WebController {
 	@RequestMapping( value = "/cs480/lloyd", method = RequestMethod.GET )
 	String returnGoodByeWorld()
 	{
-		return "Goodbye World!"
+		return "Goodbye World!";
 	}
 
 	//Jack Zhang A3
