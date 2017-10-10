@@ -139,13 +139,18 @@ public class WebController {
 	 * By following the request mapping methods in WebController.java, 
 	 * you need to add a new method in that class to create a new HTTP API.
 	 */
-	
 	@RequestMapping(value = "/cs480/genn", method = RequestMethod.GET)
 	String returnDateAndTime() {
 		Date dNow = new Date( );
 	    SimpleDateFormat ft = new SimpleDateFormat ("EEE, MMM d, yyyy 'at' hh:mm:ss a zzz");
 
 		return ("You ran this page on: " + ft.format(dNow));
+	}
+	
+	@RequestMapping(value = "/cs480/jarod", method = RequestMethod.GET)
+	String helloWorld() {
+
+		return ("Hello world");
 	}
 
 }
