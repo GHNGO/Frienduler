@@ -152,8 +152,11 @@ public class WebController {
 
 		return ("You ran this page on: " + ft.format(dNow));
 	}
-
-
+	//Jack Zhang A3
+	@RequestMapping(value = "/cs480/shakeNbake", method = RequestMethod.GET)
+	String Dungo() {
+		return("Bob it!");
+	}
 
 	//Connor Baskin A3
 	@RequestMapping(value = "/cs480/baskin", method = RequestMethod.GET)
