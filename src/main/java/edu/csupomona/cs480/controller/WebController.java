@@ -153,7 +153,7 @@ public class WebController {
 		return ("You ran this page on: " + ft.format(dNow));
 	}
 
-	//Lloyd Zhang A3
+	//Lloyd Zhang's A3
 	@RequestMapping( value = "/cs480/lloyd", method = RequestMethod.GET )
 	String returnGoodByeWorld()
 	{
