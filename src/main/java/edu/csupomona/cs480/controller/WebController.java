@@ -4,9 +4,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import edu.csupomona.cs480.data.Number;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StreamUtils;
@@ -43,6 +47,12 @@ public class WebController {
 	 */
 	@Autowired
 	private UserManager userManager;
+
+	@Autowired
+	private ArrayList<Number> numbers;
+
+	@Autowired
+	private DescriptiveStatistics numberStats;
 
 	/**
 	 * This is a simple example of how the HTTP API works.
@@ -301,5 +311,42 @@ public class WebController {
 		"<p>Original game from <a href=\"http://thecodeplayer.com/walkthrough/html5-game-tutorial-make-a-snake-game-using-html5-canvas-jquery\">http://thecodeplayer.com/walkthrough/html5-game-tutorial-make-a-snake-game-using-html5-canvas-jquery</a>; Edits by Connor Baskin</p> ";
 		return returned;
 	}
+
+	//Connor Baskin A4
+	@RequestMapping(value="/cs480/addNumber", method=RequestMethod.POST)
+	String addNumber(
+		@RequestParam("number") String number) {
+		if (number == null || number.equals("")) {
+			return "You must have the number to add as a parameter of the request";
+		} else {
+			try {
+				double num = Double.valueOf(number);
+				numbers.add(new Number(num));
+				numberStats.addValue(num);
+				return "Added " + num;
+			} catch (NumberFormatException e) {
+				return "Your number is formatted incorrectly, please try again";
+			}
+		}
+	}
+
+	//Connor Baskin A4
+	@RequestMapping(value="/cs480/makeNumbers", method=RequestMethod.GET)
+	ModelAndView getPageAddNumbers() {
+		ModelAndView modelAndView = new ModelAndView("numberAdd");
+		modelAndView.addObject("numbers", numbers);
+		return modelAndView;
+	}
+
+	//Connor Baskin A4
+	@RequestMapping(value="/cs480/getAverage", method=RequestMethod.GET)
+	String getAverage() {
+		if (numbers.isEmpty()) {
+			return "There are no numbers in the array, The average is 0";
+		} else {
+			return "The values in the array are " + Arrays.toString(numbers.toArray()) + "; The average is: " + numberStats.getMean();
+		}
+	}
+
 
 }

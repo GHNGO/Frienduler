@@ -1,5 +1,7 @@
 package edu.csupomona.cs480;
 
+import edu.csupomona.cs480.data.Number;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 import edu.csupomona.cs480.data.provider.FSUserManager;
 import edu.csupomona.cs480.data.provider.UserManager;
+
+import java.util.ArrayList;
 
 @Configuration
 @EnableAutoConfiguration
@@ -24,6 +28,16 @@ public class App {
     public UserManager userManager() {
         UserManager userManager = new FSUserManager();
         return userManager;
+    }
+
+    @Bean
+    public DescriptiveStatistics numberStats() {
+        return new DescriptiveStatistics();
+    }
+
+    @Bean
+    public ArrayList<Number> numbers() {
+        return new ArrayList<Number>();
     }
 
     /**
