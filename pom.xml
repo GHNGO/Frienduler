@@ -60,6 +60,12 @@
 			<artifactId>image</artifactId>
 			<version>8.3.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin</artifactId>
+			<version>7.0.0.alpha3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
