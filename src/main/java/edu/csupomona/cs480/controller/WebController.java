@@ -1,29 +1,18 @@
 package edu.csupomona.cs480.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.util.StreamUtils;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import org.apache.commons.math3.*;
-import org.apache.commons.math3.random.RandomVectorGenerator;
-import org.apache.commons.math3.random.SobolSequenceGenerator;
-
+import com.google.common.base.Splitter;
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.provider.UserManager;
-import sun.misc.IOUtils;
-import sun.nio.ch.IOUtil;
+import org.apache.commons.math3.random.RandomVectorGenerator;
+import org.apache.commons.math3.random.SobolSequenceGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.imageio.IIOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -319,4 +308,12 @@ public class WebController {
 		return vec;
 	}
 
+	// genevieve A4
+	@RequestMapping(value = "/cs480/split", method = RequestMethod.GET)
+	List<String> splitter() {
+		String input = "This splits a sentence at spaces. Hip hip!";
+
+		List<String> words = Splitter.on(" ").splitToList(input);
+		return words;
+	}
 }
