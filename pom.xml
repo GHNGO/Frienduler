@@ -66,20 +66,18 @@
 			<artifactId>vaadin</artifactId>
 			<version>7.0.0.alpha3</version>
 		</dependency>
-<<<<<<< HEAD
+
 		<dependency>
-+		    <groupId>org.jsoup</groupId>
-+		    <artifactId>jsoup</artifactId>
-+		    <version>1.8.1</version>
-+		</dependency>
-=======
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
+		    <version>1.8.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
 			<version>3.6.1</version>
 		</dependency>
->>>>>>> 3248d5e443309afa08fa322a56f69989e7347f2d
 	</dependencies>
 
 	<build>
