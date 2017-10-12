@@ -13,6 +13,10 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import org.apache.commons.math3.*;
+import org.apache.commons.math3.random.RandomVectorGenerator;
+import org.apache.commons.math3.random.SobolSequenceGenerator;
+
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.provider.UserManager;
@@ -138,10 +142,10 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-	
+
 	/************ A3 Added Methods ************/
 	/**
-	 * By following the request mapping methods in WebController.java, 
+	 * By following the request mapping methods in WebController.java,
 	 * you need to add a new method in that class to create a new HTTP API.
 	 */
 	@RequestMapping(value = "/cs480/genn", method = RequestMethod.GET)
@@ -151,7 +155,7 @@ public class WebController {
 
 		return ("You ran this page on: " + ft.format(dNow));
 	}
-	
+
 	@RequestMapping(value = "/cs480/jarod", method = RequestMethod.GET)
 	String helloWorld() {
 
@@ -300,6 +304,19 @@ public class WebController {
 				"<canvas id=\"canvas\" width=\"450\" height=\"450\"></canvas>" +
 		"<p>Original game from <a href=\"http://thecodeplayer.com/walkthrough/html5-game-tutorial-make-a-snake-game-using-html5-canvas-jquery\">http://thecodeplayer.com/walkthrough/html5-game-tutorial-make-a-snake-game-using-html5-canvas-jquery</a>; Edits by Connor Baskin</p> ";
 		return returned;
+	}
+
+	/************ A4 Added Methods ************/
+	/**
+	 * New A4 library methods
+	 */
+	//A4 Lloyd Zhang
+	@RequestMapping(value = "/cs480/maths", method = RequestMethod.GET)
+	double[] randomVector()
+	{
+		RandomVectorGenerator generator = new SobolSequenceGenerator(5);
+		double[] vec = generator.nextVector();
+		return vec;
 	}
 
 }
