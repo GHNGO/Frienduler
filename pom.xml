@@ -74,6 +74,12 @@
 			<version>3.6.1</version>
 		</dependency>
 		<dependency>
+   			 <groupId>si.kobalj.utilities</groupId>
+  			 <artifactId>stopwatch</artifactId>
+    <version>1.0.1</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>

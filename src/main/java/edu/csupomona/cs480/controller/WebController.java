@@ -25,6 +25,8 @@ import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.links.provider.LinkManager;
+import si.kobalj.stopwatch.CStopWatchFactory;
+import si.kobalj.stopwatch.model.IStopWatch;
 
 import org.apache.commons.math3.random.RandomVectorGenerator;
 import org.apache.commons.math3.random.SobolSequenceGenerator;
@@ -407,4 +409,14 @@ public class WebController {
 		}
 		return "Your text has been sucessfully dumped! Have a good day!";
 	}
+	//Jack Zhang A4
+		@RequestMapping( value = "/cs480/test", method = RequestMethod.GET )
+		IStopWatch tests() {
+			IStopWatch stopWatch = CStopWatchFactory.getStopWatchBuilder().build();
+			stopWatch.startGlobal();
+			stopWatch.stopGlobal();
+			
+			return stopWatch;
+		}
+
 }
