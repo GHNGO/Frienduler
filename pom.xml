@@ -56,15 +56,21 @@
             <scope>test</scope>
         </dependency>
 		<dependency>
-			<groupId>com.cedarsoft.commons</groupId>
-			<artifactId>image</artifactId>
-			<version>8.3.1</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.6.1</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin</artifactId>
-			<version>7.0.0.alpha3</version>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.2-jre</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
+		    <version>1.8.1</version>
 		</dependency>
 
 		<dependency>
