@@ -26,7 +26,7 @@ public class LinkManager {
 	}
 	
 	
-	public String printImages()
+	public String printImageDetails()
 	{
 		
 		Elements images = doc.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
@@ -34,10 +34,11 @@ public class LinkManager {
 		String str = "";
 		
 		for(Element image: images) {
-			str += "\nsrc : " + image.attr("src") + "\n";
-			str += "height : " + image.attr("height") + "\n";
-			str += "width : " + image.attr("width") + "\n";
-			str += "alt : " + image.attr("alt") + "\n";	
+			String imgSrc = image.attr("src");
+			str += "src : <a href = \"" + imgSrc + "\">" + imgSrc + "\"</a><br>";
+			str += "<br>height : " + image.attr("height");
+			str += "<br>width : " + image.attr("width");
+			str += "<br>alt : " + image.attr("alt") + "<br><br><br><br><br>";	
 		}
 		
 		return str;

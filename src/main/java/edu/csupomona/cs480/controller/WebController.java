@@ -387,7 +387,7 @@ public class WebController {
 		try
 		{
 			linkManager.connect("http://www.yahoo.com");
-			return linkManager.printImages();
+			return linkManager.printImageDetails();
 		}
 		catch(Exception e) {
 			System.out.println(e.toString());
