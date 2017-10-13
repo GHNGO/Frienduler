@@ -12,6 +12,8 @@ import java.util.List;
 
 import edu.csupomona.cs480.data.Number;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.commons.io.*;
+import org.apache.commons.io.output.NullOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StreamUtils;
@@ -26,6 +28,7 @@ import org.apache.commons.math3.random.SobolSequenceGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -366,5 +369,18 @@ public class WebController {
 
 		List<String> words = Splitter.on(" ").splitToList(input);
 		return words;
+	}
+	
+	//Lloyd Zhang A4
+	@RequestMapping( value = "/cs480/io", method = RequestMethod.POST )
+	String dump( @RequestParam("text") String text ) {
+		NullOutputStream nos = new NullOutputStream();
+		byte[] bytes = text.getBytes();
+		try {
+			nos.write( bytes );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "Your text has been sucessfully dumped! Have a good day!";
 	}
 }
