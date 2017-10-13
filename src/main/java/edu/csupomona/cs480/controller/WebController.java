@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+
 import edu.csupomona.cs480.data.Number;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import com.google.common.base.Splitter;
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.provider.UserManager;
+import edu.csupomona.cs480.links.provider.LinkManager;
+
 import org.apache.commons.math3.random.RandomVectorGenerator;
 import org.apache.commons.math3.random.SobolSequenceGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import edu.csupomona.cs480.links.provider.*;
+import edu.csupomona.cs480.links.*;
 
 /**
  * This is the controller used by Spring framework.
@@ -53,6 +58,9 @@ public class WebController {
 	 */
 	@Autowired
 	private UserManager userManager;
+	
+	@Autowired 
+	private LinkManager linkManager;
 
 	@Autowired
 	private ArrayList<Number> numbers;
@@ -366,5 +374,18 @@ public class WebController {
 
 		List<String> words = Splitter.on(" ").splitToList(input);
 		return words;
+	}
+	
+	//jarods A4
+	@RequestMapping(value = "/cs480/linkGrabber", method = RequestMethod.GET)
+	List<String> linkGrabber() {
+		try
+		{
+			LinkManager lm = new LinkManager("http://www.yahoo.com");
+			lm.printImages();
+		}
+		catch(Exception e) {
+			System.out.println(e.toString());
+		}
 	}
 }
