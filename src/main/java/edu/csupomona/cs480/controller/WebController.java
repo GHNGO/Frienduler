@@ -1,5 +1,6 @@
 package edu.csupomona.cs480.controller;
 
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,14 +17,19 @@ import org.springframework.http.MediaType;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+import com.google.common.base.Splitter;
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.provider.UserManager;
-import sun.misc.IOUtils;
-import sun.nio.ch.IOUtil;
+import org.apache.commons.math3.random.RandomVectorGenerator;
+import org.apache.commons.math3.random.SobolSequenceGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.imageio.IIOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -148,10 +154,10 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-	
+
 	/************ A3 Added Methods ************/
 	/**
-	 * By following the request mapping methods in WebController.java, 
+	 * By following the request mapping methods in WebController.java,
 	 * you need to add a new method in that class to create a new HTTP API.
 	 */
 	@RequestMapping(value = "/cs480/genn", method = RequestMethod.GET)
@@ -161,7 +167,7 @@ public class WebController {
 
 		return ("You ran this page on: " + ft.format(dNow));
 	}
-	
+
 	@RequestMapping(value = "/cs480/jarod", method = RequestMethod.GET)
 	String helloWorld() {
 
@@ -312,6 +318,11 @@ public class WebController {
 		return returned;
 	}
 
+
+/************ A4 Added Methods ************/
+	/**
+	 * New A4 library methods
+	 */
 	//Connor Baskin A4
 	@RequestMapping(value="/cs480/addNumber", method=RequestMethod.POST)
 	String addNumber(
@@ -348,5 +359,12 @@ public class WebController {
 		}
 	}
 
+	// genevieve A4
+	@RequestMapping(value = "/cs480/split", method = RequestMethod.GET)
+	List<String> splitter() {
+		String input = "This splits a sentence at spaces. Hip hip!";
 
+		List<String> words = Splitter.on(" ").splitToList(input);
+		return words;
+	}
 }
