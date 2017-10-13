@@ -10,7 +10,11 @@ import java.io.IOException;
 public class LinkManager {
 	private Document doc;
 	
-	public LinkManager(String url) 
+	public LinkManager() 
+	{
+	}
+	
+	public void connect(String url)
 	{
 		try {
 			doc = Jsoup.connect(url).get();
@@ -21,17 +25,21 @@ public class LinkManager {
 		}
 	}
 	
-	public void printImages()
+	
+	public String printImages()
 	{
 		
 		Elements images = doc.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
 		
+		String str = "";
+		
 		for(Element image: images) {
-			System.out.println("\nsrc : " + image.attr("src"));
-			System.out.println("height : " + image.attr("height"));
-			System.out.println("width : " + image.attr("width"));
-			System.out.println("alt : " + image.attr("alt"));	
+			str += "\nsrc : " + image.attr("src") + "\n";
+			str += "height : " + image.attr("height") + "\n";
+			str += "width : " + image.attr("width") + "\n";
+			str += "alt : " + image.attr("alt") + "\n";	
 		}
 		
+		return str;
 	}
 }

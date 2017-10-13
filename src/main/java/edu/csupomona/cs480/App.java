@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import edu.csupomona.cs480.data.provider.FSUserManager;
 import edu.csupomona.cs480.data.provider.UserManager;
+import edu.csupomona.cs480.links.provider.LinkManager;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,12 @@ public class App {
     public ArrayList<Number> numbers() {
         return new ArrayList<Number>();
     }
+    
+    @Bean
+    public LinkManager linkManager(){
+    	return new LinkManager();
+    }
+    
 
     /**
      * This is the running main method for the web application.
