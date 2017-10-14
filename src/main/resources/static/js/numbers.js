@@ -1,6 +1,3 @@
-/**
- * Created by Connor on 10/12/2017.
- */
 
 function addNumber() {
 
