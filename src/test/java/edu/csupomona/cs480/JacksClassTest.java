@@ -26,7 +26,7 @@ public class JacksClassTest {
 		
 		   TestFunc test= new TestFunc();
 		 	int ad = test.add(3, 5);
-		 	assertEquals(10,ad);
+		 	assertEquals(8,ad);
 	}
 
 }
