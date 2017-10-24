@@ -21,6 +21,8 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.common.base.Splitter;
+
+import ch.qos.logback.core.util.TimeUtil;
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.provider.UserManager;
@@ -412,12 +414,12 @@ public class WebController {
 	}
 	//Jack Zhang A4
 		@RequestMapping( value = "/cs480/test", method = RequestMethod.GET )
-		IStopWatch tests() {
+		String watchtests() throws InterruptedException {
 			IStopWatch stopWatch = CStopWatchFactory.getStopWatchBuilder().build();
 			stopWatch.startGlobal();
+			Thread.sleep(999);
 			stopWatch.stopGlobal();
-			
-			return stopWatch;
+			return stopWatch.toString();
 		}
 
 }
