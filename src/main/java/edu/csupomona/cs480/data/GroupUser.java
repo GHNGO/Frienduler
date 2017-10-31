@@ -5,11 +5,8 @@ import java.util.ArrayList;
 public class GroupUser extends CalendarUser {
 	ArrayList<IndividualUser> members;
 	
-	public GroupUser() {
-		members = new ArrayList<IndividualUser>();
-	}
-	
-	public GroupUser(IndividualUser ind) {
+	public GroupUser(String id, IndividualUser ind) {
+		super(id);
 		members = new ArrayList<IndividualUser>();
 		addUser(ind);
 	}

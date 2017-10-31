@@ -6,22 +6,35 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
 	private ArrayList<Event>  schedule = new ArrayList<Event>();
 	private String id;
 	
+	public CalendarUser(String id) {
+		this.id = id;
+	}
+	
 	@Override
 	public boolean eventScheduled(Event e) {
-		// TODO Auto-generated method stub
-		return false;
+		int index = schedule.indexOf(e);
+		if(index == -1)
+			return false;
+		return true;
 	}
 
 	@Override
 	public boolean addEvent(Event e) {
+		if(eventScheduled(e))
+			return false;
+		int indexBelong = findIndexWhereEventBelongs(e);
+		schedule.add(indexBelong, e);
+		return true;
+	}
+
+	private int findIndexWhereEventBelongs(Event e) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
 	@Override
 	public boolean removeEvent(Event e) {
-		// TODO Auto-generated method stub
-		return false;
+		return schedule.remove(e);
 	}
 
 	public String getId() {

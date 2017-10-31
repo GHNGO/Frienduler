@@ -6,6 +6,12 @@ public class IndividualUser extends CalendarUser{
 	ArrayList<IndividualUser> friends;
 	ArrayList<GroupUser> groupsJoined;
 	
+	public IndividualUser(String id) {
+		super(id);
+		friends = new ArrayList<IndividualUser>();
+		groupsJoined = new ArrayList<GroupUser>();
+	}
+	
 	public ArrayList<IndividualUser> getFriends() {
 		return friends;
 	}
