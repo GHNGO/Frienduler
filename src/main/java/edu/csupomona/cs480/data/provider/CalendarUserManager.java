@@ -5,6 +5,7 @@ import edu.csupomona.cs480.data.Event;
 import edu.csupomona.cs480.data.GroupUser;
 import edu.csupomona.cs480.data.IndividualUser;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,29 +26,42 @@ public class CalendarUserManager {
 
   public boolean addUser(String user) {
     IndividualUser individualUser = new IndividualUser();
-    userList.putIfAbsent(user, individualUser);
+    IndividualUser i = userList.putIfAbsent(user, individualUser);
+    if (i == null) {
+      return false;
+    }
     return true;
   }
 
   public boolean removeUser(String user) {
+    if(!userList.containsKey(user)) {
+      return false;
+    }
     userList.remove(user);
     return true;
   }
 
   public boolean addGroup(String group) {
     GroupUser groupUser = new GroupUser();
-    groupList.putIfAbsent(group, groupUser);
+    GroupUser g = groupList.putIfAbsent(group, groupUser);
+    if (g == null) {
+      return false;
+    }
     return true;
   }
 
   public boolean removeGroup(String group) {
+    if (!groupList.containsKey(group)) {
+      return false;
+    }
     groupList.remove(group);
     return true;
   }
 
-  public ArrayList<Event> compareSchedule(ArrayList<Event> events) {
+  public ArrayList<Event> compareSchedule(ArrayList<CalendarUser> users) {
     //TODO: implement
-    return events;
+    ArrayList<Event> freeTimeSlots = new ArrayList<>();
+    return freeTimeSlots;
   }
 
   public boolean checkTimeAvailableForUser(String user) {
@@ -56,44 +70,45 @@ public class CalendarUserManager {
   }
 
   public String getScheduleForUser(String user) {
-    //TODO: implement
     String schedule = "";
+    IndividualUser iUser;
+    iUser = userList.get(user);
+    ArrayList<Event> userSchedule = iUser.getSchedule();
+    for (Event e : userSchedule) {
+      schedule += e.toString();
+      schedule += "\n";
+    }
     return schedule;
   }
 
   public IndividualUser getUser(String user) {
-    IndividualUser individualUser = userList.get(user);
-    return individualUser;
+    return userList.get(user);
   }
 
   public GroupUser getGroup(String group) {
-    GroupUser groupUser = groupList.get(group);
-    return groupUser;
+    return groupList.get(group);
   }
 
   public String getMembersForGroup(String group) {
     String groupMembers = "";
-    GroupUser groupValue = null;
-    for(String key : groupList.keySet()) {
-      if (key == group) {
-        groupValue = groupList.get(key);
-        break;
-      }
-    }
+    GroupUser groupValue = groupList.get(group);
     ArrayList<IndividualUser> members = groupValue.getMembers();
     for(IndividualUser u : members) {
       groupMembers += u.getId();
+      groupMembers += ", ";
     }
     return groupMembers;
   }
 
-  public boolean addUserToGroup(String user) {
-    //TODO: implement. get group user, use addUser method
-    return true;
+  public boolean addUserToGroup(String user, String group) {
+    GroupUser g = groupList.get(group);
+    IndividualUser i = userList.get(user);
+    return g.addUser(i);
   }
 
-  public boolean removeUserFromGroup(String user) {
-    //TODO: implement. get group user, use removeUser method.
-    return true;
+  public boolean removeUserFromGroup(String user, String group) {
+    GroupUser g = groupList.get(group);
+    IndividualUser i = userList.get(user);
+    return g.removeUser(i);
   }
 }

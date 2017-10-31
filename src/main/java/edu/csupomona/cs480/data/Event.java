@@ -40,4 +40,11 @@ public class Event {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+	@Override
+	public String toString() {
+		String event = "";
+		event = name + ": " + date + ", " + startTime + " - " + endTime;
+		return event;
+	}
 }
