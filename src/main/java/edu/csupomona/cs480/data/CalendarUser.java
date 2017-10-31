@@ -49,7 +49,7 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
         return schedule;
     }
 	
-	public ArrayList<Event> setschedule(ArrayList<Event> schedule) {
+	public ArrayList<Event> setSchedule(ArrayList<Event> schedule) {
 		ArrayList<Event> oldschedule = this.schedule;
 		this.schedule = schedule;
 		return oldschedule;

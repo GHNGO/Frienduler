@@ -8,6 +8,15 @@ public class IndividualUser extends CalendarUser{
 	
 	public IndividualUser(String id) {
 		super(id);
+		generateNewLists();
+	}
+	
+	public IndividualUser() {
+		super("");
+		generateNewLists();
+	}
+	
+	private void generateNewLists() {
 		friends = new ArrayList<IndividualUser>();
 		groupsJoined = new ArrayList<GroupUser>();
 	}

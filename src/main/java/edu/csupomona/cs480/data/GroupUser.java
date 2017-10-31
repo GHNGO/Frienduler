@@ -5,6 +5,12 @@ import java.util.ArrayList;
 public class GroupUser extends CalendarUser {
 	ArrayList<IndividualUser> members;
 	
+	public GroupUser() {
+		super("");
+		members = new ArrayList<IndividualUser>();
+	}
+	
+	
 	public GroupUser(String id, IndividualUser ind) {
 		super(id);
 		members = new ArrayList<IndividualUser>();
@@ -31,5 +37,9 @@ public class GroupUser extends CalendarUser {
 
 	private int findIndexOfUser(IndividualUser ind) {
 		return members.indexOf(ind);
+	}
+
+	public ArrayList<IndividualUser> getMembers() {
+		return members;
 	}
 }
