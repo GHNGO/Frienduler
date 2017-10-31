@@ -35,4 +35,8 @@ public class GroupUser extends CalendarUser {
 	private int findIndexOfUser(IndividualUser ind) {
 		return members.indexOf(ind);
 	}
+
+	public ArrayList<IndividualUser> getMembers() {
+		return members;
+	}
 }
