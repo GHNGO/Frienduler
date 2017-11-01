@@ -169,6 +169,17 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
+	/*********** Web UI Test Utility **********/
+	/**
+	 * This method provide a simple web UI for you to test the different
+	 * functionalities used in this web service.
+	 */
+	@RequestMapping(value = "/cs480", method = RequestMethod.GET)
+	ModelAndView getUserHomepaged() {
+		ModelAndView modelAndView = new ModelAndView("home");
+		modelAndView.addObject("users", listAllUsers());
+		return modelAndView;
+	}
 	/*
 	@RequestMapping(value = "/Frienduler", method = RequestMethod.GET)
 	ModelAndView Frienduler() {
