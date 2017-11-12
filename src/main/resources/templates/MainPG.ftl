@@ -1,31 +1,29 @@
-<html >
+<html>
 
 <head>
   <meta charset="UTF-8">
-  <title>GONGO</title>
+  <title>Frienduler</title>
  
 </head>
 	
 <body>
 	<form>
 		<p>
-			<button type="button" onclick="location.href='http://localhost:8080/cs480/home'">
+			<button type="button" onclick="location.href='http://GHNGO.com/Frienduler/addfriend'">
 					Add Friend
 			</button>
 		</p>
 	</form>
   <section>
   <!--for demo wrap-->
-  <h1>GONGO Table</h1>
+  <h1>Your Events</h1>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Code</th>
-          <th>Company</th>
-          <th>Price</th>
-          <th>Change</th>
-          <th>Change %</th>
+          <th>Event Name</th>
+          <th>Date</th>
+          <th>Time</th>
         </tr>
       </thead>
     </table>
@@ -37,225 +35,161 @@
           <td>AAC</td>
           <td>AUSTRALIAN COMPANY </td>
           <td>$1.38</td>
-          <td>+2.01</td>
-          <td>-0.36%</td>
         </tr>
         <tr>
           <td>AAD</td>
           <td>AUSENCO</td>
           <td>$2.38</td>
-          <td>-0.01</td>
-          <td>-1.36%</td>
         </tr>
         <tr>
           <td>AAX</td>
           <td>ADELAIDE</td>
           <td>$3.22</td>
-          <td>+0.01</td>
-          <td>+1.36%</td>
         </tr>
         <tr>
           <td>XXD</td>
           <td>ADITYA BIRLA</td>
           <td>$1.02</td>
-          <td>-1.01</td>
-          <td>+2.36%</td>
         </tr>
         <tr>
           <td>AAC</td>
           <td>AUSTRALIAN COMPANY </td>
           <td>$1.38</td>
-          <td>+2.01</td>
-          <td>-0.36%</td>
         </tr>
         <tr>
           <td>AAD</td>
           <td>AUSENCO</td>
           <td>$2.38</td>
-          <td>-0.01</td>
-          <td>-1.36%</td>
         </tr>
         <tr>
           <td>AAX</td>
           <td>ADELAIDE</td>
           <td>$3.22</td>
-          <td>+0.01</td>
-          <td>+1.36%</td>
         </tr>
         <tr>
           <td>XXD</td>
           <td>ADITYA BIRLA</td>
           <td>$1.02</td>
-          <td>-1.01</td>
-          <td>+2.36%</td>
         </tr>
         <tr>
           <td>AAC</td>
           <td>AUSTRALIAN COMPANY </td>
           <td>$1.38</td>
-          <td>+2.01</td>
-          <td>-0.36%</td>
         </tr>
         <tr>
           <td>AAD</td>
           <td>AUSENCO</td>
           <td>$2.38</td>
-          <td>-0.01</td>
-          <td>-1.36%</td>
         </tr>
         <tr>
           <td>AAX</td>
           <td>ADELAIDE</td>
           <td>$3.22</td>
-          <td>+0.01</td>
-          <td>+1.36%</td>
         </tr>
         <tr>
           <td>XXD</td>
           <td>ADITYA BIRLA</td>
           <td>$1.02</td>
-          <td>-1.01</td>
-          <td>+2.36%</td>
         </tr>
         <tr>
           <td>AAC</td>
           <td>AUSTRALIAN COMPANY </td>
           <td>$1.38</td>
-          <td>+2.01</td>
-          <td>-0.36%</td>
         </tr>
         <tr>
           <td>AAD</td>
           <td>AUSENCO</td>
           <td>$2.38</td>
-          <td>-0.01</td>
-          <td>-1.36%</td>
         </tr>
         <tr>
           <td>AAX</td>
           <td>ADELAIDE</td>
           <td>$3.22</td>
-          <td>+0.01</td>
-          <td>+1.36%</td>
         </tr>
         <tr>
           <td>XXD</td>
           <td>ADITYA BIRLA</td>
           <td>$1.02</td>
-          <td>-1.01</td>
-          <td>+2.36%</td>
         </tr>
         <tr>
           <td>AAC</td>
           <td>AUSTRALIAN COMPANY </td>
           <td>$1.38</td>
-          <td>+2.01</td>
-          <td>-0.36%</td>
         </tr>
         <tr>
           <td>AAD</td>
           <td>AUSENCO</td>
           <td>$2.38</td>
-          <td>-0.01</td>
-          <td>-1.36%</td>
         </tr>
         <tr>
           <td>AAX</td>
           <td>ADELAIDE</td>
           <td>$3.22</td>
-          <td>+0.01</td>
-          <td>+1.36%</td>
         </tr>
         <tr>
           <td>XXD</td>
           <td>ADITYA BIRLA</td>
           <td>$1.02</td>
-          <td>-1.01</td>
-          <td>+2.36%</td>
         </tr>
         <tr>
           <td>AAC</td>
           <td>AUSTRALIAN COMPANY </td>
           <td>$1.38</td>
-          <td>+2.01</td>
-          <td>-0.36%</td>
         </tr>
         <tr>
           <td>AAD</td>
           <td>AUSENCO</td>
           <td>$2.38</td>
-          <td>-0.01</td>
-          <td>-1.36%</td>
         </tr>
         <tr>
           <td>AAX</td>
           <td>ADELAIDE</td>
           <td>$3.22</td>
-          <td>+0.01</td>
-          <td>+1.36%</td>
         </tr>
         <tr>
           <td>XXD</td>
           <td>ADITYA BIRLA</td>
           <td>$1.02</td>
-          <td>-1.01</td>
-          <td>+2.36%</td>
         </tr>
         <tr>
           <td>AAC</td>
           <td>AUSTRALIAN COMPANY </td>
           <td>$1.38</td>
-          <td>+2.01</td>
-          <td>-0.36%</td>
         </tr>
         <tr>
           <td>AAD</td>
           <td>AUSENCO</td>
           <td>$2.38</td>
-          <td>-0.01</td>
-          <td>-1.36%</td>
         </tr>
         <tr>
           <td>AAX</td>
           <td>ADELAIDE</td>
           <td>$3.22</td>
-          <td>+0.01</td>
-          <td>+1.36%</td>
         </tr>
         <tr>
           <td>XXD</td>
           <td>ADITYA BIRLA</td>
           <td>$1.02</td>
-          <td>-1.01</td>
-          <td>+2.36%</td>
         </tr>
         <tr>
           <td>AAC</td>
           <td>AUSTRALIAN COMPANY </td>
           <td>$1.38</td>
-          <td>+2.01</td>
-          <td>-0.36%</td>
         </tr>
         <tr>
           <td>AAD</td>
           <td>AUSENCO</td>
           <td>$2.38</td>
-          <td>-0.01</td>
-          <td>-1.36%</td>
         </tr>
         <tr>
           <td>AAX</td>
           <td>ADELAIDE</td>
           <td>$3.22</td>
-          <td>+0.01</td>
-          <td>+1.36%</td>
         </tr>
         <tr>
           <td>XXD</td>
           <td>ADITYA BIRLA</td>
           <td>$1.02</td>
-          <td>-1.01</td>
-          <td>+2.36%</td>
         </tr>
       </tbody>
     </table>
@@ -285,13 +219,14 @@
 		  overflow-x:auto;
 		  margin-top: 0px;
 		  border: 1px solid rgba(255,255,255,0.3);
+		    background-color: rgba(0,0,0,.6);
 		}
 		th{
 		  padding: 20px 15px;
 		  text-align: left;
 		  font-weight: 500;
 		  font-size: 12px;
-		  color: #fff;
+		  color: rgba(20,57,78,1);
 		  text-transform: uppercase;
 		}
 		td{
@@ -356,7 +291,6 @@
 		    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
 		}
   </style>
-
 
 </body>
 </html>

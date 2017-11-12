@@ -195,6 +195,13 @@ public class WebController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/Frienduler/addfriend", method = RequestMethod.GET)
+	ModelAndView AddFriend() {
+		ModelAndView modelAndView = new ModelAndView("addfriend");
+		modelAndView.addObject("users", listAllUsers());
+		return modelAndView;
+	}
+	
 	/************ A3 Added Methods ************/
 	/**
 	 * By following the request mapping methods in WebController.java,
