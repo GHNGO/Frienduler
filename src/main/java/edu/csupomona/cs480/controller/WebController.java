@@ -169,6 +169,7 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
+	
 	/*********** Web UI Test Utility **********/
 	/**
 	 * This method provide a simple web UI for you to test the different
@@ -180,14 +181,20 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-	/*
+	
 	@RequestMapping(value = "/Frienduler", method = RequestMethod.GET)
 	ModelAndView Frienduler() {
 		ModelAndView modelAndView = new ModelAndView("Frienduler");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-	*/
+	@RequestMapping(value = "/Frienduler/Table", method = RequestMethod.GET)
+	ModelAndView Table() {
+		ModelAndView modelAndView = new ModelAndView("MainPG");
+		modelAndView.addObject("users", listAllUsers());
+		return modelAndView;
+	}
+	
 	/************ A3 Added Methods ************/
 	/**
 	 * By following the request mapping methods in WebController.java,
