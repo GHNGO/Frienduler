@@ -175,6 +175,7 @@ public class WebController {
 	 * This method provide a simple web UI for you to test the different
 	 * functionalities used in this web service.
 	 */
+
 	@RequestMapping(value = "/cs480", method = RequestMethod.GET)
 	ModelAndView getUserHomepaged() {
 		ModelAndView modelAndView = new ModelAndView("home");
@@ -197,7 +198,7 @@ public class WebController {
 	
 	@RequestMapping(value = "/Frienduler/addfriend", method = RequestMethod.GET)
 	ModelAndView AddFriend() {
-		ModelAndView modelAndView = new ModelAndView("addfriend");
+		ModelAndView modelAndView = new ModelAndView("AddFriends");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}

@@ -9,7 +9,7 @@
 <body>
 	<form>
 		<p>
-			<button type="button" onclick="location.href='http://GHNGO.com/Frienduler/addfriend'">
+			<button type="button" onclick="location.href='/Frienduler/addfriend'">
 					Add Friend
 			</button>
 		</p>
