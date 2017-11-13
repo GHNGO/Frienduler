@@ -41,9 +41,9 @@
     <h1 class="logo"><a href="index.html">Frienduler</a></h1>
     <i class="icon-remove menu-close"></i>
     <!-- TODO: redirect to pages (home/login should be same as landing page) -->
-    <a href="#home">Home</a>
-    <a href="./Frienduler/FAQ">FAQ</a>
-    <a href="#login">Login</a>
+    <a href="#home" class="smoothScroll">Home</a>
+    <a href="#login" class="smoothScroll">Login</a>
+    <a href="#faq" class="smoothScroll">FAQ</a>
   </div>
 
   <!-- Menu button -->
@@ -67,7 +67,7 @@
         <br>
         <br>
         <div class="col-lg-6 col-lg-offset-3">
-          <!-- TODO: make the login field actually do something -->
+          <!-- TODO: make the login field communicate w/ back end -->
           <h2>
             <font color = "FFFFFF">Login</font>
           </h2>
@@ -81,16 +81,29 @@
     </div>	<!-- /container -->
   </div>	<!-- /headerwrap -->
 </section>
-<!--
-  &lt;!&ndash; Login &ndash;&gt;
-  <section id="login" name="login"></section>
-  <div id = "f">
-    <div class = "container">
-      <h1>
-        <font color = "FFFFFF">Login</font>
-      </h1>
+
+<section id="faq" name="faq"></section>
+<div id="body">
+  <div class="container">
+    <div class="row">
+      <h3>FAQ</h3>
+      <p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
+
+      <!-- INTRO INFORMATION -->
+      <div class="col-lg-6 col-lg-offset-3">
+        <h1>What is Frienduler?</h1>
+        <p>A web service created by five students at Cal Poly Pomona to store schedules and generate times where friends can hang out, so they don't have to figure it out themselves.</p>
+        <h1>How do I log in?</h1>
+        <p>Simply enter your username in the box above.</p>
+        <h1>When is Frienduler going to be finished?</h1>
+        <p>Hopefully before week 10, am I right?</p>
+		<br>
+		<br>
+		<br>
+      </div>
     </div>
-  </div>-->
+  </div><!-- /container -->
+</div><!-- /f -->
 
 <!-- Footer -->
 <footer id="footer">

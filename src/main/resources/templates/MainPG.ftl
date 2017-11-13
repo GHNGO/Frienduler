@@ -23,7 +23,8 @@
         <tr>
           <th>Event Name</th>
           <th>Date</th>
-          <th>Time</th>
+          <th>Start Time</th>
+          <th>End Time</th>
         </tr>
       </thead>
     </table>
@@ -31,166 +32,17 @@
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
+      <#--TODO: make freemarker work-->
+<#--
+      <#list events as event>
         <tr>
-          <td>AAC</td>
-          <td>AUSTRALIAN COMPANY </td>
-          <td>$1.38</td>
+          <td>${event.name}</td>
+          <td>${event.date}</td>
+          <td>${event.startTime}</td>
+          <td>${event.endTime}</td>
         </tr>
-        <tr>
-          <td>AAD</td>
-          <td>AUSENCO</td>
-          <td>$2.38</td>
-        </tr>
-        <tr>
-          <td>AAX</td>
-          <td>ADELAIDE</td>
-          <td>$3.22</td>
-        </tr>
-        <tr>
-          <td>XXD</td>
-          <td>ADITYA BIRLA</td>
-          <td>$1.02</td>
-        </tr>
-        <tr>
-          <td>AAC</td>
-          <td>AUSTRALIAN COMPANY </td>
-          <td>$1.38</td>
-        </tr>
-        <tr>
-          <td>AAD</td>
-          <td>AUSENCO</td>
-          <td>$2.38</td>
-        </tr>
-        <tr>
-          <td>AAX</td>
-          <td>ADELAIDE</td>
-          <td>$3.22</td>
-        </tr>
-        <tr>
-          <td>XXD</td>
-          <td>ADITYA BIRLA</td>
-          <td>$1.02</td>
-        </tr>
-        <tr>
-          <td>AAC</td>
-          <td>AUSTRALIAN COMPANY </td>
-          <td>$1.38</td>
-        </tr>
-        <tr>
-          <td>AAD</td>
-          <td>AUSENCO</td>
-          <td>$2.38</td>
-        </tr>
-        <tr>
-          <td>AAX</td>
-          <td>ADELAIDE</td>
-          <td>$3.22</td>
-        </tr>
-        <tr>
-          <td>XXD</td>
-          <td>ADITYA BIRLA</td>
-          <td>$1.02</td>
-        </tr>
-        <tr>
-          <td>AAC</td>
-          <td>AUSTRALIAN COMPANY </td>
-          <td>$1.38</td>
-        </tr>
-        <tr>
-          <td>AAD</td>
-          <td>AUSENCO</td>
-          <td>$2.38</td>
-        </tr>
-        <tr>
-          <td>AAX</td>
-          <td>ADELAIDE</td>
-          <td>$3.22</td>
-        </tr>
-        <tr>
-          <td>XXD</td>
-          <td>ADITYA BIRLA</td>
-          <td>$1.02</td>
-        </tr>
-        <tr>
-          <td>AAC</td>
-          <td>AUSTRALIAN COMPANY </td>
-          <td>$1.38</td>
-        </tr>
-        <tr>
-          <td>AAD</td>
-          <td>AUSENCO</td>
-          <td>$2.38</td>
-        </tr>
-        <tr>
-          <td>AAX</td>
-          <td>ADELAIDE</td>
-          <td>$3.22</td>
-        </tr>
-        <tr>
-          <td>XXD</td>
-          <td>ADITYA BIRLA</td>
-          <td>$1.02</td>
-        </tr>
-        <tr>
-          <td>AAC</td>
-          <td>AUSTRALIAN COMPANY </td>
-          <td>$1.38</td>
-        </tr>
-        <tr>
-          <td>AAD</td>
-          <td>AUSENCO</td>
-          <td>$2.38</td>
-        </tr>
-        <tr>
-          <td>AAX</td>
-          <td>ADELAIDE</td>
-          <td>$3.22</td>
-        </tr>
-        <tr>
-          <td>XXD</td>
-          <td>ADITYA BIRLA</td>
-          <td>$1.02</td>
-        </tr>
-        <tr>
-          <td>AAC</td>
-          <td>AUSTRALIAN COMPANY </td>
-          <td>$1.38</td>
-        </tr>
-        <tr>
-          <td>AAD</td>
-          <td>AUSENCO</td>
-          <td>$2.38</td>
-        </tr>
-        <tr>
-          <td>AAX</td>
-          <td>ADELAIDE</td>
-          <td>$3.22</td>
-        </tr>
-        <tr>
-          <td>XXD</td>
-          <td>ADITYA BIRLA</td>
-          <td>$1.02</td>
-        </tr>
-        <tr>
-          <td>AAC</td>
-          <td>AUSTRALIAN COMPANY </td>
-          <td>$1.38</td>
-        </tr>
-        <tr>
-          <td>AAD</td>
-          <td>AUSENCO</td>
-          <td>$2.38</td>
-        </tr>
-        <tr>
-          <td>AAX</td>
-          <td>ADELAIDE</td>
-          <td>$3.22</td>
-        </tr>
-        <tr>
-          <td>XXD</td>
-          <td>ADITYA BIRLA</td>
-          <td>$1.02</td>
-        </tr>
+      </#list>
+-->
       </tbody>
     </table>
   </div>
