@@ -9,7 +9,7 @@
 <body>
 	<form>
 		<p>
-			<button type="button" onclick="location.href='/Frienduler/addfriend'">
+			<button type="button" onclick="location.href='./Frienduler/addfriend'">
 					Add Friend
 			</button>
 		</p>

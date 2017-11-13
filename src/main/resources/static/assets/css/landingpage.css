@@ -124,10 +124,13 @@ a:after {
 /* Footer Wrap */
 
 #f {
+	position:absolute;
+	width:100%;
+	bottom:0;
 	background: #1a1a1a;
 	padding-top: 0px;
 	padding-bottom: 0px;
-	text-align: center
+	text-align: center;
 }
 
 .questions {
