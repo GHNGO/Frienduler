@@ -182,7 +182,7 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-	
+	//TODO: have these go to the pages rather than the default
 	@RequestMapping(value = "/Frienduler", method = RequestMethod.GET)
 	ModelAndView Frienduler() {
 		ModelAndView modelAndView = new ModelAndView("Frienduler");
