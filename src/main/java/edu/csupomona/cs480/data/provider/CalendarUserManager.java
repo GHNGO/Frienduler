@@ -5,7 +5,6 @@ import edu.csupomona.cs480.data.Event;
 import edu.csupomona.cs480.data.GroupUser;
 import edu.csupomona.cs480.data.IndividualUser;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
 
