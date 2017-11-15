@@ -58,9 +58,18 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
 	public Event removeEventByName(String eventName) {
 		int index = findEventIndexByName(eventName);
 		if(index != -1)
-			return schedule.get(index);
+			return schedule.remove(index);
 		return null;
 	}
+	
+	public Event findEventByName(String eventName) {
+		int index = findEventIndexByName(eventName);
+		if(index != -1) {
+			return schedule.get(index);
+		}
+		return null;
+	}
+	
 	
 	private int findEventIndexByName(String eventName) {
 		int index = -1;
