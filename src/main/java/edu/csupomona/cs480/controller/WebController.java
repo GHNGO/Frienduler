@@ -259,7 +259,7 @@ public class WebController {
 		return modelAndView;
 	}
 	@RequestMapping(value = "/Frienduler/compare", method = RequestMethod.GET)
-	ModelAndView compare() {
+	ModelAndView compare() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("Compare");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
