@@ -7,6 +7,11 @@ import edu.csupomona.cs480.data.IndividualUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+
+import freemarker.template.Configuration;
+import freemarker.template.Version;
+import freemarker.template.Template;
 
 public class CalendarUserManager {
 
@@ -16,7 +21,12 @@ public class CalendarUserManager {
   private HashMap<String, GroupUser> groupList;
 
   private CalendarUserManager() {
-
+	//This should be the ONLY instance of the cfg file. DO NOT create it anywhere else!
+	Configuration cfg = new Configuration();
+	//@todo Create lib folder to store templates
+	cfg.setClassForTemplateLoading( CalendarUserManager.class, "templates" );
+	cfg.setIncompatibleImprovements( new Version( 2, 3, 20 ) );
+	cfg.setLocale(Locale.US);
   }
 
   public static CalendarUserManager getInstance() {
