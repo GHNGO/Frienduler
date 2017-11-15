@@ -195,7 +195,12 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-	
+	@RequestMapping(value = "/Frienduler/compare", method = RequestMethod.GET)
+	ModelAndView compare() {
+		ModelAndView modelAndView = new ModelAndView("Compare");
+		modelAndView.addObject("users", listAllUsers());
+		return modelAndView;
+	}
 	@RequestMapping(value = "/Frienduler/addfriend", method = RequestMethod.GET)
 	ModelAndView AddFriend() {
 		ModelAndView modelAndView = new ModelAndView("AddFriends");
