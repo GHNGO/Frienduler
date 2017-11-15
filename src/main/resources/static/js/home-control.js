@@ -36,8 +36,8 @@ function deleteUser(userId) {
 function addUser() {
 
 	var userId = $('#input_id').val();
-	var userName = $('#input_name').val();
-	var userMajor = $('#input_major').val();
+	var userFirstName = $('#input_first_name').val();
+	var userLastName = $('#input_last_name').val();
 
 	if (userId) {
 		$.ajax(
@@ -45,8 +45,8 @@ function addUser() {
 					type : "POST",
 					url  : "/cs480/user/" + userId,
 					data : {
-						"name" : userName,
-						"major" : userMajor
+						"firstName" : userFirstName,
+						"lastName" : userLastName
 					},
 					success : function(result) {
 						location.reload();

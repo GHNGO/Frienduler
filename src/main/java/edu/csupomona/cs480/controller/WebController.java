@@ -4,6 +4,7 @@ package edu.csupomona.cs480.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 
+import edu.csupomona.cs480.data.*;
 import edu.csupomona.cs480.data.Number;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.io.*;
@@ -24,7 +26,6 @@ import com.google.common.base.Splitter;
 
 import ch.qos.logback.core.util.TimeUtil;
 import edu.csupomona.cs480.App;
-import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.links.provider.LinkManager;
 import si.kobalj.stopwatch.CStopWatchFactory;
@@ -75,6 +76,9 @@ public class WebController {
 	@Autowired
 	private DescriptiveStatistics numberStats;
 
+	@Autowired
+	private Connection sqlServer;
+
 	/**
 	 * This is a simple example of how the HTTP API works.
 	 * It returns a String "OK" in the HTTP response.
@@ -100,10 +104,40 @@ public class WebController {
 	 * Try it in your web browser:
 	 * 	http://localhost:8080/cs480/user/user101
 	 */
+//	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
+//	User getUser(@PathVariable("userId") String userId) {
+//		User user = userManager.getUser(userId);
+//		return user;
+//	}
+
+	@RequestMapping(value="/cs480/user", method=RequestMethod.GET)
+	String tellUserToInputParameter() {
+		return "Please input the user that you wish to get.  Do it like this: .../user/<user> where <user> is the user to get";
+	}
+
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
-	User getUser(@PathVariable("userId") String userId) {
-		User user = userManager.getUser(userId);
-		return user;
+	String getUser(@PathVariable("userId") String userId) throws SQLException {
+		PreparedStatement s = sqlServer.prepareStatement("SELECT id, userName, firstName, lastName FROM Users WHERE userName=?;");
+		s.setString(1,userId);
+		if (s.execute()) {
+			ResultSet r = s.getResultSet();
+			if (r.first()) {
+				String str = "";
+				ResultSetMetaData meta = r.getMetaData();
+				int numCol = meta.getColumnCount();
+				for (int i = 0; i < numCol; i++) {
+					str += r.getString(i);
+				}
+				return (str);
+			} else {
+				return "This user does not exist";
+			}
+
+		} else {
+			return "SQL execution had an error";
+		}
+//		User user = userManager.getUser(userId);
+//		return user;
 	}
 
 	/**
@@ -119,22 +153,21 @@ public class WebController {
 	 * it is not a GET request. You need to use a tool such as
 	 * curl.
 	 *
-	 * @param id
-	 * @param name
-	 * @param major
+	 * @param id User ID
+	 * @param firstName First Name of the User
+	 * @param lastName Last Name of the User
 	 * @return
 	 */
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.POST)
-	User updateUser(
-			@PathVariable("userId") String id,
-			@RequestParam("name") String name,
-			@RequestParam(value = "major", required = false) String major) {
-		User user = new User();
-		user.setId(id);
-		user.setMajor(major);
-		user.setName(name);
-		userManager.updateUser(user);
-		return user;
+	void addUser(@PathVariable("userId") String id,
+					   @RequestParam("firstName") String firstName,
+					   @RequestParam("lastName") String lastName) throws SQLException{
+//		System.out.println("running update user");
+		PreparedStatement s = sqlServer.prepareStatement("INSERT INTO Users (userName, firstName, lastName, isGroupUser) VALUES (?,?,?, 0);");
+		s.setString(1, id);
+		s.setString(2, firstName);
+		s.setString(3,lastName);
+		s.execute();
 	}
 
 	/**
@@ -144,8 +177,12 @@ public class WebController {
 	 */
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.DELETE)
 	void deleteUser(
-			@PathVariable("userId") String userId) {
-		userManager.deleteUser(userId);
+			@PathVariable("userId") String userId) throws SQLException {
+//		System.out.println("Running delete user");
+		PreparedStatement s = sqlServer.prepareStatement("DELETE FROM Users WHERE userName=?;");
+		s.setString(1, userId);
+		s.execute();
+//		userManager.deleteUser(userId);
 	}
 
 	/**
@@ -154,8 +191,34 @@ public class WebController {
 	 * @return
 	 */
 	@RequestMapping(value = "/cs480/users/list", method = RequestMethod.GET)
-	List<User> listAllUsers() {
-		return userManager.listAllUsers();
+	List<CalendarUser> listAllUsers() throws SQLException {
+		PreparedStatement s = sqlServer.prepareStatement("SELECT id, userName, firstName, lastName, isGroupUser FROM Users ");
+		s.execute();
+		ResultSet results = s.getResultSet();
+		ResultSetMetaData resultsMeta = s.getMetaData();
+		int colCount = resultsMeta.getColumnCount();
+		List<CalendarUser> users = new ArrayList<>();
+		if (!results.isBeforeFirst()) {
+			return users;
+		}
+
+		while(!results.isLast()) {
+			results.next();
+			CalendarUser u;
+			if (results.getInt(5) == 1) {
+				u = new GroupUser(results.getString(2));
+			} else {
+				u = new IndividualUser(results.getString(2), results.getString(3), results.getString(4));
+			}
+//			for (int i = 1; i <= colCount; i++) {
+//				System.out.print(results.getString(i) + " ");
+//			}
+//			System.out.println();
+			users.add(u);
+//			System.out.println(u);
+		}
+//		System.out.println(Arrays.toString(users.toArray()));
+		return users;
 	}
 
 	/*********** Web UI Test Utility **********/
@@ -164,7 +227,7 @@ public class WebController {
 	 * functionalities used in this web service.
 	 */
 	@RequestMapping(value = "/cs480/home", method = RequestMethod.GET)
-	ModelAndView getUserHomepage() {
+	ModelAndView getUserHomepage() throws SQLException{
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
@@ -177,20 +240,20 @@ public class WebController {
 	 */
 
 	@RequestMapping(value = "/cs480", method = RequestMethod.GET)
-	ModelAndView getUserHomepaged() {
+	ModelAndView getUserHomepaged() throws SQLException{
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
 	//TODO: have these go to the pages rather than the default
 	@RequestMapping(value = "/Frienduler", method = RequestMethod.GET)
-	ModelAndView Frienduler() {
+	ModelAndView Frienduler() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("Frienduler");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
 	@RequestMapping(value = "/Frienduler/Table", method = RequestMethod.GET)
-	ModelAndView Table() {
+	ModelAndView Table() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("MainPG");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
@@ -202,7 +265,7 @@ public class WebController {
 		return modelAndView;
 	}
 	@RequestMapping(value = "/Frienduler/addfriend", method = RequestMethod.GET)
-	ModelAndView AddFriend() {
+	ModelAndView AddFriend() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("AddFriends");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;

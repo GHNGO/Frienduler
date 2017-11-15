@@ -1,6 +1,7 @@
 package edu.csupomona.cs480.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GroupUser extends CalendarUser {
 	ArrayList<IndividualUser> members;
@@ -8,6 +9,11 @@ public class GroupUser extends CalendarUser {
 	public GroupUser() {
 		super("");
 		members = new ArrayList<IndividualUser>();
+	}
+
+	public GroupUser(String id) {
+		super(id);
+		members = new ArrayList<>();
 	}
 	
 	
@@ -41,5 +47,10 @@ public class GroupUser extends CalendarUser {
 
 	public ArrayList<IndividualUser> getMembers() {
 		return members;
+	}
+
+	@Override
+	public String toString() {
+		return "Group: ID=" + id + "; Members: " + Arrays.toString(members.toArray());
 	}
 }

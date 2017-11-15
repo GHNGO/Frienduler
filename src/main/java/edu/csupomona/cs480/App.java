@@ -12,6 +12,9 @@ import edu.csupomona.cs480.data.provider.FSUserManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.links.provider.LinkManager;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Configuration
@@ -45,7 +48,25 @@ public class App {
     public LinkManager linkManager(){
     	return new LinkManager();
     }
-    
+
+    @Bean
+    public Connection sqlServer() {
+        try {
+//            if (DriverManager.getConnection("jdbc:mysql://ghngo.cu5actdqi4u0.us-west-2.rds.amazonaws.com:3306/GHNGOFrienduler?user=admin&password=password") != null) {
+                return DriverManager.getConnection("jdbc:mysql://ghngo.cu5actdqi4u0.us-west-2.rds.amazonaws.com:3306/GHNGOFrienduler?user=admin&password=password");
+//            } else {
+//                System.exit(-1);
+//            }
+//            return null;
+
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            System.err.println("SQLState: " + e.getSQLState());
+            System.err.println("VendorError: " + e.getErrorCode());
+            System.exit(-1);
+            return null;
+        }
+    }
 
     /**
      * This is the running main method for the web application.

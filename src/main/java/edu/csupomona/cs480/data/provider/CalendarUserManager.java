@@ -33,13 +33,18 @@ public class CalendarUserManager {
     return instance;
   }
 
+  /**
+   * Adds a blank user
+   * @param user user name to add
+   * @return <code>true</code> if added new, <code>false</code> if already existed
+   */
   public boolean addUser(String user) {
-    IndividualUser individualUser = new IndividualUser();
-    IndividualUser i = userList.putIfAbsent(user, individualUser);
-    if (i == null) {
+    if (!userList.containsKey(user)) {
+      userList.put(user, new IndividualUser(user));
+      return true;
+    } else {
       return false;
     }
-    return true;
   }
 
   public boolean removeUser(String user) {

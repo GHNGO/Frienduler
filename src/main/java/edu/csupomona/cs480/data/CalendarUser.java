@@ -3,11 +3,10 @@ package edu.csupomona.cs480.data;
 import java.util.ArrayList;
 
 public abstract class CalendarUser extends User implements CalendarUserInterface{
-	private ArrayList<Event>  schedule = new ArrayList<Event>();
-	private String id;
+	private ArrayList<Event>  schedule = new ArrayList<>();
 	
 	public CalendarUser(String id) {
-		this.id = id;
+		super(id);
 	}
 	
 	@Override

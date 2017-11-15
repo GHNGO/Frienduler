@@ -27,17 +27,15 @@
             <table border="1">            
                 <tr>
                     <td>ID</td>
-                    <td>Name</td> 
-                    <td>Major</td> 
-                    <td>Creation Time</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
                     <td>Delete</td>
                 </tr>
                 <#list users as user>
                         <tr>
                             <td>${user.id}</td>
-                            <td>${user.name}</td>
-                            <td>${user.major}</td>
-                            <td>${user.creationTime}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.lastName}</td>
                             <td><button onclick="deleteUser('${user.id}')">Delete</button></td>
                         </tr>
                 </#list>
@@ -51,14 +49,14 @@
             <table border="1">
                 <tr>
                     <td>ID</td>
-                    <td>Name</td> 
-                    <td>Major</td>                     
+                    <td>First Name</td>
+                    <td>Last Name</td>
                     <td>Add</td>
                 </tr>                
                 <tr>
                     <td><input type="text" id="input_id"></td>
-                    <td><input type="text" id="input_name"></td>
-                    <td><input type="text" id="input_major"></td>                    
+                    <td><input type="text" id="input_first_name"></td>
+                    <td><input type="text" id="input_last_name"></td>
                     <td><button onclick="addUser()">Add</button></td>
                 </tr>
             </table>
