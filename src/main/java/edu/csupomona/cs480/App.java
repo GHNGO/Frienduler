@@ -53,7 +53,7 @@ public class App {
     public Connection sqlServer() {
         try {
 //            if (DriverManager.getConnection("jdbc:mysql://ghngo.cu5actdqi4u0.us-west-2.rds.amazonaws.com:3306/GHNGOFrienduler?user=admin&password=password") != null) {
-                return DriverManager.getConnection("jdbc:mysql://ghngo.cu5actdqi4u0.us-west-2.rds.amazonaws.com:3306/GHNGOFrienduler?user=admin&password=password");
+                return DriverManager.getConnection("jdbc:mysql://friendulerghngo.cu5actdqi4u0.us-west-2.rds.amazonaws.com:3306/GHNGOFrienduler?user=admin&password=9jxtza999rFxHfSRKspxJ7gr8");
 //            } else {
 //                System.exit(-1);
 //            }

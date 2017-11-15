@@ -116,25 +116,26 @@ public class WebController {
 	}
 
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
-	String getUser(@PathVariable("userId") String userId) throws SQLException {
-		PreparedStatement s = sqlServer.prepareStatement("SELECT id, userName, firstName, lastName FROM Users WHERE userName=?;");
+	User getUser(@PathVariable("userId") String userId) throws SQLException {
+		PreparedStatement s = sqlServer.prepareStatement("SELECT id, userName, firstName, lastName, isGroupUser FROM Users WHERE userName=?;");
 		s.setString(1,userId);
 		if (s.execute()) {
-			ResultSet r = s.getResultSet();
-			if (r.first()) {
-				String str = "";
-				ResultSetMetaData meta = r.getMetaData();
-				int numCol = meta.getColumnCount();
-				for (int i = 0; i < numCol; i++) {
-					str += r.getString(i);
-				}
-				return (str);
+			ResultSet results = s.getResultSet();
+			if (!results.isBeforeFirst()) {
+				return null;
 			} else {
-				return "This user does not exist";
+				results.next();
+				CalendarUser u;
+				if (results.getInt(5) == 1) {
+					u = new GroupUser(results.getString(2));
+				} else {
+					u = new IndividualUser(results.getString(2), results.getString(3), results.getString(4));
+				}
+				return u;
 			}
 
 		} else {
-			return "SQL execution had an error";
+			return null;
 		}
 //		User user = userManager.getUser(userId);
 //		return user;

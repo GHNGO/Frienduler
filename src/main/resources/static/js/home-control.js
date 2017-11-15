@@ -71,9 +71,8 @@ function getUser(userId) {
 					},
 					success : function(result) {
 						$('#result_id').text(result.id);
-						$('#result_name').text(result.name);
-						$('#result_major').text(result.major);
-					},
+						$('#result_first_name').text(result.firstName);
+						$('#result_last_name').text(result.lastName);},
 					error: function (jqXHR, exception) {
 						alert("Failed to get the user.");
 					}

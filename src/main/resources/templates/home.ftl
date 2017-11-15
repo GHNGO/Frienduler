@@ -8,18 +8,18 @@
 
 <body>    
     
-    <div>
-        This is a simple page to demonstrate the web UI development. 
-        The key tools and techniques used include:
-        <ul>
-            <li>HTML - Obviously</li>
-            <li><a href="http://freemarker.org/">FreeMarker</a></li>
-            <li><a href="http://jquery.com/">JQuery</a></li>
-            <li><a href="http://api.jquery.com/jquery.ajax/">JQuery - AJAX</a></li>
-        </ul>
-    </div>
+    <#--<div>-->
+        <#--This is a simple page to demonstrate the web UI development. -->
+        <#--The key tools and techniques used include:-->
+        <#--<ul>-->
+            <#--<li>HTML - Obviously</li>-->
+            <#--<li><a href="http://freemarker.org/">FreeMarker</a></li>-->
+            <#--<li><a href="http://jquery.com/">JQuery</a></li>-->
+            <#--<li><a href="http://api.jquery.com/jquery.ajax/">JQuery - AJAX</a></li>-->
+        <#--</ul>-->
+    <#--</div>-->
 
-    <hr>
+    <#--<hr>-->
 
     <div>
         <div>
@@ -69,14 +69,14 @@
             <input type="text" id="query_id"><button onclick="getUser()">Get</button>
             <table border="1">
                 <tr>
-                    <td>ID</td>
-                    <td>Name</td>
-                    <td>Major</td>
+                    <td>Username</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
                 </tr>
                 <tr>
                     <td><label id="result_id"></td>
-                    <td><label id="result_name"></td>
-                    <td><label id="result_major"></td>
+                    <td><label id="result_first_name"></td>
+                    <td><label id="result_last_name"></td>
                 </tr>
             </table>
         </div>
