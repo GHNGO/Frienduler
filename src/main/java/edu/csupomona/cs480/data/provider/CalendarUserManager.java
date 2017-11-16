@@ -116,7 +116,12 @@ public class CalendarUserManager {
 
   public String getScheduleForUser(String user) {
     String schedule = "";
-    IndividualUser iUser;
+    IndividualUser iUser = getUser(user);
+    //user exists
+    if(user != null) {
+    	EventList events = iUser.getSchedule();
+    	schedule = events.toString();
+    }
     return schedule;
   }
 
@@ -148,12 +153,12 @@ public class CalendarUserManager {
 
   public String getMembersForGroup(String group) {
     String groupMembers = "";
-//    GroupUser groupValue = groupList.get(group);
-//    ArrayList<IndividualUser> members = groupValue.getMembers();
-//    for(IndividualUser u : members) {
-//      groupMembers += u.getId();
-//      groupMembers += ", ";
-//    }
+    GroupUser groupValue = getGroup(group);
+    //if group exists
+    if(groupValue != null) {
+      GroupMembersList members= groupValue.getMembers();
+      groupMembers = members.toString();
+    }
     return groupMembers;
   }
 
