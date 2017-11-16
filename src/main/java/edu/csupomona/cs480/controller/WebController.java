@@ -172,10 +172,10 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-	//TODO: have these go to the pages rather than the default
-	@RequestMapping(value = "/Frienduler", method = RequestMethod.GET)
-	ModelAndView Frienduler() throws SQLException {
-		ModelAndView modelAndView = new ModelAndView("Frienduler");
+
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	ModelAndView error() throws SQLException {
+		ModelAndView modelAndView = new ModelAndView("error");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
@@ -187,7 +187,7 @@ public class WebController {
 	}
 	@RequestMapping(value = "/Frienduler/compare", method = RequestMethod.GET)
 	ModelAndView compare() throws SQLException {
-		ModelAndView modelAndView = new ModelAndView("Compare");
+		ModelAndView modelAndView = new ModelAndView("compare");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
