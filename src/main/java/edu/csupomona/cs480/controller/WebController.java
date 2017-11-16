@@ -1,9 +1,7 @@
 package edu.csupomona.cs480.controller;
 
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,37 +12,20 @@ import java.util.List;
 
 import edu.csupomona.cs480.data.*;
 import edu.csupomona.cs480.data.Number;
+import edu.csupomona.cs480.database.DatabaseInterface;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.apache.commons.io.*;
 import org.apache.commons.io.output.NullOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.common.base.Splitter;
 
-import ch.qos.logback.core.util.TimeUtil;
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.database.DatabaseInterface;
 import edu.csupomona.cs480.links.provider.LinkManager;
 import si.kobalj.stopwatch.CStopWatchFactory;
 import si.kobalj.stopwatch.model.IStopWatch;
-
-import org.apache.commons.math3.random.RandomVectorGenerator;
-import org.apache.commons.math3.random.SobolSequenceGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import edu.csupomona.cs480.links.provider.*;
-import edu.csupomona.cs480.links.*;
 
 /**
  * This is the controller used by Spring framework.

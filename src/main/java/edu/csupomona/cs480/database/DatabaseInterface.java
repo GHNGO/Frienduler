@@ -1,5 +1,8 @@
 package edu.csupomona.cs480.database;
 
+import edu.csupomona.cs480.data.GroupUser;
+import edu.csupomona.cs480.data.IndividualUser;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

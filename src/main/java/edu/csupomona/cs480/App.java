@@ -1,5 +1,6 @@
 package edu.csupomona.cs480;
 
+import edu.csupomona.cs480.database.DatabaseInterface;
 import edu.csupomona.cs480.data.Number;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.springframework.boot.SpringApplication;
