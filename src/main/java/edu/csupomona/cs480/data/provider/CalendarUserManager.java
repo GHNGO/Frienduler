@@ -1,12 +1,13 @@
 package edu.csupomona.cs480.data.provider;
 
-import edu.csupomona.cs480.data.CalendarUser;
-import edu.csupomona.cs480.data.Event;
-import edu.csupomona.cs480.data.GroupUser;
-import edu.csupomona.cs480.data.IndividualUser;
+import edu.csupomona.cs480.App;
+import edu.csupomona.cs480.controller.WebController;
+import edu.csupomona.cs480.data.*;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 
 import freemarker.template.Configuration;
@@ -17,16 +18,21 @@ public class CalendarUserManager {
 
   private static final CalendarUserManager instance = new CalendarUserManager();
 
-  private HashMap<String, IndividualUser> userList;
-  private HashMap<String, GroupUser> groupList;
+//  private HashMap<String, IndividualUser> userList;
+  private HashSet<String> userNameList;
+//  private HashMap<String, GroupUser> groupList;
+  private HashSet<String> groupNameList;
+
+  private DatabaseInterface databaseInterface;
 
   private CalendarUserManager() {
 	//This should be the ONLY instance of the cfg file. DO NOT create it anywhere else!
-	Configuration cfg = new Configuration();
+	Configuration cfg = new Configuration(Configuration.VERSION_2_3_27);
 	//@todo Create lib folder to store templates
 	cfg.setClassForTemplateLoading( CalendarUserManager.class, "templates" );
 	cfg.setIncompatibleImprovements( new Version( 2, 3, 20 ) );
 	cfg.setLocale(Locale.US);
+	databaseInterface = App.sqlInterface();
   }
 
   public static CalendarUserManager getInstance() {
@@ -39,36 +45,42 @@ public class CalendarUserManager {
    * @return <code>true</code> if added new, <code>false</code> if already existed
    */
   public boolean addUser(String user) {
-    if (!userList.containsKey(user)) {
-      userList.put(user, new IndividualUser(user));
+    if (!userNameList.contains(user)) {
+      userNameList.add(user);
       return true;
     } else {
       return false;
     }
+//    if (!userList.containsKey(user)) {
+//      userList.put(user, new IndividualUser(user));
+//      return true;
+//    } else {
+//      return false;
+//    }
   }
 
   public boolean removeUser(String user) {
-    if(!userList.containsKey(user)) {
+//    if(!userList.containsKey(user)) {
       return false;
-    }
-    userList.remove(user);
-    return true;
+//    }
+//    userList.remove(user);
+//    return true;
   }
 
   public boolean addGroup(String group) {
     GroupUser groupUser = new GroupUser();
-    GroupUser g = groupList.putIfAbsent(group, groupUser);
-    if (g == null) {
-      return false;
-    }
+//    GroupUser g = groupList.putIfAbsent(group, groupUser);
+//    if (g == null) {
+//      return false;
+//    }
     return true;
   }
 
   public boolean removeGroup(String group) {
-    if (!groupList.containsKey(group)) {
-      return false;
-    }
-    groupList.remove(group);
+//    if (!groupList.containsKey(group)) {
+//      return false;
+//    }
+//    groupList.remove(group);
     return true;
   }
 
@@ -86,43 +98,47 @@ public class CalendarUserManager {
   public String getScheduleForUser(String user) {
     String schedule = "";
     IndividualUser iUser;
-    iUser = userList.get(user);
-    ArrayList<Event> userSchedule = iUser.getSchedule();
-    for (Event e : userSchedule) {
-      schedule += e.toString();
-      schedule += "\n";
-    }
+//    iUser = userList.get(user);
+//    ArrayList<Event> userSchedule = iUser.getSchedule();
+//    for (Event e : userSchedule) {
+//      schedule += e.toString();
+//      schedule += "\n";
+//    }
     return schedule;
   }
 
   public IndividualUser getUser(String user) {
-    return userList.get(user);
+//    return userList.get(user);
+    return null;
   }
 
   public GroupUser getGroup(String group) {
-    return groupList.get(group);
+//    return groupList.get(group);
+    return null;
   }
 
   public String getMembersForGroup(String group) {
     String groupMembers = "";
-    GroupUser groupValue = groupList.get(group);
-    ArrayList<IndividualUser> members = groupValue.getMembers();
-    for(IndividualUser u : members) {
-      groupMembers += u.getId();
-      groupMembers += ", ";
-    }
+//    GroupUser groupValue = groupList.get(group);
+//    ArrayList<IndividualUser> members = groupValue.getMembers();
+//    for(IndividualUser u : members) {
+//      groupMembers += u.getId();
+//      groupMembers += ", ";
+//    }
     return groupMembers;
   }
 
   public boolean addUserToGroup(String user, String group) {
-    GroupUser g = groupList.get(group);
-    IndividualUser i = userList.get(user);
-    return g.addUser(i);
+//    GroupUser g = groupList.get(group);
+//    IndividualUser i = userList.get(user);
+//    return g.addUser(i);
+    return false;
   }
 
   public boolean removeUserFromGroup(String user, String group) {
-    GroupUser g = groupList.get(group);
-    IndividualUser i = userList.get(user);
-    return g.removeUser(i);
+//    GroupUser g = groupList.get(group);
+//    IndividualUser i = userList.get(user);
+//    return g.removeUser(i);
+    return false;
   }
 }

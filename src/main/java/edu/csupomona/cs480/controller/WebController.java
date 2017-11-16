@@ -77,7 +77,7 @@ public class WebController {
 	private DescriptiveStatistics numberStats;
 
 	@Autowired
-	private Connection sqlServer;
+	private DatabaseInterface databaseInterface;
 
 	/**
 	 * This is a simple example of how the HTTP API works.
@@ -117,28 +117,7 @@ public class WebController {
 
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
 	User getUser(@PathVariable("userId") String userId) throws SQLException {
-		PreparedStatement s = sqlServer.prepareStatement("SELECT id, userName, firstName, lastName, isGroupUser FROM Users WHERE userName=?;");
-		s.setString(1,userId);
-		if (s.execute()) {
-			ResultSet results = s.getResultSet();
-			if (!results.isBeforeFirst()) {
-				return null;
-			} else {
-				results.next();
-				CalendarUser u;
-				if (results.getInt(5) == 1) {
-					u = new GroupUser(results.getString(2));
-				} else {
-					u = new IndividualUser(results.getString(2), results.getString(3), results.getString(4));
-				}
-				return u;
-			}
-
-		} else {
-			return null;
-		}
-//		User user = userManager.getUser(userId);
-//		return user;
+		return databaseInterface.getUser(userId);
 	}
 
 	/**
@@ -163,12 +142,7 @@ public class WebController {
 	void addUser(@PathVariable("userId") String id,
 					   @RequestParam("firstName") String firstName,
 					   @RequestParam("lastName") String lastName) throws SQLException{
-//		System.out.println("running update user");
-		PreparedStatement s = sqlServer.prepareStatement("INSERT INTO Users (userName, firstName, lastName, isGroupUser) VALUES (?,?,?, 0);");
-		s.setString(1, id);
-		s.setString(2, firstName);
-		s.setString(3,lastName);
-		s.execute();
+		databaseInterface.addUser(id, firstName, lastName);
 	}
 
 	/**
@@ -179,11 +153,7 @@ public class WebController {
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.DELETE)
 	void deleteUser(
 			@PathVariable("userId") String userId) throws SQLException {
-//		System.out.println("Running delete user");
-		PreparedStatement s = sqlServer.prepareStatement("DELETE FROM Users WHERE userName=?;");
-		s.setString(1, userId);
-		s.execute();
-//		userManager.deleteUser(userId);
+		databaseInterface.deleteUser(userId);
 	}
 
 	/**
@@ -192,34 +162,8 @@ public class WebController {
 	 * @return
 	 */
 	@RequestMapping(value = "/cs480/users/list", method = RequestMethod.GET)
-	List<CalendarUser> listAllUsers() throws SQLException {
-		PreparedStatement s = sqlServer.prepareStatement("SELECT id, userName, firstName, lastName, isGroupUser FROM Users ");
-		s.execute();
-		ResultSet results = s.getResultSet();
-		ResultSetMetaData resultsMeta = s.getMetaData();
-		int colCount = resultsMeta.getColumnCount();
-		List<CalendarUser> users = new ArrayList<>();
-		if (!results.isBeforeFirst()) {
-			return users;
-		}
-
-		while(!results.isLast()) {
-			results.next();
-			CalendarUser u;
-			if (results.getInt(5) == 1) {
-				u = new GroupUser(results.getString(2));
-			} else {
-				u = new IndividualUser(results.getString(2), results.getString(3), results.getString(4));
-			}
-//			for (int i = 1; i <= colCount; i++) {
-//				System.out.print(results.getString(i) + " ");
-//			}
-//			System.out.println();
-			users.add(u);
-//			System.out.println(u);
-		}
-//		System.out.println(Arrays.toString(users.toArray()));
-		return users;
+	List<IndividualUser> listAllUsers() throws SQLException {
+		return databaseInterface.listAllUsers();
 	}
 
 	/*********** Web UI Test Utility **********/

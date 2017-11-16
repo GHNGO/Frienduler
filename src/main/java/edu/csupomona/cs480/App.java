@@ -1,5 +1,6 @@
 package edu.csupomona.cs480;
 
+import edu.csupomona.cs480.data.DatabaseInterface;
 import edu.csupomona.cs480.data.Number;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.springframework.boot.SpringApplication;
@@ -12,8 +13,6 @@ import edu.csupomona.cs480.data.provider.FSUserManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.links.provider.LinkManager;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -50,14 +49,9 @@ public class App {
     }
 
     @Bean
-    public Connection sqlServer() {
+    public static DatabaseInterface sqlInterface() {
         try {
-//            if (DriverManager.getConnection("jdbc:mysql://ghngo.cu5actdqi4u0.us-west-2.rds.amazonaws.com:3306/GHNGOFrienduler?user=admin&password=password") != null) {
-                return DriverManager.getConnection("jdbc:mysql://friendulerghngo.cu5actdqi4u0.us-west-2.rds.amazonaws.com:3306/GHNGOFrienduler?user=admin&password=9jxtza999rFxHfSRKspxJ7gr8");
-//            } else {
-//                System.exit(-1);
-//            }
-//            return null;
+            return new DatabaseInterface("jdbc:mysql://friendulerghngo.cu5actdqi4u0.us-west-2.rds.amazonaws.com:3306/GHNGOFrienduler?user=admin&password=9jxtza999rFxHfSRKspxJ7gr8");
 
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
