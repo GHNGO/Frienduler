@@ -3,6 +3,7 @@ package edu.csupomona.cs480.data.provider;
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.controller.WebController;
 import edu.csupomona.cs480.data.*;
+import edu.csupomona.cs480.database.DatabaseInterface;
 
 import java.sql.Connection;
 import java.util.ArrayList;

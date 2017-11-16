@@ -1,6 +1,5 @@
 package edu.csupomona.cs480;
 
-import edu.csupomona.cs480.data.DatabaseInterface;
 import edu.csupomona.cs480.data.Number;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import edu.csupomona.cs480.data.provider.FSUserManager;
 import edu.csupomona.cs480.data.provider.UserManager;
+import edu.csupomona.cs480.database.DatabaseInterface;
 import edu.csupomona.cs480.links.provider.LinkManager;
 
 import java.sql.SQLException;

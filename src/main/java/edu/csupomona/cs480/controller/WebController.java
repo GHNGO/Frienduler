@@ -27,6 +27,7 @@ import com.google.common.base.Splitter;
 import ch.qos.logback.core.util.TimeUtil;
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.provider.UserManager;
+import edu.csupomona.cs480.database.DatabaseInterface;
 import edu.csupomona.cs480.links.provider.LinkManager;
 import si.kobalj.stopwatch.CStopWatchFactory;
 import si.kobalj.stopwatch.model.IStopWatch;

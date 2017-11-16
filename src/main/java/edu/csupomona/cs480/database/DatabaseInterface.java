@@ -1,8 +1,11 @@
-package edu.csupomona.cs480.data;
+package edu.csupomona.cs480.database;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.csupomona.cs480.data.GroupUser;
+import edu.csupomona.cs480.data.IndividualUser;
 
 /**
  * This class serves as a singular class for all accesses to the SQL database.  There should only be one instance of this
