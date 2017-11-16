@@ -1,18 +1,15 @@
 package edu.csupomona.cs480.data.provider;
 
 import edu.csupomona.cs480.App;
-import edu.csupomona.cs480.controller.WebController;
 import edu.csupomona.cs480.data.*;
 
-import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 
+import edu.csupomona.cs480.database.DatabaseInterface;
 import freemarker.template.Configuration;
 import freemarker.template.Version;
-import freemarker.template.Template;
 
 public class CalendarUserManager {
 
