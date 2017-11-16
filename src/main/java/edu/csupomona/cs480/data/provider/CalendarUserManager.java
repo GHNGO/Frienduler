@@ -39,47 +39,68 @@ public class CalendarUserManager {
 
   /**
    * Adds a blank user
-   * @param user user name to add
+   * @param user = user name to add
    * @return <code>true</code> if added new, <code>false</code> if already existed
    */
   public boolean addUser(String user) {
+	//check if the user exists already (in hash set)
     if (!userNameList.contains(user)) {
+     //user doesn't exist already
       userNameList.add(user);
+      databaseInterface.addUser(user);
       return true;
-    } else {
+    } 
+    else {
+      //user does exist already
       return false;
     }
-//    if (!userList.containsKey(user)) {
-//      userList.put(user, new IndividualUser(user));
-//      return true;
-//    } else {
-//      return false;
-//    }
   }
 
   public boolean removeUser(String user) {
-//    if(!userList.containsKey(user)) {
-      return false;
-//    }
-//    userList.remove(user);
-//    return true;
+	//check if the user exists already (in hash set)
+	if (!userNameList.contains(user)) {
+	  //user doesn't exist already
+	  return false;
+	} 
+	else {
+      //user exists so we delete them
+	  userNameList.remove(user);
+	  databaseInterface.deleteUser(user);
+	  return true;
+	}
   }
 
+  /**
+   * Adds a blank group
+   * @param group = group name to add
+   * @return <code>true</code> if added new, <code>false</code> if already existed
+   */
   public boolean addGroup(String group) {
-    GroupUser groupUser = new GroupUser();
-//    GroupUser g = groupList.putIfAbsent(group, groupUser);
-//    if (g == null) {
-//      return false;
-//    }
-    return true;
+	//check if the group exists already (in hash set)
+    if (!groupNameList.contains(group)) {
+     //group doesn't exist already
+      groupNameList.add(group);
+      databaseInterface.addGroup(group);
+      return true;
+    } 
+    else {
+      //group does exist already
+      return false;
+    }
   }
 
   public boolean removeGroup(String group) {
-//    if (!groupList.containsKey(group)) {
-//      return false;
-//    }
-//    groupList.remove(group);
-    return true;
+	//check if the group exists already (in hash set)
+    if (!groupNameList.contains(group)) {
+      //group doesn't exist already
+      return false;
+    } 
+    else {
+      //group does exist already
+      groupNameList.remove(group);
+      databaseInterface.deleteGroup(group);
+      return true;
+    }
   }
 
   public ArrayList<Event> compareSchedule(ArrayList<CalendarUser> users) {
@@ -96,23 +117,33 @@ public class CalendarUserManager {
   public String getScheduleForUser(String user) {
     String schedule = "";
     IndividualUser iUser;
-//    iUser = userList.get(user);
-//    ArrayList<Event> userSchedule = iUser.getSchedule();
-//    for (Event e : userSchedule) {
-//      schedule += e.toString();
-//      schedule += "\n";
-//    }
     return schedule;
   }
 
   public IndividualUser getUser(String user) {
-//    return userList.get(user);
-    return null;
+	//check if the user exists already (in hash set)
+	if (!userNameList.contains(user)) {
+	  //user doesn't exist already
+	  return null;
+	} 
+	else {
+      //user exists so we can retrieve them
+	  IndividualUser ind = databaseInterface.getUser(user);
+	  return ind;
+	}
   }
 
   public GroupUser getGroup(String group) {
-//    return groupList.get(group);
-    return null;
+	//check if the group exists already (in hash set)
+	if (!groupNameList.contains(group)) {
+	  //group doesn't exist already
+	  return null;
+	} 
+	else {
+      //group exists so we can retrieve them
+	  GroupUser grp = databaseInterface.getGroup(group);
+	  return grp;
+	}
   }
 
   public String getMembersForGroup(String group) {
@@ -127,16 +158,22 @@ public class CalendarUserManager {
   }
 
   public boolean addUserToGroup(String user, String group) {
-//    GroupUser g = groupList.get(group);
-//    IndividualUser i = userList.get(user);
-//    return g.addUser(i);
+    GroupUser g = getGroup(group);
+    IndividualUser i = getUser(user);
+    if(g != null && i != null) {
+    	g.addUser(i);
+    	return true;
+    }
     return false;
   }
 
   public boolean removeUserFromGroup(String user, String group) {
-//    GroupUser g = groupList.get(group);
-//    IndividualUser i = userList.get(user);
-//    return g.removeUser(i);
+    GroupUser g = getGroup(group);
+    //group exists
+    if(g != null) {
+    	IndividualUser u = getUser(user);
+    	return g.removeUser(u);
+    }
     return false;
   }
 }
