@@ -1,12 +1,17 @@
-
+<!DOCTYPE HTML>
 <html>
 <head>
  
   	<title>Fixed table header</title>
+ 	<link href="/js/tealBody.css" rel="stylesheet">
+ 	 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>   
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/js/CompDex.js"></script>
  	
 </head>
 
 <body>
+
 <section class="wrapper">
 <section>
   <!--for demo wrap-->
@@ -21,24 +26,24 @@
     
          
         </tr>
+       
       </thead>
     </table>
   </div>
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
-        <tr>
-          	<td>
-          		<form>
-          			<input type="checkbox" value="1">
-          		</form>
-          	</td>
-          
-          <!--Dummy name-->
-          <td>loyed</td> 
- 
+      <form>
+     <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="Loyed"/></td><td>loyed</td> 
+     <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="jarod"/></td><td>jarod</td> 
+     <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="conner"/></td><td>conner</td> 
+     <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="genny"/></td><td>genny</td> 
         </tr>
-  
+  			 <td>
+  			 	<button type="Button" name="submit" value="Submit"  onClick="CallFunction();">button</button>
+  			 </td>
+  			 <td></td>
+  		</form>
       </tbody>
     </table>
   </div>
@@ -54,7 +59,7 @@
           <th>Event</th>
           <th>Begin Date</th>
           <th>End Date</th>
-         
+         <th>Time</th>
         </tr>
       </thead>
     </table>
@@ -66,12 +71,13 @@
           <td>Party</td>
           <td>11/20/2018 </td>
           <td>11/22/2018</td>
+          <td>5:30 PM -8:00 PM</td>
         </tr>
     <tr>
-          <td>Party</td>
-          <td>11/20/2018 </td>
-          <td>11/22/2018</td>
-
+          <td>Camping trip</td>
+          <td>10/10/2018 </td>
+          <td>10/12/2018</td>
+		 <td></td>
         </tr>
    
       </tbody>
@@ -80,72 +86,6 @@
 </section>
 
 </section>
-<style>
-
-section {
-   margin: 50px;
-}
-
-.wrapper{display:grid; grid-template-columns:25% 75%;}
-.wrapper > section {width:90%; float: left; padding:1em;}
- table{
-    width:100%;
-    table-layout: fixed;
-  }
-  .inlineTable{
-  	dispaly: inline-block;
-  	}
-  	
-  h1{
-    font-size: 30px;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  .tbl-header{
-    background-color: rgba(255,255,255,0.3);
-  }
-  .tbl-content{
-    height:300px;
-    overflow-x:auto;
-    margin-top: 0px;
-    border: 1px solid rgba(255,255,255,0.3);
-    background-color: rgba(0,0,0,.6);
-  }
-  th{
-    padding: 20px 15px;
-    text-align: left;
-    font-weight: 500;
-    font-size: 12px;
-    color: rgba(20,57,78,1);
-    text-transform: uppercase;
-  }
-  td{
-    padding: 15px;
-    text-align: left;
-    vertical-align:middle;
-    font-weight: 300;
-    font-size: 12px;
-    color: #fff;
-    border-bottom: solid 1px rgba(255,255,255,0.1);
-  }
-
-
-  /* demo styles */
-
-  @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
-  body{
-    background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-    background: linear-gradient(to right, #25c481, #25b7c4);
-    font-family: 'Roboto', sans-serif;
-  }
-  section{
-    margin: 50px;
-  }
-  	
-</style>
 
 
 

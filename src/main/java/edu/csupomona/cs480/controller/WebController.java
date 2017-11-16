@@ -209,13 +209,7 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-	@RequestMapping(value = "/Frienduler/addfriend", method = RequestMethod.GET)
-	ModelAndView AddFriend() throws SQLException {
-		ModelAndView modelAndView = new ModelAndView("AddFriends");
-		modelAndView.addObject("users", listAllUsers());
-		return modelAndView;
-	}
-	
+
 	/************ A3 Added Methods ************/
 	/**
 	 * By following the request mapping methods in WebController.java,
