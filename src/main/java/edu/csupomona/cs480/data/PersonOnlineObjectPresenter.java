@@ -41,7 +41,7 @@ public class PersonOnlineObjectPresenter {
     String avail = "";
     return avail;
   }
-
+  
   //user is 
   public String getScheduleForUser(String user) {
     //TODO:
@@ -49,7 +49,6 @@ public class PersonOnlineObjectPresenter {
     return schedule;
   }
 
-  // Return List of CalendarUsers instead?
   public ArrayList<IndividualUser> getFriends() {
     ArrayList<IndividualUser> friends = currentUser.getFriends();
     return friends;

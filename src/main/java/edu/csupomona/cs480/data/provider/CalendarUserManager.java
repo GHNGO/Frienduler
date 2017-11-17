@@ -182,4 +182,17 @@ public class CalendarUserManager {
     }
     return false;
   }
+  
+  
+ public PersonOnlineObjectPresenter generatePersonOnlineObjectPresenter(String id) {
+	 IndividualUser i = getUser(id);
+	 //Do not create a PersonOnlineObjectPresenter 
+	 //if the user id does not correspond to a user
+	 if(i == null) {
+		 return null;
+	 }
+	 PersonOnlineObjectPresenter userInstance= new PersonOnlineObjectPresenter(id);
+	 
+	 return userInstance;
+ }
 }

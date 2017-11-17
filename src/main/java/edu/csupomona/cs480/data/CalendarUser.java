@@ -1,7 +1,5 @@
 package edu.csupomona.cs480.data;
 
-import java.util.ArrayList;
-
 import edu.csupomona.cs480.data.provider.EventList;
 
 public abstract class CalendarUser extends User implements CalendarUserInterface{
@@ -30,8 +28,24 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
 	}
 
 	private int findIndexWhereEventBelongs(Event e) {
-		// TODO Auto-generated method stub
-		return 0;
+		for(int i = 0; i < schedule.size(); i++) {
+			Event current = schedule.get(i);
+			int result = e.compareTo(current);
+			if(result == 0) {
+				//Event and current are at the same times
+				//Can't add event due to scheduling conflict
+				return -1;
+			}
+			else if(result < 0) {
+				//Event is before result
+				return i;
+			}
+			else {
+				//Event is after result
+			}
+		}
+		//Event is after all the events in schedule
+		return schedule.size();
 	}
 
 	@Override

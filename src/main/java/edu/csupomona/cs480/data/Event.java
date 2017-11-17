@@ -1,6 +1,6 @@
 package edu.csupomona.cs480.data;
 
-public class Event {
+public class Event implements Comparable {
 	private String name;
 	private String startTime;
 	private String endTime;
@@ -46,5 +46,10 @@ public class Event {
 		String event = "";
 		event = name + ": " + date + ", " + startTime + " - " + endTime;
 		return event;
+	}
+	@Override
+	public int compareTo(Object arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
