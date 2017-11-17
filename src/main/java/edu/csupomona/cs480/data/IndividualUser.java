@@ -10,16 +10,25 @@ public class IndividualUser extends CalendarUser{
 	ArrayList<IndividualUser> friends;
 	ArrayList<GroupUser> groupsJoined;
 	
-	public IndividualUser(String id, String firstName, String lastName) {
+	public IndividualUser(int idNum, String id, String firstName, String lastName) {
 		super(id);
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.idNum = idNum;
+		generateNewLists();
+	}
+
+	public IndividualUser(String id, String firstName, String lastName) {
+		this(-1, id, firstName, lastName);
+	}
+
+	public IndividualUser(int idNum, String id) {
+		this(idNum, id, "", "");
 		generateNewLists();
 	}
 	
 	public IndividualUser(String id) {
 		this(id, "", "");
-		generateNewLists();
 	}
 	
 	private void generateNewLists() {
@@ -82,4 +91,5 @@ public class IndividualUser extends CalendarUser{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 }

@@ -2,11 +2,14 @@ package edu.csupomona.cs480.data;
 
 import java.util.ArrayList;
 
+import edu.csupomona.cs480.data.provider.EventList;
+
 public abstract class CalendarUser extends User implements CalendarUserInterface{
-	private ArrayList<Event>  schedule = new ArrayList<>();
+	private EventList  schedule;
 	
 	public CalendarUser(String id) {
 		super(id);
+		schedule = new EventList();
 	}
 	
 	@Override
@@ -44,12 +47,12 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
 		this.id = id;
 	}
 
-	public ArrayList<Event> getSchedule() {
+	public EventList getSchedule() {
         return schedule;
     }
 	
-	public ArrayList<Event> setSchedule(ArrayList<Event> schedule) {
-		ArrayList<Event> oldschedule = this.schedule;
+	public EventList setSchedule(EventList schedule) {
+		EventList oldschedule = this.schedule;
 		this.schedule = schedule;
 		return oldschedule;
     }

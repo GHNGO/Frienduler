@@ -1,8 +1,6 @@
 package edu.csupomona.cs480.data;
 
-/**
- * Created by Connor on 10/12/2017.
- */
+
 public class Number {
 
     private double num;

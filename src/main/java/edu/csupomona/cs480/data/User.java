@@ -8,8 +8,14 @@ import java.util.Date;
  */
 public abstract class User {
 
+	/** The user name */
+	protected String id;
+
 	/** The unique user Id */
-    protected String id;
+    protected int idNum;
+
+    /**
+
     /** The timestamp when the user is being created */
     protected String creationTime = new Date(System.currentTimeMillis()).toString();
 
@@ -35,5 +41,13 @@ public abstract class User {
 
 	public String toString() {
     	return "Username: " + id;
+	}
+
+	public int getIdNum() {
+		return idNum;
+	}
+
+	public void setIdNum(int idNum) {
+		this.idNum = idNum;
 	}
 }
