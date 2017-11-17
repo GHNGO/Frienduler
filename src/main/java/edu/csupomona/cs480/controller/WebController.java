@@ -173,12 +173,12 @@ public class WebController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/error", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/error", method = RequestMethod.GET)
 	ModelAndView error() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("error");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
-	}
+	}*/
 	@RequestMapping(value = "/Frienduler/Table", method = RequestMethod.GET)
 	ModelAndView Table() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("MainPG");
