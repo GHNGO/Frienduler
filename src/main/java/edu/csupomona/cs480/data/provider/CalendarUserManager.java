@@ -104,9 +104,9 @@ public class CalendarUserManager {
   }
 
   //return EventList of times free for all users
-  public ArrayList<Event> compareSchedule(ArrayList<CalendarUser> users) {
+  public EventList compareSchedule(ArrayList<CalendarUser> users) {
     //TODO: implement
-    ArrayList<Event> freeTimeSlots = new ArrayList<>();
+    EventList freeTimeSlots = new EventList();
     return freeTimeSlots;
   }
 

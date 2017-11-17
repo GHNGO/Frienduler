@@ -3,6 +3,7 @@ package edu.csupomona.cs480.data;
 import java.util.ArrayList;
 
 import edu.csupomona.cs480.data.provider.CalendarUserManager;
+import edu.csupomona.cs480.data.provider.EventList;
 
 public class PersonOnlineObjectPresenter {
 
@@ -31,21 +32,38 @@ public class PersonOnlineObjectPresenter {
     return false;
   }
 
+  //compares schedules with s
   public String compareSchedules(String s) {
-    //TODO:
-    return s;
+	ArrayList<CalendarUser> calUsers = new ArrayList<CalendarUser>();
+	CalendarUser calUser = cum.getGroup(s);
+	if(calUser == null) {
+		calUser = cum.getUser(s);
+		if(calUser != null) {
+			calUsers.add(calUser);
+		}
+	}
+	else {
+		calUsers.add(calUser);
+	}
+	calUsers.add(currentUser);
+	EventList e = cum.compareSchedule(calUsers);
+	
+    return e.toString();
   }
 
+  //calls CalendarUserManager's checkTimeAvailableForUser(on the user parameter)
   public String checkTimeAvailableForUser(String user) {
     //TODO:
     String avail = "";
+    boolean timeAvailable = cum.checkTimeAvailableForUser(user);
+    avail += timeAvailable;
     return avail;
   }
   
-  //user is 
+  //calls CalendarUserManager's getScheduleForUser(on the user parameter)
   public String getScheduleForUser(String user) {
     //TODO:
-    String schedule = "";
+    String schedule = cum.getScheduleForUser(user);
     return schedule;
   }
 
