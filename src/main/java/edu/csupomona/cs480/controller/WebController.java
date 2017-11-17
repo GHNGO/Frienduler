@@ -191,7 +191,7 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-
+  
 	/************ A3 Added Methods ************/
 	/**
 	 * By following the request mapping methods in WebController.java,
