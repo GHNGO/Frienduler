@@ -265,6 +265,18 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
+	@RequestMapping(value = "/Frienduler/Event", method = RequestMethod.GET)
+	ModelAndView event() throws SQLException {
+		ModelAndView modelAndView = new ModelAndView("Event");
+		modelAndView.addObject("users", listAllUsers());
+		return modelAndView;
+	}
+	@RequestMapping(value = "/Frienduler/testEvent", method = RequestMethod.GET)
+	ModelAndView test() throws SQLException {
+		ModelAndView modelAndView = new ModelAndView("tester");
+		modelAndView.addObject("users", listAllUsers());
+		return modelAndView;
+	}
 
 	/************ A3 Added Methods ************/
 	/**

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+
 <html>
 <head>
  
@@ -40,7 +40,7 @@
      <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="genny"/></td><td>genny</td> 
         </tr>
   			 <td>
-  			 	<button type="Button" name="submit" value="Submit"  onClick="CallFunction();">button</button>
+  			 	<button type="Button" name="submit" value="Submit"  onClick="CallFunction();">Add Friends!</button>
   			 </td>
   			 <td></td>
   		</form>
