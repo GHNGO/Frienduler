@@ -4,16 +4,18 @@ public class Event implements Comparable {
 	private String name;
 	private String startTime;
 	private String endTime;
-	private String date;
+	private String startDate;
+	private String endDate;
 	
 	public Event() {
 		
 	}
-	public Event(String name, String startTime, String endTime, String date) {
-		this.setName(name);
-		this.setStartTime(startTime);
-		this.setEndTime(endTime);
-		this.setDate(date);
+	public Event(String name, String startTime, String endTime, String startDate, String endDate) {
+		this.name = name;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 	
 	public String getName() {
@@ -34,17 +36,23 @@ public class Event implements Comparable {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	public String getDate() {
-		return date;
+	public String getStartDate() {
+		return startDate;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setStartDate(String date) {
+		this.startDate = date;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String date) {
+		this.endDate = date;
 	}
 
 	@Override
 	public String toString() {
 		String event = "";
-		event = name + ": " + date + ", " + startTime + " - " + endTime;
+		event = name + ": " + ", " + startTime + " - " + endTime;
 		return event;
 	}
 	@Override

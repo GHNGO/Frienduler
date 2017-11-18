@@ -62,6 +62,7 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
 	}
 
 	public EventList getSchedule() {
+		System.out.println( "[CalendarUser] Num of Events: " + schedule.size() );
         return schedule;
     }
 	
