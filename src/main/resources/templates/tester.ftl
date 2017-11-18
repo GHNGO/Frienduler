@@ -39,9 +39,10 @@
 </div>
 <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right">&#9776; Friends List &emsp;&emsp;&emsp;</object></span>
 
-<div id = "main">
+
   <section class="banner" id="top">
-    <div class="container">
+    <div id = "main">
+      <div class="container">
       <div class="row">
         <div class="col-md-5">
           <div class="left-side">
