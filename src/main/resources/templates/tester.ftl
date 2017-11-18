@@ -47,7 +47,7 @@
         <div class="col-md-5">
           <div class="left-side">
             <div class="logo">
-              <img src="../js/logo.png" alt="Flight Template">
+              <img src="../js/logo.png" width="350" height="150">
             </div>
             <div class="tabs-content">
               <h4>Check Social media</h4>

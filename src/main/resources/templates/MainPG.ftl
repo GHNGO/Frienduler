@@ -5,10 +5,10 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="../assets/css/tealBody.css">
-
+	<link href="/js/tealBody.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="sexy-body">
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a>Friend 1</a>
