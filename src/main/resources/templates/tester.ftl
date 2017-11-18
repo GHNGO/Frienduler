@@ -37,7 +37,7 @@
   <a>Friend 3</a>
   <a>Wumbo</a>
 </div>
-<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right">&#9776; Friends List &emsp;&emsp;&emsp;</object></span>
+<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><span style="font-size: 17px;padding-right: 5px;"><br><br>&#9776; Friends List &emsp;&emsp;&emsp;</span></object></span>
 
 
   <section class="banner" id="top">
