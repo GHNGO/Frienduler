@@ -2,12 +2,13 @@
 
 <head>
     <title>List of all users in database</title>
+  <link rel="stylesheet" href="../assets/css/tealBody.css">
 </head>
 
-<body>
+<body class="natural-body">
 
     <div>
-        <div>
+        <div style="center">
             <label>User List</label>
             <table border="1">
                 <tr>
