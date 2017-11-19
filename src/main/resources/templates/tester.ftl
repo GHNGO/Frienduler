@@ -37,16 +37,17 @@
   <a>Friend 3</a>
   <a>Wumbo</a>
 </div>
-<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right">&#9776; Friends List &emsp;&emsp;&emsp;</object></span>
+<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><span style="font-size: 17px;padding-right: 5px;"><br><br>&#9776; Friends List &emsp;&emsp;&emsp;</span></object></span>
 
-<div id = "main">
+
   <section class="banner" id="top">
-    <div class="container">
+    <div id = "main">
+      <div class="container">
       <div class="row">
         <div class="col-md-5">
           <div class="left-side">
             <div class="logo">
-              <img src="../js/logo.png" alt="Flight Template">
+              <img src="../js/logo.png" width="350" height="150">
             </div>
             <div class="tabs-content">
               <h4>Check Social media</h4>

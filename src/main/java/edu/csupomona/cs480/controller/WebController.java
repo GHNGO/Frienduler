@@ -24,6 +24,8 @@ import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.database.DatabaseInterface;
 import edu.csupomona.cs480.links.provider.LinkManager;
+import edu.csupomona.cs480.data.provider.CalendarUserManager;
+import edu.csupomona.cs480.data.provider.EventList;
 import si.kobalj.stopwatch.CStopWatchFactory;
 import si.kobalj.stopwatch.model.IStopWatch;
 
@@ -48,8 +50,8 @@ public class WebController {
 	 */
 	@Autowired
 	private UserManager userManager;
-	
-	@Autowired 
+
+	@Autowired
 	private LinkManager linkManager;
 
 	@Autowired
@@ -60,6 +62,9 @@ public class WebController {
 
 	@Autowired
 	private DatabaseInterface databaseInterface;
+
+	@Autowired
+	private CalendarUserManager calendarUserManager;
 
 	/**
 	 * This is a simple example of how the HTTP API works.
@@ -159,7 +164,7 @@ public class WebController {
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
-	
+
 	/*********** Web UI Test Utility **********/
 	/**
 	 * This method provide a simple web UI for you to test the different
@@ -173,31 +178,48 @@ public class WebController {
 		return modelAndView;
 	}
 
-/*	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
 	ModelAndView error() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("error");
-		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
-	}*/
+	}
+
 	@RequestMapping(value = "/Frienduler/Table", method = RequestMethod.GET)
 	ModelAndView Table() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("MainPG");
-		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
 	@RequestMapping(value = "/Frienduler/compare", method = RequestMethod.GET)
 	ModelAndView compare() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("compare");
-		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
 
+	@RequestMapping( value = "/Frienduler/{userId}", method = RequestMethod.GET)
+	ModelAndView userMainPage(@PathVariable("userId") String userId ) throws SQLException {
+		ModelAndView modelAndView = new ModelAndView("userMainPage");
+		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
+		if( userInstance == null ) {
+			return error();
+		}
+		else{
+			modelAndView.addObject( "userId", userInstance.getUserId() );
+			modelAndView.addObject( "events", userInstance.getSchedule() );
+			modelAndView.addObject( "friends", userInstance.getFriends() );
+			return modelAndView;
+		}
+	}
 
+	@RequestMapping( value = "/Frienduler/listUsers", method = RequestMethod.GET )
+	ModelAndView listUsers() throws SQLException{
+		ModelAndView modelAndView = new ModelAndView( "userList" );
+		modelAndView.addObject( "users", calendarUserManager.getAllUsers() );
+		return modelAndView;
+	}
 
 	@RequestMapping(value = "/Frienduler/createEvent", method = RequestMethod.GET)
 	ModelAndView test() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("tester");
-		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
 	}
 
@@ -290,7 +312,7 @@ public class WebController {
 		List<String> words = Splitter.on(" ").splitToList(input);
 		return words;
 	}
-	
+
 
 	//jarods A4
 	//http://localhost:8080/cs480/linkGrabber

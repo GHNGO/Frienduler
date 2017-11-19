@@ -11,16 +11,15 @@
 <body class="sexy-body">
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a>Friend 1</a>
-  <a>Friend 2</a>
-  <a>Friend 3</a>
-  <a>Wumbo</a>
+  <#list friends as friend>
+  	<a>${friend.firstName} ${friend.lastName}</a>
+  </#list>
 </div>
 <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right">&#9776; Friends List &emsp;&emsp;&emsp;</object></span>
 <div id = "main">
 <section>
   <!--for demo wrap-->
-  <h1>Your Events</h1>
+  <h1>Events for ${userId}</h1>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -37,20 +36,15 @@
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
-      <tr>
-        <td>Party</td>
-        <td>11/20/2018 </td>
-        <td>11/22/2018</td>
-        <td>11:29 AM</td>
-        <td>9:00 PM</td>
-      </tr>
-      <tr>
-        <td>Party</td>
-        <td>11/20/2018 </td>
-        <td>11/22/2018</td>
-        <td>7:00 PM</td>
-        <td>11:59 PM</td>
-      </tr>
+      <#list events as event>
+    	<tr>
+        	<td>${event.name}</td>
+        	<td>${event.startDate}</td>
+        	<td>${event.endDate}</td>
+        	<td>${event.startTime}</td>
+        	<td>${event.endTime}</td>
+      	</tr>
+      </#list>
       </tbody>
     </table>
   </div>

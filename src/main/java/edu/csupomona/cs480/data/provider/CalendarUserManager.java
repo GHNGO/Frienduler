@@ -25,13 +25,14 @@ public class CalendarUserManager {
   private DatabaseInterface databaseInterface;
 
   private CalendarUserManager() {
-	//This should be the ONLY instance of the cfg file. DO NOT create it anywhere else!
-	Configuration cfg = new Configuration(Configuration.VERSION_2_3_27);
 	//@todo Create lib folder to store templates
-	cfg.setClassForTemplateLoading( CalendarUserManager.class, "templates" );
-	cfg.setIncompatibleImprovements( new Version( 2, 3, 20 ) );
-	cfg.setLocale(Locale.US);
 	databaseInterface = App.sqlInterface();
+	userNameList = new HashSet<String>();
+	groupNameList = new HashSet<String>();
+	ArrayList<IndividualUser> invUsers = databaseInterface.listAllUsers();
+	for( IndividualUser user: invUsers ) {
+		userNameList.add( user.getId() );
+	}
   }
 
   public static CalendarUserManager getInstance() {
@@ -122,7 +123,7 @@ public class CalendarUserManager {
 	return EventListHelper.timeOccupied(freeTimes, timeSlot);
   }
 
-  public String getScheduleForUser(String user) {
+  public String getStringScheduleForUser(String user) {
     String schedule = "";
     IndividualUser iUser = getUser(user);
     //user exists
@@ -131,6 +132,14 @@ public class CalendarUserManager {
     	schedule = events.toString();
     }
     return schedule;
+  }
+  
+  public EventList getScheduleForUser( String user ) {
+	  IndividualUser iUser = getUser( user );
+	  if( user != null ) {
+		  return iUser.getSchedule();
+	  }
+	  return null;
   }
 
   public IndividualUser getUser(String user) {
@@ -168,6 +177,10 @@ public class CalendarUserManager {
       groupMembers = members.toString();
     }
     return groupMembers;
+  }
+  
+  public ArrayList<IndividualUser> getAllUsers(){
+	  return databaseInterface.listAllUsers();
   }
 
   public boolean addUserToGroup(String user, String group) {

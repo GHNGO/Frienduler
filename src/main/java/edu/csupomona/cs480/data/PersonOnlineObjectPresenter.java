@@ -59,14 +59,27 @@ public class PersonOnlineObjectPresenter {
   }
   
   //calls CalendarUserManager's getScheduleForUser(on the user parameter)
-  public String getScheduleForUser(String user) {
+  public String getStringScheduleForUser(String user) {
     //TODO:
-    String schedule = cum.getScheduleForUser(user);
+    String schedule = cum.getStringScheduleForUser(user);
     return schedule;
+  }
+  
+  public EventList getScheduleForUser(String user) {
+	  EventList schedule = cum.getScheduleForUser(user);
+	  return schedule;
   }
 
   public ArrayList<IndividualUser> getFriends() {
     ArrayList<IndividualUser> friends = currentUser.getFriends();
     return friends;
+  }
+  
+  public EventList getSchedule() {
+	  return currentUser.getSchedule();
+  }
+  
+  public String getUserId() {
+	  return currentUser.getId();
   }
 }

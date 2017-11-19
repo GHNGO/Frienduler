@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import edu.csupomona.cs480.data.provider.CalendarUserManager;
 import edu.csupomona.cs480.data.provider.FSUserManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.database.DatabaseInterface;
@@ -61,6 +62,11 @@ public class App {
             System.exit(-1);
             return null;
         }
+    }
+    
+    @Bean
+    public CalendarUserManager calanderUserManager() {
+    	return CalendarUserManager.getInstance();
     }
 
     /**
