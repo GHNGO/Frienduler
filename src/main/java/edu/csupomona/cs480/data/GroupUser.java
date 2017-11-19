@@ -25,13 +25,16 @@ public class GroupUser extends CalendarUser {
 	public GroupUser(int id, String groupId, String users) {
 		super(groupId);
 		members = new GroupMembersList();
-		String[] s = users.split(",");
-		for (int i = 1; i < s.length-1; i++) {
-			IndividualUser u = App.sqlInterface().getUser(s[i]);
-			if (u != null) {
-				members.add(u);
+		if (!users.equals("{}")) {
+			String[] s = users.split("[{},]");
+			for (int i = 1; i < s.length; i++) {
+				IndividualUser u = App.sqlInterface().getUser(s[i]);
+				if (u != null) {
+					members.add(u);
+				}
 			}
 		}
+
 	}
 
 	public GroupUser(String groupId, IndividualUser... ind) {
