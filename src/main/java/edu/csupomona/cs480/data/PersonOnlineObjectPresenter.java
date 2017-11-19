@@ -52,12 +52,10 @@ public class PersonOnlineObjectPresenter {
   }
 
   //calls CalendarUserManager's checkTimeAvailableForUser(on the user parameter)
-  public String checkTimeAvailableForUser(String user) {
+  public String checkTimeAvailableForUser(String user, String timeSlot) {
     //TODO:
-    String avail = "";
-    boolean timeAvailable = cum.checkTimeAvailableForUser(user);
-    avail += timeAvailable;
-    return avail;
+    boolean timeAvailable = cum.checkTimeAvailableForUser(user, timeSlot);
+    return ""+timeAvailable;
   }
   
   //calls CalendarUserManager's getScheduleForUser(on the user parameter)

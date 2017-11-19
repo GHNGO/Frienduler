@@ -3,6 +3,7 @@ package edu.csupomona.cs480.data.provider;
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.*;
 import edu.csupomona.cs480.database.DatabaseInterface;
+import edu.csupomona.cs480.util.EventListHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -106,13 +107,19 @@ public class CalendarUserManager {
   //return EventList of times free for all users
   public EventList compareSchedule(ArrayList<CalendarUser> users) {
     //TODO: implement
-    EventList freeTimeSlots = new EventList();
+	EventList freeTimeSlots = new EventList();
+	for(int i = 0; i < users.size(); i++) {
+		EventList userFreeTimeSlots = EventListHelper.findFreeTimes(users.get(i).getSchedule());
+		
+	}
     return freeTimeSlots;
   }
 
-  public boolean checkTimeAvailableForUser(String user) {
+  public boolean checkTimeAvailableForUser(String user, String timeSlot) {
     //TODO: implement
-    return true;
+	IndividualUser us = getUser(user);
+	EventList freeTimes = EventListHelper.findFreeTimes(us.getSchedule());
+	return EventListHelper.timeOccupied(freeTimes, timeSlot);
   }
 
   public String getScheduleForUser(String user) {

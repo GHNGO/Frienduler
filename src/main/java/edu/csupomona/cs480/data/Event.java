@@ -9,6 +9,7 @@ public class Event implements Comparable {
 	public Event() {
 		
 	}
+	
 	public Event(String name, String startTime, String endTime, String date) {
 		this.setName(name);
 		this.setStartTime(startTime);
