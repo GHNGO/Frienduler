@@ -1,11 +1,14 @@
 package edu.csupomona.cs480.database;
 
+import edu.csupomona.cs480.data.Event;
+import edu.csupomona.cs480.data.FriendsList;
 import edu.csupomona.cs480.data.GroupUser;
 import edu.csupomona.cs480.data.IndividualUser;
+import edu.csupomona.cs480.data.provider.EventList;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 
 /**
@@ -98,7 +101,7 @@ public class DatabaseInterface {
      */
     public IndividualUser getUser(String userId) {
         try {
-            PreparedStatement s = sql.prepareStatement("SELECT id, userName, firstName, lastName FROM Users WHERE userName=?;");
+            PreparedStatement s = sql.prepareStatement("SELECT id, userName, firstName, lastName, friends FROM Users WHERE userName=?;");
             s.setString(1,userId);
 
             if (s.execute()) {
@@ -108,7 +111,32 @@ public class DatabaseInterface {
                 } else {
                     results.next();
                     IndividualUser u;
-                    u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4));
+                    u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
+                    return u;
+                }
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            sqlException(e);
+            return null;
+        }
+    }
+
+    public IndividualUser getUser(int id) {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT id, userName, firstName, lastName, friends FROM Users WHERE id=?;");
+            s.setInt(1,id);
+
+            if (s.execute()) {
+                ResultSet results = s.getResultSet();
+                if (!results.isBeforeFirst()) {
+                    return null;
+                } else {
+                    results.next();
+                    IndividualUser u;
+                    u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
                     return u;
                 }
             } else {
@@ -145,6 +173,27 @@ public class DatabaseInterface {
         } catch (SQLException e) {
             sqlException(e);
             return null;
+        }
+    }
+
+    public int getIdOfUser(String userId) {
+        try{
+            PreparedStatement s = sql.prepareStatement("SELECT id FROM Users WHERE userName=?");
+            s.setString(1, userId);
+            if (s.execute()) {
+                ResultSet results = s.getResultSet();
+                if (!results.isBeforeFirst()) {
+                    return -1;
+                } else {
+                    results.next();
+                    return results.getInt(1);
+                }
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
+            sqlException(e);
+            return -1;
         }
     }
 
@@ -197,11 +246,31 @@ public class DatabaseInterface {
     }
 
     /**
-     * Updates a user's first and/or last name
+     * Updates a user's first name, last name, and/or list of friends
      * @param u User object for the updated user
      */
     public void updateUser(IndividualUser u) {
-        updateUser(u.getId(), u.getFirstName(), u.getLastName());
+        updateUser(u.getId(), u.getFirstName(), u.getLastName(), u.getFriends());
+    }
+
+    /**
+     * Updates a user's first name, last name, and list of friends
+     * @param userName User Name to lookup in database. NOTE: MUST BE ALREADY IN DATABASE. THIS VALUE IS NOT CHANGED.
+     * @param firstName New First Name
+     * @param lastName New Last Name
+     * @param friends New Friends List
+     */
+    public void updateUser(String userName, String firstName, String lastName, FriendsList friends) {
+        try{
+            PreparedStatement s = sql.prepareStatement("UPDATE Users SET firstName=?, lastName=?, friends=? WHERE userName=?");
+            s.setString(1, firstName);
+            s.setString(2, lastName);
+            s.setString(3, friends.toString());
+            s.setString(4, userName);
+            s.execute();
+        } catch (SQLException e) {
+            sqlException(e);
+        }
     }
 
     /**
@@ -238,18 +307,6 @@ public class DatabaseInterface {
         } catch (SQLException e) {
             sqlException(e);
         }
-    }
-
-
-    /**
-     * Runs if an <code>SQLException</code> occurs
-     * @param e The exception that occurred
-     */
-    private void sqlException(SQLException e) {
-        System.err.println("SQLException: " + e.getMessage());
-        System.err.println("SQLState: " + e.getSQLState());
-        System.err.println("VendorError: " + e.getErrorCode());
-        System.exit(-1);
     }
 
     /**
@@ -325,5 +382,164 @@ public class DatabaseInterface {
             sqlException(e);
             return null;
         }
+    }
+
+    /**
+     * Adds an event to the database
+     * @param e Event object to add to the database
+     * @throws MalformedEventException If the dates or times in the event are not in the correct formatting
+     */
+    public void addEvent(Event e) throws MalformedEventException {
+        addEvent(e.getLinkedUserId(), e.getStartDate(), e.getEndDate(), e.getStartTime(), e.getEndTime());
+    }
+
+    /**
+     * Adds an event to the database
+     * @param linkedUserId Username that the event is for
+     * @param startDate Start date for the event in the format "MM:DD:YY"
+     * @param endDate End date for the event in the format "MM:DD:YY"
+     * @param startTime Start time for the event in the format "hh:mm"
+     * @param endTime End time for the event in the format "hh:mm"
+     * @throws MalformedEventException if the dates or times are not in the correct formatting
+     */
+    public void addEvent(String linkedUserId, String startDate, String endDate, String startTime, String endTime) throws MalformedEventException {
+
+        int idUser = getIdOfUser(linkedUserId);
+
+        if (!(startDate.matches("[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9]") && endDate.matches("[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9]") &&
+                startTime.matches("^[0-1][0-9][:][0-9][0-9]$|^[0-9][:][0-9][0-9]$") && startTime.matches("^[0-1][0-9][:][0-9][0-9]$|^[0-9][:][0-9][0-9]$"))) {
+            throw new MalformedEventException();
+        }
+
+        String[] parseStartDate = startDate.split("/");
+        int startMonth = Integer.parseInt(parseStartDate[0]);
+        int startDay = Integer.parseInt(parseStartDate[1]);
+        int startYear = Integer.parseInt(parseStartDate[2]);
+
+        String[] parseStartTime = startTime.split(":");
+        int startHour = Integer.parseInt(parseStartTime[0]);
+        int startMin = Integer.parseInt(parseStartTime[1]);
+
+        String[] parseEndDate = endDate.split("/");
+        int endMonth = Integer.parseInt(parseEndDate[0]);
+        int endDay = Integer.parseInt(parseEndDate[1]);
+        int endYear = Integer.parseInt(parseEndDate[2]);
+
+        String[] parseEndTime = endTime.split(":");
+        int endHour = Integer.parseInt(parseEndTime[0]);
+        int endMin = Integer.parseInt(parseEndTime[1]);
+
+        Timestamp start = Timestamp.valueOf(LocalDateTime.of(startYear, startMonth, startDay, startHour, startMin));
+        Timestamp end = Timestamp.valueOf(LocalDateTime.of(endYear, endMonth, endDay, endHour, endMin));
+
+        try{
+            PreparedStatement s = sql.prepareStatement("INSERT INTO Events (userId, startTime, endTime) VALUES (?,?,?)");
+            s.setInt(1, idUser);
+            s.setTimestamp(2, start);
+            s.setTimestamp(3, end);
+        } catch (SQLException e) {
+            sqlException(e);
+        }
+    }
+
+    /**
+     * Gets all events for a certain user
+     * @param userName The user to get the events for
+     * @return A list of events for the user
+     */
+    public EventList getEvents(String userName) {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT userId, eventName, startTime, endTime FROM Events WHERE userId=?");
+            s.setString(1, userName);
+
+            ResultSet results = s.getResultSet();
+            ResultSetMetaData resultsMeta = s.getMetaData();
+            int colCount = resultsMeta.getColumnCount();
+            EventList events = new EventList();
+            if (!results.isBeforeFirst()) {
+                return events;
+            }
+
+            while (!results.isLast()) {
+                results.next();
+                Event e = new Event(getUser(results.getString(1)).getId(), results.getString(2), results.getTimestamp(3), results.getTimestamp(4));
+                events.add(e);
+            }
+
+            return events;
+        } catch (SQLException e) {
+            sqlException(e);
+            return null;
+        } catch (MalformedEventException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public FriendsList getFriends(String userName) {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT friends FROM Users WHERE userId=?");
+            s.setString(1, userName);
+
+            FriendsList friendsList = new FriendsList();
+
+            ResultSet results = s.getResultSet();
+            ResultSetMetaData resultsMeta = s.getMetaData();
+            int colCount = resultsMeta.getColumnCount();
+            if (!results.isBeforeFirst()) {
+                return friendsList;
+            }
+
+            while (!results.isLast()) {
+                results.next();
+                String st = results.getString(1);
+                if (st.equals("{}")) {
+                    return friendsList;
+                }
+                String[] str = st.split("[{},]");
+                for (int i = 1; i < str.length; i++) {
+                    IndividualUser u = getUser(Integer.parseInt(str[i]));
+                    if (u != null) {
+                        friendsList.add(u);
+                    }
+                }
+            }
+
+            return friendsList;
+        } catch (SQLException e) {
+            sqlException(e);
+            return null;
+        }
+    }
+
+    public String getFriendsAsString(String userName) {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT friends FROM Users WHERE userId=?");
+            s.setString(1, userName);
+
+            ResultSet results = s.getResultSet();
+            ResultSetMetaData resultsMeta = s.getMetaData();
+            int colCount = resultsMeta.getColumnCount();
+            if (!results.isBeforeFirst()) {
+                return "";
+            }
+
+            results.next();
+            return results.getString(1);
+        } catch (SQLException e) {
+            sqlException(e);
+            return null;
+        }
+    }
+
+    /**
+     * Runs if an <code>SQLException</code> occurs
+     * @param e The exception that occurred
+     */
+    private void sqlException(SQLException e) {
+        System.err.println("SQLException: " + e.getMessage());
+        System.err.println("SQLState: " + e.getSQLState());
+        System.err.println("VendorError: " + e.getErrorCode());
+        System.exit(-1);
     }
 }

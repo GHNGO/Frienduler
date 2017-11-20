@@ -1,5 +1,7 @@
 package edu.csupomona.cs480.data;
 
+import edu.csupomona.cs480.App;
+
 import java.util.ArrayList;
 
 public class IndividualUser extends CalendarUser{
@@ -7,8 +9,43 @@ public class IndividualUser extends CalendarUser{
 	private String firstName;
 	private String lastName;
 
-	ArrayList<IndividualUser> friends;
+	FriendsList friends;
 	ArrayList<GroupUser> groupsJoined;
+
+	public IndividualUser(int idNum, String id, String firstName, String lastName, String friends) {
+		super(id);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.idNum = idNum;
+
+		FriendsList friendsList = new FriendsList();
+
+		if (friends.equals("{}")) {
+			this.friends = friendsList;
+		} else {
+			String[] s = friends.split("[{},]");
+			for (int i = 1; i < s.length; i++) {
+				IndividualUser u = App.sqlInterface().getUser(Integer.parseInt(s[i]));
+				if (u != null) {
+					friendsList.add(u);
+				}
+			}
+		}
+
+
+
+		this.friends = friendsList;
+		this.groupsJoined = new ArrayList<>();
+	}
+
+	public IndividualUser(int idNum, String id, String firstName, String lastName, FriendsList friends) {
+		super(id);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.idNum = idNum;
+		this.friends = friends;
+		this.groupsJoined = new ArrayList<>();
+	}
 	
 	public IndividualUser(int idNum, String id, String firstName, String lastName) {
 		super(id);
@@ -32,14 +69,14 @@ public class IndividualUser extends CalendarUser{
 	}
 	
 	private void generateNewLists() {
-		friends = new ArrayList<IndividualUser>();
+		friends = new FriendsList();
 		groupsJoined = new ArrayList<GroupUser>();
 	}
 	
-	public ArrayList<IndividualUser> getFriends() {
+	public FriendsList getFriends() {
 		return friends;
 	}
-	public void setFriends(ArrayList<IndividualUser> friends) {
+	public void setFriends(FriendsList friends) {
 		this.friends = friends;
 	}
 	public ArrayList<GroupUser> getGroupsJoined() {

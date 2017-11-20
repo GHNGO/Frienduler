@@ -2,10 +2,9 @@ package edu.csupomona.cs480.data;
 
 import java.util.ArrayList;
 
-/**
- * List of Group Members to allow for easier string readout
- */
-public class GroupMembersList extends ArrayList<IndividualUser> {
+
+public class FriendsList extends ArrayList<IndividualUser> {
+
     @Override
     public String toString() {
         String m = "{";
@@ -21,4 +20,5 @@ public class GroupMembersList extends ArrayList<IndividualUser> {
         m = m + "}";
         return m;
     }
+
 }

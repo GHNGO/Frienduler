@@ -3,7 +3,7 @@ package edu.csupomona.cs480.data;
 import edu.csupomona.cs480.data.provider.EventList;
 
 public abstract class CalendarUser extends User implements CalendarUserInterface{
-	private EventList  schedule;
+	private EventList schedule;
 	
 	public CalendarUser(String id) {
 		super(id);

@@ -1,7 +1,4 @@
 <!-- Website Theme: MINIMAL by BlackTie.co -->
-
-<!DOCTYPE html>
-<html lang="en" xmlns:padding-bottom="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,8 +25,8 @@
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
-  <script src="assets/js/html5shiv.js"></script>
-  <script src="assets/js/respond.min.js"></script>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
   <![endif]-->
 </head>
 
@@ -69,7 +66,7 @@
           <h2>
             <font color = "FFFFFF">Login</font>
           </h2>
-          <form method="post" action="index.html">
+          <form method="post" action="../static/index.html">
             <p>
               <input type="text" name="login" value="" placeholder="Username">
             </p>
@@ -94,13 +91,13 @@
         <h1>How do I log in?</h1>
         <p>Simply enter your username in the box above.</p>
         <h1>Why can't I see my events?
-        These events shown aren't mine.</h1>
+          These events shown aren't mine.</h1>
         <p>Check to make sure that you entered the correct user ID, case sensitive.</p>
         <h1>When is Frienduler going to be finished?</h1>
         <p>Hopefully before week 10, am I right?</p>
-		<br>
-		<br>
-		<br>
+        <br>
+        <br>
+        <br>
       </div>
     </div>
   </div><!-- /container -->
@@ -122,4 +119,3 @@
 <script src="../static/assets/js/smoothscroll.js"></script>
 <script src="../static/assets/js/main.js"></script>
 </body>
-</html>
