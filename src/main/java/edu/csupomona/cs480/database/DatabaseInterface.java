@@ -39,10 +39,11 @@ public class DatabaseInterface {
      */
     public void addUser(IndividualUser u) {
         try {
-            PreparedStatement s = sql.prepareStatement("INSERT INTO Users (userName, firstName, lastName) VALUES (?,?,?);");
+            PreparedStatement s = sql.prepareStatement("INSERT INTO Users (userName, firstName, lastName, friends) VALUES (?,?,?,?);");
             s.setString(1, u.getId());
             s.setString(2, u.getFirstName());
             s.setString(3, u.getLastName());
+            s.setString(4, u.getFriends().toString());
             s.execute();
 
         } catch (SQLException e) {
@@ -540,6 +541,7 @@ public class DatabaseInterface {
         System.err.println("SQLException: " + e.getMessage());
         System.err.println("SQLState: " + e.getSQLState());
         System.err.println("VendorError: " + e.getErrorCode());
-        System.exit(-1);
+        e.printStackTrace();
+//        System.exit(-1);
     }
 }
