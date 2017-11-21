@@ -69,9 +69,9 @@
           <h2>
             <font color = "FFFFFF">Login</font>
           </h2>
-          <form method="post" action="index.html">
+          <form onSubmit="return userInput();">
             <p>
-              <input type="text" name="login" value="" placeholder="Username">
+              <input type="text" name="login" value="" placeholder="Username" id="userId">
             </p>
           </form>
         </div>
@@ -123,3 +123,12 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
+<script>
+function userInput(){
+    var url = "Frienduler/" + document.getElementById("userId").value;
+    location.href = url;
+    return false;
+}
+</script>
+

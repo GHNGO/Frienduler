@@ -65,6 +65,8 @@ public class WebController {
 
 	@Autowired
 	private CalendarUserManager calendarUserManager;
+	
+	private static final boolean CREATE_USER_FROM_URL = true;
 
 	/**
 	 * This is a simple example of how the HTTP API works.
@@ -200,14 +202,19 @@ public class WebController {
 		ModelAndView modelAndView = new ModelAndView("userMainPage");
 		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
 		if( userInstance == null ) {
-			return error();
+			System.out.println( "[WebController] Cannot find user." );
+			if( CREATE_USER_FROM_URL ) {
+				calendarUserManager.addUser( userId );
+				userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
+			}
+			else {
+				return error();
+			}
 		}
-		else{
-			modelAndView.addObject( "userId", userInstance.getUserId() );
-			modelAndView.addObject( "events", userInstance.getSchedule() );
-			modelAndView.addObject( "friends", userInstance.getFriends() );
-			return modelAndView;
-		}
+		modelAndView.addObject( "userId", userInstance.getUserId() );
+		modelAndView.addObject( "events", userInstance.getSchedule() );
+		modelAndView.addObject( "friends", userInstance.getFriends() );
+		return modelAndView;
 	}
 
 	@RequestMapping( value = "/Frienduler/listUsers", method = RequestMethod.GET )

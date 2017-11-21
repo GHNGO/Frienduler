@@ -1,4 +1,7 @@
 <!-- Website Theme: MINIMAL by BlackTie.co -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:padding-bottom="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,9 +69,9 @@
           <h2>
             <font color = "FFFFFF">Login</font>
           </h2>
-          <form method="post" action="../static/index.html">
+          <form onSubmit="return userInput();">
             <p>
-              <input type="text" name="login" value="" placeholder="Username">
+              <input type="text" name="login" value="" placeholder="Username" id="userId">
             </p>
           </form>
         </div>
@@ -119,3 +122,12 @@
 <script src="../static/assets/js/smoothscroll.js"></script>
 <script src="../static/assets/js/main.js"></script>
 </body>
+</html>
+
+<script>
+function userInput(){
+    var url = document.getElementById("userId").value;
+    location.href = url;
+    return false;
+}
+</script>
