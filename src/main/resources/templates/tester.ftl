@@ -44,31 +44,25 @@
     <div id = "main">
       <div class="container">
       <div class="row">
-        <div class="col-md-5">
-          <div class="left-side">
+        <div class="col-md-7 col-md-offset-2">
             <div class="logo">
               <img src="../js/logo.png" width="350" height="150">
             </div>
-            <div class="tabs-content">
-              <h4>Check Social media</h4>
-              <ul class="social-links">
-                <li><a href="http://facebook.com">Find on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
-                <li><a href="http://youtube.com">Check <em>YouTube</em> Channel<i class="fa fa-youtube"></i></a></li>
-                <li><a href="http://instagram.com">Check <em>instagram</em><i class="fa fa-instagram"></i></a></li>
-              </ul>
-            </div>
-            <div class="page-direction-button">
-              <a href="/Frienduler/compare"><i class="fa fa-phone"></i>Current Events</a>
-            </div>
-          </div>
+          
         </div>
-        <div class="col-md-5 col-md-offset-1">
+        <div class="col-md-6 col-md-offset-3">
+        
           <section id="first-tab-group" class="tabgroup">
             <div id="tab1">
               <div class="submit-form">
-                <h4>Create an<em> event</em>:</h4>
                 <form id="form-submit" action="" method="get">
                   <div class="row">
+                    <div class="col-md-12">
+                      <fieldset>
+                        <label>Create an event:</label>
+                        <input type="text" class="form-control date" placeholder="Event name..." required="" onchange='this.form.()'>
+                      </fieldset>
+                    </div>
                     <div class="col-md-6">
                       <fieldset>
                         <label for="from">From:</label>
@@ -140,7 +134,7 @@
                     <div class="col-md-6">
                       <fieldset>
                         <label for="Start Date">Start date:</label>
-                        <input name="deparure" type="text" class="form-control date" id="deparure" placeholder="Select date..." required="" onchange='this.form.()'>
+                        <input type="text" class="form-control date" placeholder="Select date..." required="" onchange='this.form.()'>
                       </fieldset>
                     </div>
                     <div class="col-md-6">
@@ -149,32 +143,34 @@
                         <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form.()'>
                       </fieldset>
                     </div>
+                    
                     <div class="col-md-6">
-                      <div class="radio-select">
-                        <div class="row">
-                          <div class="col-md-6 col-sm-6 col-xs-6">
-                            <label for="Full Day">Full Day</label>
-                            <input type="radio" name="trip" id="round" value="round" required="required"onchange='this.form.()'>
-                          </div>
-                          <div class="col-md-6 col-sm-6 col-xs-6">
-                            <label for="Half Day" >Half Day</label>
-                            <input type="radio" name="trip" id="oneway" value="one-way" required="required"onchange='this.form.()'>
-                          </div>
-                        </div>
-                      </div>
+                         <fieldset>
+                          	<button class="btn" type="submit" required="required" onchange='this.form.()'>Repeat every day</button>
+                         </fieldset>
                     </div>
+                    
                     <div class="col-md-6">
                       <fieldset>
                         <button type="submit" id="form-submit" class="btn">Set Event Now</button>
                       </fieldset>
                     </div>
+                     
                   </div>
                 </form>
+              
+             	 </div>
+              
+              <div>
               </div>
+                <div class="page-direction-button">
+             		<a href="/index.html"><i class="fa fa-phone"></i>Return</a>
+           		</div>
             </div>
           </section>
         </div>
       </div>
+    </div>
     </div>
   </section>
   <script>
@@ -188,6 +184,5 @@
       document.getElementById("main").style.marginRight = "0";
     }
   </script>
-</div>
 </body>
 </html>

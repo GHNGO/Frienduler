@@ -48,7 +48,9 @@
             <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="genny"/></td><td>genny</td>
             </tr>
             <td>
-              <button type="Button" name="submit" value="Submit"  onClick="CallFunction();">Compare</button>
+           
+              <input type="button" class="buttoner" name="submit" value="Compare"/>
+    
             </td>
             <td></td>
           </form>
@@ -93,10 +95,19 @@
 
           </tbody>
         </table>
+        	 
       </div>
-    </section>
+      
 
+      	
+  
+    </section>
+				
   </section>
+  				<div class="page-direction-button">
+             		<a href="/index.html"><i class="fa fa-phone"></i>Return</a>
+           		</div>
+      	
   <script>
     function openNav() {
       document.getElementById("mySidenav").style.width = "250px";
