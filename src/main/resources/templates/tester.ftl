@@ -44,8 +44,8 @@
   <br>
   <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
   <div id = "main">
-    <object align="left"><a href="./add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
-    <object align="center"><a href="./compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
+    <object align="left"><a href="/Frienduler/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+    <object align="center"><a href="/Frienduler/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
     <div class="container">
       <div class="row">
         <div class="col-md-7 col-md-offset-2">
@@ -167,7 +167,7 @@
               
               <div>
               </div>
-              <object align="center"><a href="./"><input type="button" class="buttoner" value="Return to Home"/></a></object>
+              <object align="center"><a href="/Frienduler/${userId}"><input type="button" class="buttoner" value="Return to Home"/></a></object>
             </div>
           </section>
         </div>

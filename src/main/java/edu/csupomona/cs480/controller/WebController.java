@@ -66,6 +66,7 @@ public class WebController {
 	@Autowired
 	private CalendarUserManager calendarUserManager;
 	
+	//Can we create a new user from the url? Set false if we implement registering.
 	private static final boolean CREATE_USER_FROM_URL = true;
 
 	/**
@@ -191,10 +192,18 @@ public class WebController {
 		ModelAndView modelAndView = new ModelAndView("MainPG");
 		return modelAndView;
 	}
-	@RequestMapping(value = "/Frienduler/compare", method = RequestMethod.GET)
-	ModelAndView compare() throws SQLException {
+	@RequestMapping(value = "/Frienduler/{userId}/compare", method = RequestMethod.GET)
+	ModelAndView compare(@PathVariable("userId") String userId ) throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("compare");
-		return modelAndView;
+		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
+		if( userInstance != null ) {
+			modelAndView.addObject( "friends", userInstance.getFriends() );
+			modelAndView.addObject("userId", userId );
+			return modelAndView;
+		}
+		else {
+			return error();
+		}
 	}
 
 	@RequestMapping( value = "/Frienduler/{userId}", method = RequestMethod.GET)
@@ -224,10 +233,17 @@ public class WebController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/Frienduler/createEvent", method = RequestMethod.GET)
-	ModelAndView test() throws SQLException {
+	@RequestMapping(value = "/Frienduler/{userId}/createEvent", method = RequestMethod.GET)
+	ModelAndView createEventForUser(@PathVariable("userId") String userId ) throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("tester");
+		modelAndView.addObject( "friends", calendarUserManager.getUser( userId ).getFriends() );
+		modelAndView.addObject("userId", userId );
 		return modelAndView;
+	}
+	
+	@RequestMapping( value = "/Frienduler/{userId}/createEvent/addEvent", method = RequestMethod.POST )
+	void addEvent( @PathVariable("userId") String userId ) throws SQLException {
+		
 	}
 
 
