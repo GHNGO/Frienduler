@@ -6,8 +6,8 @@ Created for CS 480 Software Engineering with Dr. Yu Sun.
 
 Team Members
 --------
-..*Connor Baskin
-..*Genevieve Leach
-..*Jarod Nakamoto
-..*Jack Zhang
-..*Lloyd Zhang
+  *Connor Baskin
+  *Genevieve Leach
+  *Jarod Nakamoto
+  *Jack Zhang
+  *Lloyd Zhang
