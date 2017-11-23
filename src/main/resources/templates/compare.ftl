@@ -17,9 +17,11 @@
   <a>Friend 3</a>
   <a>Wumbo</a>
 </div>
-<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right">&#9776; Friends List &emsp;&emsp;&emsp;</object></span>
-
+<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
 <div id="main">
+  <object align="left"><a href="./add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+  <object align="center"><a href="./createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
+
   <section class="wrapper">
     <section>
       <!--for demo wrap-->
@@ -104,10 +106,10 @@
     </section>
 				
   </section>
-  				<div class="page-direction-button">
-             		<a href="/index.html"><i class="fa fa-phone"></i>Return</a>
-           		</div>
-      	
+
+  <object align="center"><a href="./"><input type="button" class="buttoner" value="Return to Home"/></a></object>
+
+
   <script>
     function openNav() {
       document.getElementById("mySidenav").style.width = "250px";

@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="../js/datepicker.css">
   <link rel="stylesheet" href="../js/tooplate-style.css">
   <link rel="stylesheet" href="../js/sidenav.css">
+  <link rel="stylesheet" href="../js/button.css">
+
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
   <script src="../js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -37,12 +39,14 @@
   <a>Friend 3</a>
   <a>Wumbo</a>
 </div>
-<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><span style="font-size: 17px;padding-right: 5px;"><br><br>&#9776; Friends List &emsp;&emsp;&emsp;</span></object></span>
 
-
-  <section class="banner" id="top">
-    <div id = "main">
-      <div class="container">
+<section class="banner" id="top">
+  <br>
+  <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
+  <div id = "main">
+    <object align="left"><a href="./add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+    <object align="center"><a href="./compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
+    <div class="container">
       <div class="row">
         <div class="col-md-7 col-md-offset-2">
             <div class="logo">
@@ -155,7 +159,7 @@
                         <button type="submit" id="form-submit" class="btn">Set Event Now</button>
                       </fieldset>
                     </div>
-                     
+
                   </div>
                 </form>
               
@@ -163,9 +167,7 @@
               
               <div>
               </div>
-                <div class="page-direction-button">
-             		<a href="/index.html"><i class="fa fa-phone"></i>Return</a>
-           		</div>
+              <object align="center"><a href="./"><input type="button" class="buttoner" value="Return to Home"/></a></object>
             </div>
           </section>
         </div>
