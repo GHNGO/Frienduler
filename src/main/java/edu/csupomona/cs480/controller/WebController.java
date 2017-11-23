@@ -192,6 +192,11 @@ public class WebController {
 		ModelAndView modelAndView = new ModelAndView("MainPG");
 		return modelAndView;
 	}
+	@RequestMapping(value = "/Frienduler/Addfriend", method = RequestMethod.GET)
+	ModelAndView Addfriend() throws SQLException {
+		ModelAndView modelAndView = new ModelAndView("Addfriend");
+		return modelAndView;
+	}
 	@RequestMapping(value = "/Frienduler/{userId}/compare", method = RequestMethod.GET)
 	ModelAndView compare(@PathVariable("userId") String userId ) throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("compare");
