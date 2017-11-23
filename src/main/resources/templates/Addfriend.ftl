@@ -82,6 +82,17 @@
 								                        <input type="text" class="form-control date" placeholder="Group name..." required="" onchange='this.form.()'>
 								                      </fieldset>
 						                    </div>
+						                        <div class="col-md-6">
+                      <fieldset>
+                        <label for="from">Or Select existing group</label>
+                        <select required onchange='this.form.()'>
+                          <option value="">Select a Group...</option>
+                          <option value="(groupname)">Ghngo</option>
+                           <option value="(groupname2)">Wildthing</option>
+             
+                        </select>
+                      </fieldset>
+                    </div>
 						                    <div class="col-md-7">
 								                      <fieldset>
 								                        <input type="text" class="form-control date" placeholder="friends name..." required="" onchange='this.form.()'>
