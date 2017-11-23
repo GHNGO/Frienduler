@@ -16,10 +16,10 @@
   </#list>
 </div>
 <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
+<br>
+<object align="left"><a href="/Frienduler/${userId}/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+<object align="center"><a href="/Frienduler/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id = "main">
-  <br>
-  <object align="left"><a href="/Frienduler/${userId}/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
-  <object align="center"><a href="/Frienduler/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
   <section>
   <!--for demo wrap-->
   <h1>Events for ${userId}</h1>

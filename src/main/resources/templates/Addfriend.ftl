@@ -43,90 +43,90 @@
 <section class="banner" id="top">
   <br>
   <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
+  <object align="left"><a href="/Frienduler/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
+  <object align="center"><a href="/Frienduler/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
   <div id = "main">
-    <object align="center"><a href="/Frienduler/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
     <div class="container">
-        <div class="col-md-6 ">
-          <section id="first-tab-group" class="tabgroup">
-	            <div id="tab1">
-		              <div class="submit-form">
-			                <form id="form-submit" action="" method="get">
-					                  <div class="row">
-						                    <div class="col-md-12">
-								                      <fieldset>
-								                        <label>Add friends:</label>
-								                        <input type="text" class="form-control date" placeholder="Friend name..." required="" onchange='this.form.()'>
-								                      </fieldset>
-						                    </div>
-					                   		 <div class="col-md-6">
-							                      <fieldset>
-							                        <button type="submit" id="form-submit" class="btn">Add Friend</button>
-							                      </fieldset>
-					                  		 </div>
-					                  </div>
-			                </form>      
-		              </div>	              
-	            </div>
-          </section>
-        </div>
-        <div class="col-md-6 ">
-        
-          <section id="Friends-group" class="tabgroup">
-	            <div id="tab2">
-		              <div class="submit-form">
-			                <form id="form-submit" action="" method="get">
-					                  <div class="row">
-						                    <div class="col-md-12">
-								                      <fieldset>
-								                        <label>Create a group:</label>
-								                        <input type="text" class="form-control date" placeholder="Group name..." required="" onchange='this.form.()'>
-								                      </fieldset>
-						                    </div>
-						                        <div class="col-md-6">
-                      <fieldset>
-                        <label for="from">Or Select existing group</label>
-                        <select required onchange='this.form.()'>
-                          <option value="">Select a Group...</option>
-                          <option value="(groupname)">Ghngo</option>
-                           <option value="(groupname2)">Wildthing</option>
-             
-                        </select>
-                      </fieldset>
-                    </div>
-						                    <div class="col-md-7">
-								                      <fieldset>
-								                        <input type="text" class="form-control date" placeholder="friends name..." required="" onchange='this.form.()'>
-								                      </fieldset>
-						                    </div>
-					                   		 <div class="col-md-6">
-							                      <fieldset>
-							                        <button type="submit" id="form-submit" class="btn">Add to group</button>
-							                      </fieldset>
-					                  		 </div>
-					                  </div>
-			                </form>   
-			          </div> 
-			    </div>          
-          </section>
-	            
-        </div>
-      <div class="col-md-6 col-md-offset-3" >
-	           		 <object align="center"><a href="/Frienduler/"><input type="button" class="buttoner" value="Return to Home"/></a></object>
-	            </div>
+      <div class="col-md-6 ">
+        <section id="first-tab-group" class="tabgroup">
+          <div id="tab1">
+            <div class="submit-form">
+              <form id="form-submit" action="" method="get">
+                <div class="row">
+                  <div class="col-md-12">
+                    <fieldset>
+                      <label>Add friends:</label>
+                      <input type="text" class="form-control date" placeholder="Friend name..." required="" onchange='this.form.()'>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-6">
+                    <fieldset>
+                      <button type="submit" id="form-submit" class="btn">Add Friend</button>
+                    </fieldset>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
       </div>
-    </div>
-    </div>
-  </section>
-  <script>
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-      document.getElementById("main").style.marginRight = "250px";
-    }
+      <div class="col-md-6 ">
 
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-      document.getElementById("main").style.marginRight = "0";
-    }
-  </script>
+        <section id="Friends-group" class="tabgroup">
+          <div id="tab2">
+            <div class="submit-form">
+              <form id="form-submit" action="" method="get">
+                <div class="row">
+                  <div class="col-md-12">
+                    <fieldset>
+                      <label>Create a group:</label>
+                      <input type="text" class="form-control date" placeholder="Group name..." required="" onchange='this.form.()'>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-6">
+                    <fieldset>
+                      <label for="from">Or Select existing group</label>
+                      <select required onchange='this.form.()'>
+                        <option value="">Select a Group...</option>
+                        <option value="(groupname)">Ghngo</option>
+                        <option value="(groupname2)">Wildthing</option>
+
+                      </select>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-7">
+                    <fieldset>
+                      <input type="text" class="form-control date" placeholder="friends name..." required="" onchange='this.form.()'>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-6">
+                    <fieldset>
+                      <button type="submit" id="form-submit" class="btn">Add to group</button>
+                    </fieldset>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-6 col-md-offset-3" >
+    <object align="center"><a href="/Frienduler/"><input type="button" class="buttoner" value="Return to Home"/></a></object>
+  </div>
+</section>
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginRight = "0";
+  }
+</script>
 </body>
 </html>

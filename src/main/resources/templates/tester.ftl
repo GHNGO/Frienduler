@@ -42,9 +42,9 @@
 <section class="banner" id="top">
   <br>
   <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
+  <object align="left"><a href="/Frienduler/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+  <object align="center"><a href="/Frienduler/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
   <div id = "main">
-    <object align="left"><a href="/Frienduler/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
-    <object align="center"><a href="/Frienduler/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
     <div class="container">
       <div class="row">
         <div class="col-md-7 col-md-offset-2">
