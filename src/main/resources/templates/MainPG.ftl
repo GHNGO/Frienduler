@@ -17,9 +17,10 @@
   <a>Wumbo</a>
 </div>
 <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
-<object align="left"><a href="./add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
-<object align="center"><a href="./createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id = "main">
+  <br>
+  <object align="left"><a href="./add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+  <object align="center"><a href="./createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
   <section>
     <!--for demo wrap-->
     <h1>Your Events</h1>
