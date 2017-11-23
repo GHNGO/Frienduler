@@ -34,10 +34,9 @@
 <body class="pritty-body">
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a>Friend 1</a>
-  <a>Friend 2</a>
-  <a>Friend 3</a>
-  <a>Wumbo</a>
+  <#list friends as friend>
+  	<a>${friend.firstName} ${friend.lastName}</a>
+  </#list>
 </div>
 
 <section class="banner" id="top">
