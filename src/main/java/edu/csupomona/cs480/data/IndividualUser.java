@@ -32,8 +32,6 @@ public class IndividualUser extends CalendarUser{
 			}
 		}
 
-
-
 		this.friends = friendsList;
 		this.groupsJoined = new ArrayList<>();
 	}

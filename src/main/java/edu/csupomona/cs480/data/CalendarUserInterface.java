@@ -9,11 +9,7 @@ public interface CalendarUserInterface {
 
 	boolean removeEvent(Event e);
 	
-	boolean eventScheduled(Event e);
-
-	Event findEventByName(String eventName);
-	
-	Event removeEventByName(String eventName);
+	boolean eventInSchedule(Event e);
 	
 	String getId();
 }

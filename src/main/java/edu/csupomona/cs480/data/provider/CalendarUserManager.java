@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Locale;
 
 import edu.csupomona.cs480.database.DatabaseInterface;
+import edu.csupomona.cs480.database.MalformedEventException;
 import freemarker.template.Configuration;
 import freemarker.template.Version;
 
@@ -73,7 +74,7 @@ public class CalendarUserManager {
 
   /**
    * Adds a blank group
-   * @param group = group name to add
+   * @param group group name to add
    * @return <code>true</code> if added new, <code>false</code> if already existed
    */
   public boolean addGroup(String group) {
@@ -95,8 +96,7 @@ public class CalendarUserManager {
     if (!groupNameList.contains(group)) {
       //group doesn't exist already
       return false;
-    } 
-    else {
+    } else {
       //group does exist already
       groupNameList.remove(group);
       databaseInterface.deleteGroup(group);
@@ -181,6 +181,7 @@ public class CalendarUserManager {
     IndividualUser i = getUser(user);
     if(g != null && i != null) {
     	g.addUser(i);
+    	databaseInterface.updateGroup(g);
     	return true;
     }
     return false;
@@ -191,7 +192,14 @@ public class CalendarUserManager {
     //group exists
     if(g != null) {
     	IndividualUser u = getUser(user);
-    	return g.removeUser(u);
+    	// user exists and user is member of group
+    	if (u != null && databaseInterface.getGroupsMemberOf(u).contains(g)) {
+    	    boolean b = g.removeUser(u);
+    	    databaseInterface.updateGroup(g);
+            return b;
+        } else {
+    	    return false;
+        }
     }
     return false;
   }
@@ -207,5 +215,34 @@ public class CalendarUserManager {
 	 PersonOnlineObjectPresenter userInstance= new PersonOnlineObjectPresenter(id);
 	 
 	 return userInstance;
+ }
+
+ public boolean addEvent(String userId, Event e) throws MalformedEventException {
+      IndividualUser user = getUser(userId);
+      if (user == null) {
+          return false;
+      } else {
+          if (user.addEvent(e)) {
+              databaseInterface.addEvent(e);
+              return true;
+          } else {
+              return false;
+          }
+      }
+ }
+
+ public boolean removeEvent(String userId, String eventName) {
+      IndividualUser user = getUser(userId);
+      if (user == null) {
+          return false;
+      } else {
+          Event e = databaseInterface.getEvent(userId, eventName);
+          if (e != null) {
+              databaseInterface.deleteEvent(userId, eventName);
+              return user.removeEvent(e);
+          } else {
+              return false;
+          }
+      }
  }
 }

@@ -11,42 +11,39 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
 	}
 	
 	@Override
-	public boolean eventScheduled(Event e) {
-		int index = schedule.indexOf(e);
-		if(index == -1)
-			return false;
-		return true;
+	public boolean eventInSchedule(Event e) {
+		return schedule.contains(e);
 	}
 
 	@Override
 	public boolean addEvent(Event e) {
-		if(eventScheduled(e))
+		if(eventInSchedule(e))
 			return false;
-		int indexBelong = findIndexWhereEventBelongs(e);
-		schedule.add(indexBelong, e);
+		schedule.add(e);
+		schedule.sort();
 		return true;
 	}
 
-	private int findIndexWhereEventBelongs(Event e) {
-		for(int i = 0; i < schedule.size(); i++) {
-			Event current = schedule.get(i);
-			int result = e.compareTo(current);
-			if(result == 0) {
-				//Event and current are at the same times
-				//Can't add event due to scheduling conflict
-				return -1;
-			}
-			else if(result < 0) {
-				//Event is before result
-				return i;
-			}
-			else {
-				//Event is after result
-			}
-		}
-		//Event is after all the events in schedule
-		return schedule.size();
-	}
+//	private int findIndexWhereEventBelongs(Event e) {
+//		for(int i = 0; i < schedule.size(); i++) {
+//			Event current = schedule.get(i);
+//			int result = e.compareTo(current);
+//			if(result == 0) {
+//				//Event and current are at the same times
+//				//Can't add event due to scheduling conflict
+//				return -1;
+//			}
+//			else if(result < 0) {
+//				//Event is before result
+//				return i;
+//			}
+//			else {
+//				//Event is after result
+//			}
+//		}
+//		//Event is after all the events in schedule
+//		return schedule.size();
+//	}
 
 	@Override
 	public boolean removeEvent(Event e) {
@@ -72,31 +69,7 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
 		return oldschedule;
     }
 	
-	public Event removeEventByName(String eventName) {
-		int index = findEventIndexByName(eventName);
-		if(index != -1)
-			return schedule.remove(index);
-		return null;
-	}
+
 	
-	public Event findEventByName(String eventName) {
-		int index = findEventIndexByName(eventName);
-		if(index != -1) {
-			return schedule.get(index);
-		}
-		return null;
-	}
-	
-	
-	private int findEventIndexByName(String eventName) {
-		int index = -1;
-		for(int i = 0; i < schedule.size(); i++) {
-			Event e = schedule.get(i);
-			if(e == null)
-				return index;
-			else if (e.getName().equals(eventName))
-				return i;
-		}
-		return index;
-	}
+
 }
