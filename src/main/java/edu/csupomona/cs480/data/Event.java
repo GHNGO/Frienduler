@@ -1,6 +1,7 @@
 package edu.csupomona.cs480.data;
 
 import edu.csupomona.cs480.database.MalformedEventException;
+import edu.csupomona.cs480.util.EventListHelper;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -25,8 +26,8 @@ public class Event implements Comparable {
 
 
 	public Event(String linkedUserId, String name, Timestamp start, Timestamp end) throws MalformedEventException {
-		String[] s = parseIntoDateAndTime(start);
-		String[] e = parseIntoDateAndTime(end);
+		String[] s = EventListHelper.parseIntoDateAndTime(start);
+		String[] e = EventListHelper.parseIntoDateAndTime(end);
 
 		this.linkedUserId = linkedUserId;
 		this.name = name;
@@ -110,30 +111,5 @@ public class Event implements Comparable {
 	public int compareTo(Object arg0) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	public String[] parseIntoDateAndTime(Timestamp s) {
-		String[] ret = new String[2];
-
-		String startStr = s.toString();
-
-		String[] splitDT = startStr.split(" ");
-		String date = splitDT[0];
-		String time = splitDT[1];
-
-		String[] parseDate = date.split("-");
-		String year = parseDate[0];
-		String month = parseDate[1];
-		String day = parseDate[2];
-
-		String[] parseTime = time.split(":");
-		String hour = parseTime[0];
-		String min = parseTime[1];
-
-		String formDate = month + "/" + day + "/" + year;
-		String formTime = hour + ":" + min;
-		ret[0] = formDate;
-		ret[1] = formTime;
-		return ret;
 	}
 }
