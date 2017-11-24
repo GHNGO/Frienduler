@@ -13,6 +13,7 @@ import java.util.List;
 import edu.csupomona.cs480.data.*;
 import edu.csupomona.cs480.data.Number;
 import edu.csupomona.cs480.database.DatabaseInterface;
+import edu.csupomona.cs480.database.MalformedEventException;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.io.output.NullOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class WebController {
 	@Autowired
 	private CalendarUserManager calendarUserManager;
 	
+	//Can we create a new user from the url? Set false if we implement registering.
 	private static final boolean CREATE_USER_FROM_URL = true;
 
 	/**
@@ -164,6 +166,7 @@ public class WebController {
 	ModelAndView getUserHomepage() throws SQLException{
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("users", listAllUsers());
+		modelAndView.addObject("events", listEvents());
 		return modelAndView;
 	}
 
@@ -191,10 +194,23 @@ public class WebController {
 		ModelAndView modelAndView = new ModelAndView("MainPG");
 		return modelAndView;
 	}
-	@RequestMapping(value = "/Frienduler/compare", method = RequestMethod.GET)
-	ModelAndView compare() throws SQLException {
-		ModelAndView modelAndView = new ModelAndView("compare");
+	@RequestMapping(value = "/Frienduler/Addfriend", method = RequestMethod.GET)
+	ModelAndView Addfriend() throws SQLException {
+		ModelAndView modelAndView = new ModelAndView("Addfriend");
 		return modelAndView;
+	}
+	@RequestMapping(value = "/Frienduler/{userId}/compare", method = RequestMethod.GET)
+	ModelAndView compare(@PathVariable("userId") String userId ) throws SQLException {
+		ModelAndView modelAndView = new ModelAndView("compare");
+		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
+		if( userInstance != null ) {
+			modelAndView.addObject( "friends", userInstance.getFriends() );
+			modelAndView.addObject("userId", userId );
+			return modelAndView;
+		}
+		else {
+			return error();
+		}
 	}
 
 	@RequestMapping( value = "/Frienduler/{userId}", method = RequestMethod.GET)
@@ -204,6 +220,7 @@ public class WebController {
 		if( userInstance == null ) {
 			System.out.println( "[WebController] Cannot find user." );
 			if( CREATE_USER_FROM_URL ) {
+				System.out.println("CREATEUSERFROMURL");
 				calendarUserManager.addUser( userId );
 				userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
 			}
@@ -224,10 +241,49 @@ public class WebController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/Frienduler/createEvent", method = RequestMethod.GET)
-	ModelAndView test() throws SQLException {
+	@RequestMapping( value="/Frienduler/eventList", method= RequestMethod.GET)
+	EventList listEvents() {
+		return databaseInterface.getAllEvents();
+	}
+
+	@RequestMapping(value = "/Frienduler/{userId}/createEvent", method = RequestMethod.GET)
+	ModelAndView createEventForUser(@PathVariable("userId") String userId ) throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("tester");
+		modelAndView.addObject( "friends", calendarUserManager.getUser( userId ).getFriends() );
+		modelAndView.addObject("userId", userId );
 		return modelAndView;
+	}
+	
+	@RequestMapping( value = "/Frienduler/{userId}/createEvent", method = RequestMethod.POST )
+	void addEvent( @PathVariable("userId") String userId,
+				   @RequestParam("eventName") String eventName,
+				   @RequestParam("startDate") String startDate,
+				   @RequestParam("startTime") String startTime,
+				   @RequestParam("endDate") String endDate,
+				   @RequestParam("endTime") String endTime) throws MalformedEventException {
+		if (startDate.contains("-") && endDate.contains("-")) {
+			String[] startDateSplit = startDate.split("-");
+			String startMonth = startDateSplit[1];
+			String startDay = startDateSplit[2];
+			String startYear = startDateSplit[0];
+			String[] endDateSplit = endDate.split("-");
+			String endMonth = endDateSplit[1];
+			String endDay = endDateSplit[2];
+			String endYear = endDateSplit[0];
+			String[] startTimeSplit = startTime.split(":");
+			String[] endTimeSplit = endTime.split(":");
+			System.out.println("Running add event");
+			calendarUserManager.addEvent(userId, new Event(userId, eventName, startMonth, startDay, startYear, startTimeSplit[0], startTimeSplit[1], endMonth, endDay, endYear, endTimeSplit[0], endTimeSplit[1]));
+		} else {
+			calendarUserManager.addEvent(userId, new Event(userId, eventName, startTime, endTime, startDate, endDate));
+		}
+
+	}
+
+	@RequestMapping( value="/Frienduler/{userId}/{eventName}", method=RequestMethod.DELETE)
+	void deleteEvent(@PathVariable("userId") String userId,
+					 @PathVariable("eventName") String eventName) {
+		System.out.println(calendarUserManager.removeEvent(userId, eventName));
 	}
 
 

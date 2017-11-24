@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="../js/datepicker.css">
   <link rel="stylesheet" href="../js/tooplate-style.css">
   <link rel="stylesheet" href="../js/sidenav.css">
+  <link rel="stylesheet" href="../js/button.css">
+
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
   <script src="../js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -32,73 +34,92 @@
 <body class="pritty-body">
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a>Friend 1</a>
-  <a>Friend 2</a>
-  <a>Friend 3</a>
-  <a>Wumbo</a>
+  <#list friends as friend>
+  	<a>${friend.firstName} ${friend.lastName}</a>
+  </#list>
 </div>
-<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><span style="font-size: 17px;padding-right: 5px;"><br><br>&#9776; Friends List &emsp;&emsp;&emsp;</span></object></span>
 
-
-  <section class="banner" id="top">
-    <div id = "main">
-      <div class="container">
+<section class="banner" id="top">
+  <br>
+  <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
+  <object align="left"><a href="/Frienduler/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+  <object align="center"><a href="/Frienduler/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
+  <div id = "main">
+    <div class="container">
       <div class="row">
-        <div class="col-md-5">
-          <div class="left-side">
+        <div class="col-md-7 col-md-offset-2">
             <div class="logo">
               <img src="../js/logo.png" width="350" height="150">
             </div>
-            <div class="tabs-content">
-              <h4>Check Social media</h4>
-              <ul class="social-links">
-                <li><a href="http://facebook.com">Find on <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
-                <li><a href="http://youtube.com">Check <em>YouTube</em> Channel<i class="fa fa-youtube"></i></a></li>
-                <li><a href="http://instagram.com">Check <em>instagram</em><i class="fa fa-instagram"></i></a></li>
-              </ul>
-            </div>
-            <div class="page-direction-button">
-              <a href="/Frienduler/compare"><i class="fa fa-phone"></i>Current Events</a>
-            </div>
-          </div>
+          
         </div>
-        <div class="col-md-5 col-md-offset-1">
+        <div class="col-md-6 col-md-offset-3">
+        
           <section id="first-tab-group" class="tabgroup">
             <div id="tab1">
               <div class="submit-form">
-                <h4>Create an<em> event</em>:</h4>
                 <form id="form-submit" action="" method="get">
                   <div class="row">
+                    <div class="col-md-12">
+                      <fieldset>
+                        <label>Create an event:</label>
+                        <input type="text" class="form-control date" placeholder="Event name..." required="" onchange='this.form.()'>
+                      </fieldset>
+                    </div>
                     <div class="col-md-6">
                       <fieldset>
                         <label for="from">From:</label>
                         <select required name='from' onchange='this.form.()'>
                           <option value="">Select a Time...</option>
                           <option value="12:00 am">12:00 am</option>
+                          <option value="12:30 am">12:30 am</option>
                           <option value="1:00 am">1:00 am</option>
+                          <option value="1:30 am">1:30 am</option>
                           <option value="2:00 am">2:00 am</option>
+                          <option value="2:30 am">2:30 am</option>
                           <option value="3:00 am">3:00 am</option>
+                          <option value="3:30 am">3:30 am</option>
                           <option value="4:00 am">4:00 am</option>
+                          <option value="4:30 am">4:30 am</option>
                           <option value="5:00 am">5:00 am</option>
+                          <option value="5:30 am">5:30 am</option>
                           <option value="6:00 am">6:00 am</option>
+                          <option value="6:30 am">6:30 am</option>
                           <option value="7:00 am">7:00 am</option>
+                          <option value="7:30 am">7:30 am</option>
                           <option value="8:00 am">8:00 am</option>
+                          <option value="8:30 am">8:30 am</option>
                           <option value="9:00 am">9:00 am</option>
+                          <option value="9:30 am">9:30 am</option>
                           <option value="10:00 am">10:00 am</option>
+                          <option value="10:30 am">10:30 am</option>
                           <option value="11:00 am">11:00 am</option>
+                          <option value="11:30 am">11:30 am</option>
 
                           <option value="12:00 pm">12:00 pm</option>
+                          <option value="12:30 pm">12:30 pm</option>
                           <option value="1:00 pm">1:00 pm</option>
+                          <option value="1:30 pm">1:30 pm</option>
                           <option value="2:00 pm">2:00 pm</option>
+                          <option value="2:30 pm">2:30 pm</option>
                           <option value="3:00 pm">3:00 pm</option>
+                          <option value="3:30 pm">3:30 pm</option>
                           <option value="4:00 pm">4:00 pm</option>
+                          <option value="4:30 pm">4:30 pm</option>
                           <option value="5:00 pm">5:00 pm</option>
+                          <option value="5:30 pm">5:30 pm</option>
                           <option value="6:00 pm">6:00 pm</option>
+                          <option value="6:30 pm">6:30 pm</option>
                           <option value="7:00 pm">7:00 pm</option>
+                          <option value="7:30 pm">7:30 pm</option>
                           <option value="8:00 pm">8:00 pm</option>
+                          <option value="8:30 pm">8:30 pm</option>
                           <option value="9:00 pm">9:00 pm</option>
+                          <option value="9:30 pm">9:30 pm</option>
                           <option value="10:00 pm">10:00 pm</option>
+                          <option value="10:30 pm">10:30 pm</option>
                           <option value="11:00 pm">11:00 pm</option>
+                          <option value="11:30 pm">11:30 pm</option>
 
                         </select>
                       </fieldset>
@@ -108,31 +129,56 @@
                         <label for="to">To:</label>
                         <select required name='to' onchange='this.form.()'>
                           <option value="">Select a Time...</option>
-                          <option value="12:00 am">12:00 am</option>
+                        <option value="12:00 am">12:00 am</option>
+                          <option value="12:30 am">12:30 am</option>
                           <option value="1:00 am">1:00 am</option>
+                          <option value="1:30 am">1:30 am</option>
                           <option value="2:00 am">2:00 am</option>
+                          <option value="2:30 am">2:30 am</option>
                           <option value="3:00 am">3:00 am</option>
+                          <option value="3:30 am">3:30 am</option>
                           <option value="4:00 am">4:00 am</option>
+                          <option value="4:30 am">4:30 am</option>
                           <option value="5:00 am">5:00 am</option>
+                          <option value="5:30 am">5:30 am</option>
                           <option value="6:00 am">6:00 am</option>
+                          <option value="6:30 am">6:30 am</option>
                           <option value="7:00 am">7:00 am</option>
+                          <option value="7:30 am">7:30 am</option>
                           <option value="8:00 am">8:00 am</option>
+                          <option value="8:30 am">8:30 am</option>
                           <option value="9:00 am">9:00 am</option>
+                          <option value="9:30 am">9:30 am</option>
                           <option value="10:00 am">10:00 am</option>
+                          <option value="10:30 am">10:30 am</option>
                           <option value="11:00 am">11:00 am</option>
+                          <option value="11:30 am">11:30 am</option>
 
                           <option value="12:00 pm">12:00 pm</option>
+                          <option value="12:30 pm">12:30 pm</option>
                           <option value="1:00 pm">1:00 pm</option>
+                          <option value="1:30 pm">1:30 pm</option>
                           <option value="2:00 pm">2:00 pm</option>
+                          <option value="2:30 pm">2:30 pm</option>
                           <option value="3:00 pm">3:00 pm</option>
+                          <option value="3:30 pm">3:30 pm</option>
                           <option value="4:00 pm">4:00 pm</option>
+                          <option value="4:30 pm">4:30 pm</option>
                           <option value="5:00 pm">5:00 pm</option>
+                          <option value="5:30 pm">5:30 pm</option>
                           <option value="6:00 pm">6:00 pm</option>
+                          <option value="6:30 pm">6:30 pm</option>
                           <option value="7:00 pm">7:00 pm</option>
+                          <option value="7:30 pm">7:30 pm</option>
                           <option value="8:00 pm">8:00 pm</option>
+                          <option value="8:30 pm">8:30 pm</option>
                           <option value="9:00 pm">9:00 pm</option>
+                          <option value="9:30 pm">9:30 pm</option>
                           <option value="10:00 pm">10:00 pm</option>
+                          <option value="10:30 pm">10:30 pm</option>
                           <option value="11:00 pm">11:00 pm</option>
+                          <option value="11:30 pm">11:30 pm</option>
+
 
                         </select>
                       </fieldset>
@@ -140,7 +186,7 @@
                     <div class="col-md-6">
                       <fieldset>
                         <label for="Start Date">Start date:</label>
-                        <input name="deparure" type="text" class="form-control date" id="deparure" placeholder="Select date..." required="" onchange='this.form.()'>
+                        <input type="text" class="form-control date" placeholder="Select date..." required="" onchange='this.form.()'>
                       </fieldset>
                     </div>
                     <div class="col-md-6">
@@ -149,32 +195,32 @@
                         <input name="return" type="text" class="form-control date" id="return" placeholder="Select date..." required="" onchange='this.form.()'>
                       </fieldset>
                     </div>
+                    
                     <div class="col-md-6">
-                      <div class="radio-select">
-                        <div class="row">
-                          <div class="col-md-6 col-sm-6 col-xs-6">
-                            <label for="Full Day">Full Day</label>
-                            <input type="radio" name="trip" id="round" value="round" required="required"onchange='this.form.()'>
-                          </div>
-                          <div class="col-md-6 col-sm-6 col-xs-6">
-                            <label for="Half Day" >Half Day</label>
-                            <input type="radio" name="trip" id="oneway" value="one-way" required="required"onchange='this.form.()'>
-                          </div>
-                        </div>
-                      </div>
+                         <fieldset>
+                          	<button class="btn" type="submit" required="required" onchange='this.form.()'>Repeat every day</button>
+                         </fieldset>
                     </div>
+                    
                     <div class="col-md-6">
                       <fieldset>
                         <button type="submit" id="form-submit" class="btn">Set Event Now</button>
                       </fieldset>
                     </div>
+
                   </div>
                 </form>
+              
+             	 </div>
+              
+              <div>
               </div>
+              <object align="center"><a href="/Frienduler/${userId}"><input type="button" class="buttoner" value="Return to Home"/></a></object>
             </div>
           </section>
         </div>
       </div>
+    </div>
     </div>
   </section>
   <script>
@@ -188,6 +234,5 @@
       document.getElementById("main").style.marginRight = "0";
     }
   </script>
-</div>
 </body>
 </html>
