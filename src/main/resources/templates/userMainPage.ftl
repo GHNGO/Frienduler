@@ -17,8 +17,8 @@
 </div>
 <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
 <br>
-<object align="left"><a href="/Frienduler/${userId}/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
-<object align="center"><a href="/Frienduler/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
+<object align="left"><a href="/Frienduler/user/${userId}/addFriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+<object align="center"><a href="/Frienduler/user/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id = "main">
   <section>
   <!--for demo wrap-->
@@ -53,7 +53,7 @@
   </div>
 </section>
 
-  <object align="center"><a href="/Frienduler/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
+  <object align="center"><a href="/Frienduler/user/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
 
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="src/main/resources/static/assets/js/CompDex"></script>

@@ -72,7 +72,8 @@ public class PersonOnlineObjectPresenter {
   }
   
   public EventList getSchedule() {
-	  return currentUser.getSchedule();
+      return cum.getScheduleForUser(this.currentUser.id);
+//	  return currentUser.getSchedule();
   }
   
   public String getUserId() {

@@ -43,8 +43,8 @@
 <section class="banner" id="top">
   <br>
   <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
-  <object align="left"><a href="/Frienduler/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
-  <object align="center"><a href="/Frienduler/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
+  <object align="left"><a href="/Frienduler/user/${currentUser}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
+  <object align="center"><a href="/Frienduler/user/${currentUser}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
   <div id = "main">
     <div class="container">
       <div class="col-md-6 ">
@@ -89,7 +89,7 @@
                       <select required onchange='this.form.()'>
                         <option value="">Select a Group...</option>
                         <option value="(groupname)">Ghngo</option>
-                        <option value="(groupname2)">Wildthing</option>
+                          <option value="(groupname2)">Wildthing</option>
 
                       </select>
                     </fieldset>

@@ -4,8 +4,9 @@
   <title>Table</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-  <link rel="stylesheet" href="../assets/css/tealBody.css">
+  <link rel="stylesheet" href="/assets/css/tealBody.css">
   <link href="/js/tealBody.css" rel="stylesheet">
+  <script src="/assets/js/CompDex.js"></script>
 </head>
 
 <body class="sexy-body">
@@ -64,7 +65,7 @@
   <object align="center"><a href="./compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
 
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script src="src/main/resources/static/assets/js/CompDex"></script>
+
 
   <script>
     function openNav() {

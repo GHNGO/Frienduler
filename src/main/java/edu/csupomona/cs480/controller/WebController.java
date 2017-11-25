@@ -189,17 +189,56 @@ public class WebController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/Frienduler/Table", method = RequestMethod.GET)
-	ModelAndView Table() throws SQLException {
+	@RequestMapping(value = "/Frienduler/table", method = RequestMethod.GET)
+	ModelAndView table() throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("MainPG");
 		return modelAndView;
 	}
-	@RequestMapping(value = "/Frienduler/Addfriend", method = RequestMethod.GET)
-	ModelAndView Addfriend() throws SQLException {
-		ModelAndView modelAndView = new ModelAndView("Addfriend");
-		return modelAndView;
+	@RequestMapping(value = "/Frienduler/user/{userId}/addFriend", method = RequestMethod.GET)
+	ModelAndView addFriend(@PathVariable("userId") String userId) throws SQLException {
+		ModelAndView modelAndView = new ModelAndView("addFriend");
+		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter(userId);
+		if (userInstance != null) {
+			modelAndView.addObject("currentUser", userId);
+			return modelAndView;
+		} else {
+			return error();
+		}
 	}
-	@RequestMapping(value = "/Frienduler/{userId}/compare", method = RequestMethod.GET)
+
+	@RequestMapping(value="/Frienduler/user/{userId}/{friendName}", method = RequestMethod.POST)
+	void addFriend(@PathVariable("userId") String userId,
+					  @PathVariable("friendName") String friendName) {
+		IndividualUser user = databaseInterface.getUser(userId);
+		if (user != null) {
+			FriendsList friends = user.getFriends();
+			IndividualUser fri = databaseInterface.getUser(friendName);
+			if (fri != null) {
+				if (!friends.contains(fri) && !friends.toString().contains(String.valueOf(fri.getIdNum()))) {
+					friends.add(fri);
+					databaseInterface.updateUser(user);
+				}
+			}
+		}
+	}
+
+	@RequestMapping(value="/Frienduler/user/{userId}/{friendName}", method = RequestMethod.DELETE)
+	void deleteFriend(@PathVariable("userId") String userId,
+					  @PathVariable("friendName") String friendName) {
+		IndividualUser user = databaseInterface.getUser(userId);
+		if (user != null) {
+			FriendsList friends = user.getFriends();
+			IndividualUser fri = databaseInterface.getUser(friendName);
+			if (fri != null) {
+				if (friends.contains(fri) || friends.toString().contains(String.valueOf(fri.getIdNum()))) {
+					friends.remove(fri);
+					databaseInterface.updateUser(user);
+				}
+			}
+		}
+	}
+
+	@RequestMapping(value = "/Frienduler/user/{userId}/compare", method = RequestMethod.GET)
 	ModelAndView compare(@PathVariable("userId") String userId ) throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("compare");
 		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
@@ -213,7 +252,7 @@ public class WebController {
 		}
 	}
 
-	@RequestMapping( value = "/Frienduler/{userId}", method = RequestMethod.GET)
+	@RequestMapping( value = "/Frienduler/user/{userId}", method = RequestMethod.GET)
 	ModelAndView userMainPage(@PathVariable("userId") String userId ) throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("userMainPage");
 		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
@@ -246,7 +285,7 @@ public class WebController {
 		return databaseInterface.getAllEvents();
 	}
 
-	@RequestMapping(value = "/Frienduler/{userId}/createEvent", method = RequestMethod.GET)
+	@RequestMapping(value = "/Frienduler/user/{userId}/createEvent", method = RequestMethod.GET)
 	ModelAndView createEventForUser(@PathVariable("userId") String userId ) throws SQLException {
 		ModelAndView modelAndView = new ModelAndView("tester");
 		modelAndView.addObject( "friends", calendarUserManager.getUser( userId ).getFriends() );
@@ -254,13 +293,14 @@ public class WebController {
 		return modelAndView;
 	}
 	
-	@RequestMapping( value = "/Frienduler/{userId}/createEvent", method = RequestMethod.POST )
+	@RequestMapping( value = "/Frienduler/user/{userId}/createEvent", method = RequestMethod.POST )
 	void addEvent( @PathVariable("userId") String userId,
 				   @RequestParam("eventName") String eventName,
 				   @RequestParam("startDate") String startDate,
 				   @RequestParam("startTime") String startTime,
 				   @RequestParam("endDate") String endDate,
 				   @RequestParam("endTime") String endTime) throws MalformedEventException {
+		System.err.println("Running addEvent");
 		if (startDate.contains("-") && endDate.contains("-")) {
 			String[] startDateSplit = startDate.split("-");
 			String startMonth = startDateSplit[1];
@@ -280,7 +320,34 @@ public class WebController {
 
 	}
 
-	@RequestMapping( value="/Frienduler/{userId}/{eventName}", method=RequestMethod.DELETE)
+	@RequestMapping( value = "/Frienduler/user/{userId}/event/{eventName}", method = RequestMethod.POST )
+	void addEventNameInPath( @PathVariable("userId") String userId,
+				   @PathVariable("eventName") String eventName,
+				   @RequestParam("startDate") String startDate,
+				   @RequestParam("startTime") String startTime,
+				   @RequestParam("endDate") String endDate,
+				   @RequestParam("endTime") String endTime) throws MalformedEventException {
+		System.err.println("Running addEvent");
+		if (startDate.contains("-") && endDate.contains("-")) {
+			String[] startDateSplit = startDate.split("-");
+			String startMonth = startDateSplit[1];
+			String startDay = startDateSplit[2];
+			String startYear = startDateSplit[0];
+			String[] endDateSplit = endDate.split("-");
+			String endMonth = endDateSplit[1];
+			String endDay = endDateSplit[2];
+			String endYear = endDateSplit[0];
+			String[] startTimeSplit = startTime.split(":");
+			String[] endTimeSplit = endTime.split(":");
+			System.out.println("Running add event");
+			calendarUserManager.addEvent(userId, new Event(userId, eventName, startMonth, startDay, startYear, startTimeSplit[0], startTimeSplit[1], endMonth, endDay, endYear, endTimeSplit[0], endTimeSplit[1]));
+		} else {
+			calendarUserManager.addEvent(userId, new Event(userId, eventName, startTime, endTime, startDate, endDate));
+		}
+
+	}
+
+	@RequestMapping( value="/Frienduler/user/{userId}/{eventName}", method=RequestMethod.DELETE)
 	void deleteEvent(@PathVariable("userId") String userId,
 					 @PathVariable("eventName") String eventName) {
 		System.out.println(calendarUserManager.removeEvent(userId, eventName));

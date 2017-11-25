@@ -31,9 +31,8 @@ function addEvent() {
         $.ajax(
             {
                 type : "POST",
-                url  : "/Frienduler/" + userName + "/createEvent",
+                url  : "/Frienduler/user/" + userName + "/event/" + eventName,
                 data : {
-                    "eventName" : eventName,
 					"startDate" : startDate,
 					"startTime" : startTime,
 					"endDate" : endDate,
@@ -43,7 +42,7 @@ function addEvent() {
                     location.reload();
                 },
                 error: function (jqXHR, exception) {
-                    alert("Failed to add the user. Please check the inputs.");
+                    alert("Failed to add the event. Please check the inputs.");
                 }
             });
     } else {
@@ -58,7 +57,7 @@ function deleteEvent(userId, eventId) {
     $.ajax(
         {
             type : "DELETE",
-            url  : "/Frienduler/" + userId + "/" + eventId,
+            url  : "/Frienduler/user/" + userId + "/" + eventId,
             data : {
             },
             success : function(result) {

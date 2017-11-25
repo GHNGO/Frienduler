@@ -99,7 +99,7 @@
                 <tr>
                     <td>${event.name}</td>
                     <td>${event.linkedUserId}</td>
-                    <td>${event.startDate}</td>
+                    <td >${event.startDate}</td>
                     <td>${event.startTime}</td>
                     <td>${event.endDate}</td>
                     <td>${event.endTime}</td>

@@ -1,6 +1,7 @@
 package edu.csupomona.cs480.data;
 
 import edu.csupomona.cs480.App;
+import edu.csupomona.cs480.data.provider.EventList;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,31 @@ public class IndividualUser extends CalendarUser{
 		this.lastName = lastName;
 		this.idNum = idNum;
 		this.friends = friends;
+		this.groupsJoined = new ArrayList<>();
+	}
+
+	public IndividualUser(int idNum, String id, String firstName, String lastName, String friends, EventList schedule) {
+		super(id);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.idNum = idNum;
+
+		FriendsList friendsList = new FriendsList();
+
+		if (friends.equals("{}")) {
+			this.friends = friendsList;
+		} else {
+			String[] s = friends.split("[{},]");
+			for (int i = 1; i < s.length; i++) {
+				IndividualUser u = App.sqlInterface().getUser(Integer.parseInt(s[i]));
+				if (u != null) {
+					friendsList.add(u);
+				}
+			}
+		}
+
+		this.friends = friendsList;
+		this.setSchedule(schedule);
 		this.groupsJoined = new ArrayList<>();
 	}
 	

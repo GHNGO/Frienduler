@@ -130,7 +130,8 @@ public class CalendarUserManager {
   public EventList getScheduleForUser( String user ) {
 	  IndividualUser iUser = getUser( user );
 	  if( user != null ) {
-		  return iUser.getSchedule();
+	      return databaseInterface.getEvents(user);
+//		  return iUser.getSchedule();
 	  }
 	  return null;
   }
@@ -222,7 +223,9 @@ public class CalendarUserManager {
       if (user == null) {
           return false;
       } else {
-          if (user.addEvent(e)) {
+          boolean b = user.addEvent(e);
+          System.out.println(b);
+          if (b) {
               databaseInterface.addEvent(e);
               return true;
           } else {

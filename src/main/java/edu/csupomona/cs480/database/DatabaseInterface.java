@@ -112,7 +112,7 @@ public class DatabaseInterface {
                 } else {
                     results.next();
                     IndividualUser u;
-                    u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
+                    u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5), getEvents(userId));
                     return u;
                 }
             } else {
@@ -522,7 +522,7 @@ public class DatabaseInterface {
         try {
             PreparedStatement s = sql.prepareStatement("SELECT userId, eventName, startMonth, startDay, startYear, startHour, startMinute" +
                     ", endMonth, endDay, endYear, endHour, endMinute FROM Events WHERE userId=?");
-            s.setString(1, userName);
+            s.setInt(1, getIdOfUser(userName));
             s.execute();
             ResultSet results = s.getResultSet();
             ResultSetMetaData resultsMeta = s.getMetaData();
@@ -534,7 +534,7 @@ public class DatabaseInterface {
 
             while (!results.isLast()) {
                 results.next();
-                Event e = new Event(getUser(results.getString(1)).getId(), results.getString(2),
+                Event e = new Event(getUser(results.getInt(1)).getId(), results.getString(2),
                         results.getInt(3), results.getInt(4), results.getInt(5),
                         results.getInt(6), results.getInt(7), results.getInt(8),
                         results.getInt(9), results.getInt(10), results.getInt(11),
@@ -544,6 +544,7 @@ public class DatabaseInterface {
 
             return events;
         } catch (SQLException e) {
+            System.err.println("SQLE");
             sqlException(e);
             return null;
         }
