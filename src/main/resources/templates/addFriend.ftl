@@ -114,7 +114,7 @@
     </div>
   </div>
   <div class="col-md-6 col-md-offset-3" >
-    <object align="center"><a href="/Frienduler/"><input type="button" class="buttoner" value="Return to Home"/></a></object>
+    <object align="center"><a href="/Frienduler/user/${currentUser}/"><input type="button" class="buttoner" value="Return to Home"/></a></object>
   </div>
 </section>
 <script>

@@ -2,7 +2,7 @@
 
 <head>
     <title>List of all users in database</title>
-  <link rel="stylesheet" href="../assets/css/tealBody.css">
+  <link rel="stylesheet" href="/assets/css/tealBody.css">
 </head>
 
 <body class="natural-body">

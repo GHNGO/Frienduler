@@ -12,14 +12,14 @@
   <title>Frienduler</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="../static/assets/css/bootstrap.css" rel="stylesheet">
+  <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="../static/assets/css/landingpage.css" rel="stylesheet">
+  <link href="/static/assets/css/landingpage.css" rel="stylesheet">
   <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css">
 
-  <script src="../static/assets/js/jquery.min.js"></script>
-  <script src="../static/assets/js/modernizr.custom.js"></script>
+  <script src="/static/assets/js/jquery.min.js"></script>
+  <script src="/static/assets/js/modernizr.custom.js"></script>
 
 
   <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
@@ -53,7 +53,7 @@
   <div id="headerwrap">
     <div class="container">
       <div class="logo">
-        <img src="../static/assets/img/calendar-white.png" width="80" height="71">
+        <img src="/static/assets/img/calendar-white.png" width="80" height="71">
       </div>
       <div class="row">
         <h1>
@@ -65,7 +65,6 @@
         <br>
         <br>
         <div class="col-lg-6 col-lg-offset-3">
-          <!-- TODO: make the login field communicate w/ back end -->
           <h2>
             <font color = "FFFFFF">Login</font>
           </h2>
@@ -92,7 +91,7 @@
         <h1>What is Frienduler?</h1>
         <p>A web service created by five students at Cal Poly Pomona to store schedules and generate times where friends can hang out, so they don't have to figure it out themselves.</p>
         <h1>How do I log in?</h1>
-        <p>Simply enter your username in the box above.</p>
+        <p>Simply enter your username in the box above and press the enter button on your keyboard.</p>
         <h1>Why can't I see my events?
           These events shown aren't mine.</h1>
         <p>Check to make sure that you entered the correct user ID, case sensitive.</p>
