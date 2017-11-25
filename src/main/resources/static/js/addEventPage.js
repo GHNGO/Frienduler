@@ -21,12 +21,36 @@ function addEvent(userName) {
                 success : function(result) {
                     alert("Event added successfully");
                     location.reload();
-                },
-                error: function (jqXHR, exception) {
-                    alert("Failed to add the event. Please check the inputs.");
                 }
+                // error: function (jqXHR, exception, ex) {
+                //     alert(exception);
+                //     alert(ex);
+                //     alert("Failed to add the event. Please check the inputs.");
+                // }
             });
     } else {
         alert("Invalid user Id");
+    }
+}
+
+function deleteEvent(userName, eventName) {
+
+    if (userName && eventName) {
+        $.ajax(
+            {
+                type : "DELETE",
+                url  : "/Frienduler/user/" + userName + "/event/" + eventName,
+                data : {
+                },
+                success : function(result) {
+                    alert("Event deleted successfully");
+                    location.reload();
+                },
+                error: function (jqXHR, exception) {
+                    alert("Failed to delete the event.");
+                }
+            });
+    } else {
+        alert("Invalid User/Event Id");
     }
 }

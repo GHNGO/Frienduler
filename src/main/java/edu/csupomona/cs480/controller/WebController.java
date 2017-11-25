@@ -287,7 +287,7 @@ public class WebController {
 
 	@RequestMapping(value = "/Frienduler/user/{userId}/createEvent", method = RequestMethod.GET)
 	ModelAndView createEventForUser(@PathVariable("userId") String userId ) throws SQLException {
-		ModelAndView modelAndView = new ModelAndView("tester");
+		ModelAndView modelAndView = new ModelAndView("createEvent");
 		modelAndView.addObject( "friends", calendarUserManager.getUser( userId ).getFriends() );
 		modelAndView.addObject("userId", userId );
 		return modelAndView;
@@ -347,7 +347,7 @@ public class WebController {
 
 	}
 
-	@RequestMapping( value="/Frienduler/user/{userId}/{eventName}", method=RequestMethod.DELETE)
+	@RequestMapping( value="/Frienduler/user/{userId}/event/{eventName}", method=RequestMethod.DELETE)
 	void deleteEvent(@PathVariable("userId") String userId,
 					 @PathVariable("eventName") String eventName) {
 		System.out.println(calendarUserManager.removeEvent(userId, eventName));

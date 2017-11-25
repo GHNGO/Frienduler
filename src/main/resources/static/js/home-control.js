@@ -57,7 +57,7 @@ function deleteEvent(userId, eventId) {
     $.ajax(
         {
             type : "DELETE",
-            url  : "/Frienduler/user/" + userId + "/" + eventId,
+            url  : "/Frienduler/user/" + userId + "/event/" + eventId,
             data : {
             },
             success : function(result) {

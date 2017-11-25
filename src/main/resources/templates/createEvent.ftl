@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="/js/sidenav.css">
   <link rel="stylesheet" href="/js/button.css">
 
-  <script src="/js/addEvent.js"></script>
+  <script src="/js/addEventPage.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
