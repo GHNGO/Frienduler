@@ -19,7 +19,7 @@
 </div>
 <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
 <br>
-<object align="left"><a href="./add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+<object align="left"><a href="./Addfriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
 <object align="center"><a href="./createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id = "main">
 
