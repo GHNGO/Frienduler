@@ -17,7 +17,7 @@
   </#list>
 </div>
 <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
-<object align="left"><a href="/Frienduler/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+<object align="left"><a href="/Frienduler/Addfriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
 <object align="center"><a href="/Frienduler/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id="main">
   <section class="wrapper">

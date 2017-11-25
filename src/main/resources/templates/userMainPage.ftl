@@ -4,7 +4,7 @@
   <title>Table</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-  <link rel="stylesheet" href="../assets/css/tealBody.css">
+  <link rel="stylesheet" href="/assets/css/tealBody.css">
 	<link href="/js/tealBody.css" rel="stylesheet">
 </head>
 
@@ -17,7 +17,7 @@
 </div>
 <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
 <br>
-<object align="left"><a href="/Frienduler/${userId}/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+<object align="left"><a href="/Frienduler/${userId}/Addfriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
 <object align="center"><a href="/Frienduler/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id = "main">
   <section>

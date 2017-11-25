@@ -16,19 +16,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <link rel="stylesheet" href="../js/bootstrap.min.css">
-  <link rel="stylesheet" href="../js/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="../js/fontAwesome.css">
-  <link rel="stylesheet" href="../js/hero-slider.css">
-  <link rel="stylesheet" href="../js/owl-carousel.css">
-  <link rel="stylesheet" href="../js/datepicker.css">
-  <link rel="stylesheet" href="../js/tooplate-style.css">
-  <link rel="stylesheet" href="../js/sidenav.css">
-  <link rel="stylesheet" href="../js/button.css">
+  <link rel="stylesheet" href="/js/bootstrap.min.css">
+  <link rel="stylesheet" href="/js/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/js/fontAwesome.css">
+  <link rel="stylesheet" href="/js/hero-slider.css">
+  <link rel="stylesheet" href="/js/owl-carousel.css">
+  <link rel="stylesheet" href="/js/datepicker.css">
+  <link rel="stylesheet" href="/js/tooplate-style.css">
+  <link rel="stylesheet" href="/js/sidenav.css">
+  <link rel="stylesheet" href="/js/button.css">
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
-  <script src="../js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+  <script src="/js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 
 <body class="pritty-body">
@@ -42,7 +42,7 @@
 <section class="banner" id="top">
   <br>
   <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
-  <object align="left"><a href="/Frienduler/add"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+  <object align="left"><a href="/Frienduler/${userId}/Addfriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
   <object align="center"><a href="/Frienduler/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
   <div id = "main">
     <div class="container">
