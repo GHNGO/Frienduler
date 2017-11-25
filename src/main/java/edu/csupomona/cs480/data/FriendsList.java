@@ -20,5 +20,4 @@ public class FriendsList extends ArrayList<IndividualUser> {
         m = m + "}";
         return m;
     }
-
 }

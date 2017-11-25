@@ -4,7 +4,7 @@
   <title>Table</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-  <link rel="stylesheet" href="../assets/css/tealBody.css">
+  <link rel="stylesheet" href="/assets/css/tealBody.css">
 	<link href="/js/tealBody.css" rel="stylesheet">
 </head>
 
@@ -15,9 +15,12 @@
   	<a>${friend.firstName} ${friend.lastName}</a>
   </#list>
 </div>
-<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right">&#9776; Friends List &emsp;&emsp;&emsp;</object></span>
+<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
+<br>
+<object align="left"><a href="/Frienduler/user/${userId}/addFriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+<object align="center"><a href="/Frienduler/user/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id = "main">
-<section>
+  <section>
   <!--for demo wrap-->
   <h1>Events for ${userId}</h1>
   <div class="tbl-header">
@@ -50,7 +53,9 @@
   </div>
 </section>
 
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <object align="center"><a href="/Frienduler/user/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="src/main/resources/static/assets/js/CompDex"></script>
 
 <script>

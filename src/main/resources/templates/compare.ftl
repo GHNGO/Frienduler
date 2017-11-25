@@ -12,13 +12,13 @@
 <body class="pritty-body">
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a>Friend 1</a>
-  <a>Friend 2</a>
-  <a>Friend 3</a>
-  <a>Wumbo</a>
+  <#list friends as friend>
+  	<a>${friend.firstName} ${friend.lastName}</a>
+  </#list>
 </div>
-<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right">&#9776; Friends List &emsp;&emsp;&emsp;</object></span>
-
+<span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
+<object align="left"><a href="/Frienduler/addFriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+<object align="center"><a href="/Frienduler/user/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id="main">
   <section class="wrapper">
     <section>
@@ -42,13 +42,14 @@
         <table cellpadding="0" cellspacing="0" border="0">
           <tbody>
           <form>
-            <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="Loyed"/></td><td>loyed</td>
-            <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="jarod"/></td><td>jarod</td>
-            <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="conner"/></td><td>conner</td>
-            <tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="genny"/></td><td>genny</td>
+          	<#list friends as friend>
+            	<tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="${friend.firstName} ${friend.lastName}"/></td><td>${friend.firstName} ${friend.lastName}</td>
+            </#list>
             </tr>
             <td>
-              <button type="Button" name="submit" value="Submit"  onClick="CallFunction();">Compare</button>
+           
+              <input type="button" class="buttoner" name="submit" value="Compare"/>
+    
             </td>
             <td></td>
           </form>
@@ -95,8 +96,8 @@
         </table>
       </div>
     </section>
-
   </section>
+
   <script>
     function openNav() {
       document.getElementById("mySidenav").style.width = "250px";
@@ -109,6 +110,7 @@
   </script>
 </div>
 
+<object align="center"><a href="/Frienduler/user/${userId}"><input type="button" class="buttoner" value="Return to Home"/></a></object>
 
 </body>
 </html>

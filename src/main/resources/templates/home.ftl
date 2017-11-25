@@ -67,7 +67,7 @@
         <div>
             <label>Query User</label>
             <input type="text" id="query_id"><button onclick="getUser()">Get</button>
-            <table border="1">
+            <table border="1" id="queryUserTable">
                 <tr>
                     <td>Username</td>
                     <td>First Name</td>
@@ -80,6 +80,65 @@
                 </tr>
             </table>
         </div>
+
+        <hr>
+
+        <div>
+            <label>Event List</label>
+            <table border="1">
+                <tr>
+                    <td>Name</td>
+                    <td>Linked User</td>
+                    <td>Start Date</td>
+                    <td>Start Time</td>
+                    <td>End Date</td>
+                    <td>End Time</td>
+                    <td>Delete</td>
+                </tr>
+            <#list events as event>
+                <tr>
+                    <td>${event.name}</td>
+                    <td>${event.linkedUserId}</td>
+                    <td >${event.startDate}</td>
+                    <td>${event.startTime}</td>
+                    <td>${event.endDate}</td>
+                    <td>${event.endTime}</td>
+                    <td><button onclick="deleteEvent('${event.linkedUserId}', '${event.name}')">Delete</button></td>
+                </tr>
+            </#list>
+            </table>
+        </div>
+
+        <hr>
+
+        <div>
+            <label>Add Event</label>
+            <table border="1">
+                <tr>
+                    <td>Name</td>
+                    <td>User ID</td>
+                    <td>Start Date</td>
+                    <td>Start Time</td>
+                    <td>End Date</td>
+                    <td>End Time</td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="input_event_name"></td>
+                    <td><select datatype="text" itemtype="text" id="input_user_id">
+                        <#list users as user>
+                            <option value="${user.id}">${user.id}</option>
+                        </#list>
+                    </select></td>
+                    <td><input type="date" id="input_start_date"></td>
+                    <td><input type="time" id="input_start_time"></td>
+                    <td><input type="date" id="input_end_date"></td>
+                    <td><input type="time" id="input_end_time"></td>
+                    <td><button onclick="addEvent()">Add</button></td>
+                </tr>
+            </table>
+        </div>
+
+
     </div>
     
     

@@ -17,6 +17,60 @@ function healthCheck() {
 }
 
 
+function addEvent() {
+
+    var eventName = $('#input_event_name').val();
+    var userName = $('#input_user_id').val();
+    var startDate = $('#input_start_date').val();
+    var startTime = $('#input_start_time').val();
+    var endDate = $('#input_end_date').val();
+    var endTime = $('#input_end_time').val();
+
+
+    if (userName) {
+        $.ajax(
+            {
+                type : "POST",
+                url  : "/Frienduler/user/" + userName + "/event/" + eventName,
+                data : {
+					"startDate" : startDate,
+					"startTime" : startTime,
+					"endDate" : endDate,
+					"endTime" : endTime
+                },
+                success : function(result) {
+                    location.reload();
+                },
+                error: function (jqXHR, exception) {
+                    alert("Failed to add the event. Please check the inputs.");
+                }
+            });
+    } else {
+        alert("Invalid user Id");
+    }
+}
+
+
+function deleteEvent(userId, eventId) {
+	console.log(userId);
+	console.log(eventId);
+    $.ajax(
+        {
+            type : "DELETE",
+            url  : "/Frienduler/user/" + userId + "/" + eventId,
+            data : {
+            },
+            success : function(result) {
+                location.reload();
+            },
+            error: function (jqXHR, exception) {
+                alert("Failed to delete the event.");
+            }
+        });
+}
+
+
+
 function deleteUser(userId) {
 	$.ajax(
 			{

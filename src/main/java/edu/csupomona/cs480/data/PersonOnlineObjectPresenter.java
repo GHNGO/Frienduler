@@ -1,9 +1,12 @@
 package edu.csupomona.cs480.data;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import edu.csupomona.cs480.data.provider.CalendarUserManager;
 import edu.csupomona.cs480.data.provider.EventList;
+import edu.csupomona.cs480.database.MalformedEventException;
 
 public class PersonOnlineObjectPresenter {
 
@@ -15,26 +18,17 @@ public class PersonOnlineObjectPresenter {
     currentUser = cum.getUser(user);
   }
 
-  public boolean addEvent(String event) {
-	Event e = currentUser.findEventByName(event);
-	if(e != null) {
-		return false;
-	}
-	currentUser.addEvent(e);
-    return true;
+  public boolean addEvent(String event) throws MalformedEventException {
+	return cum.addEvent(currentUser.getId(), new Event(currentUser.getId(), event, Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now())));
   }
 
   public boolean removeEvent(String event) {
-	Event e = currentUser.removeEventByName(event);
-	if(e != null) {
-		return true;
-	}
-    return false;
+    return cum.removeEvent(currentUser.getId(), event);
   }
 
   //compares schedules with s
   public String compareSchedules(String s) {
-	ArrayList<CalendarUser> calUsers = new ArrayList<CalendarUser>();
+	ArrayList<CalendarUser> calUsers = new ArrayList<>();
 	CalendarUser calUser = cum.getGroup(s);
 	if(calUser == null) {
 		calUser = cum.getUser(s);
@@ -76,7 +70,8 @@ public class PersonOnlineObjectPresenter {
   }
   
   public EventList getSchedule() {
-	  return currentUser.getSchedule();
+      return cum.getScheduleForUser(this.currentUser.id);
+//	  return currentUser.getSchedule();
   }
   
   public String getUserId() {

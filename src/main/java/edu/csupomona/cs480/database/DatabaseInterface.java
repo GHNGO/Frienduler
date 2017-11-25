@@ -39,10 +39,11 @@ public class DatabaseInterface {
      */
     public void addUser(IndividualUser u) {
         try {
-            PreparedStatement s = sql.prepareStatement("INSERT INTO Users (userName, firstName, lastName) VALUES (?,?,?);");
+            PreparedStatement s = sql.prepareStatement("INSERT INTO Users (userName, firstName, lastName, friends) VALUES (?,?,?,?);");
             s.setString(1, u.getId());
             s.setString(2, u.getFirstName());
             s.setString(3, u.getLastName());
+            s.setString(4, u.getFriends().toString());
             s.execute();
 
         } catch (SQLException e) {
@@ -111,7 +112,7 @@ public class DatabaseInterface {
                 } else {
                     results.next();
                     IndividualUser u;
-                    u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
+                    u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5), getEvents(userId));
                     return u;
                 }
             } else {
@@ -141,6 +142,29 @@ public class DatabaseInterface {
                 }
             } else {
                 return null;
+            }
+
+        } catch (SQLException e) {
+            sqlException(e);
+            return null;
+        }
+    }
+
+    public String getUserNameFromIdNum(int id) {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT id, userName FROM Users WHERE id=?;");
+            s.setInt(1,id);
+
+            if (s.execute()) {
+                ResultSet results = s.getResultSet();
+                if (!results.isBeforeFirst()) {
+                    return "";
+                } else {
+                    results.next();
+                    return results.getString(2);
+                }
+            } else {
+                return "";
             }
 
         } catch (SQLException e) {
@@ -390,7 +414,7 @@ public class DatabaseInterface {
      * @throws MalformedEventException If the dates or times in the event are not in the correct formatting
      */
     public void addEvent(Event e) throws MalformedEventException {
-        addEvent(e.getLinkedUserId(), e.getStartDate(), e.getEndDate(), e.getStartTime(), e.getEndTime());
+        addEvent(e.getLinkedUserId(), e.getName(), e.getStartDate(), e.getEndDate(), e.getStartTime(), e.getEndTime());
     }
 
     /**
@@ -402,12 +426,13 @@ public class DatabaseInterface {
      * @param endTime End time for the event in the format "hh:mm"
      * @throws MalformedEventException if the dates or times are not in the correct formatting
      */
-    public void addEvent(String linkedUserId, String startDate, String endDate, String startTime, String endTime) throws MalformedEventException {
+    public void addEvent(String linkedUserId, String eventName, String startDate, String endDate, String startTime, String endTime) throws MalformedEventException {
 
         int idUser = getIdOfUser(linkedUserId);
 
         if (!(startDate.matches("[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9]") && endDate.matches("[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9]") &&
                 startTime.matches("^[0-1][0-9][:][0-9][0-9]$|^[0-9][:][0-9][0-9]$") && startTime.matches("^[0-1][0-9][:][0-9][0-9]$|^[0-9][:][0-9][0-9]$"))) {
+            System.err.println("Bad Event formatting");
             throw new MalformedEventException();
         }
 
@@ -429,29 +454,43 @@ public class DatabaseInterface {
         int endHour = Integer.parseInt(parseEndTime[0]);
         int endMin = Integer.parseInt(parseEndTime[1]);
 
-        Timestamp start = Timestamp.valueOf(LocalDateTime.of(startYear, startMonth, startDay, startHour, startMin));
-        Timestamp end = Timestamp.valueOf(LocalDateTime.of(endYear, endMonth, endDay, endHour, endMin));
-
         try{
-            PreparedStatement s = sql.prepareStatement("INSERT INTO Events (userId, startTime, endTime) VALUES (?,?,?)");
+            PreparedStatement s = sql.prepareStatement("INSERT INTO Events (userId, eventName, startMonth, startDay, startYear, " +
+                    "startHour, startMinute, endMonth, endDay, endYear, endHour, endMinute) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
             s.setInt(1, idUser);
-            s.setTimestamp(2, start);
-            s.setTimestamp(3, end);
+            s.setString(2, eventName);
+            s.setInt(3, startMonth);
+            s.setInt(4,startDay);
+            s.setInt(5, startYear);
+            s.setInt(6, startHour);
+            s.setInt(7, startMin);
+            s.setInt(8, endMonth);
+            s.setInt(9, endDay);
+            s.setInt(10, endYear);
+            s.setInt(11, endHour);
+            s.setInt(12, endMin);
+            s.execute();
         } catch (SQLException e) {
             sqlException(e);
         }
     }
 
-    /**
-     * Gets all events for a certain user
-     * @param userName The user to get the events for
-     * @return A list of events for the user
-     */
-    public EventList getEvents(String userName) {
-        try {
-            PreparedStatement s = sql.prepareStatement("SELECT userId, eventName, startTime, endTime FROM Events WHERE userId=?");
-            s.setString(1, userName);
+    public void deleteEvent(String userId, String eventName) {
+        try{
+            PreparedStatement s = sql.prepareStatement("DELETE FROM Events WHERE userId=? AND eventName=?");
+            s.setInt(1, getIdOfUser(userId));
+            s.setString(2, eventName);
+            s.execute();
+        } catch (SQLException e) {
+            sqlException(e);
+        }
+    }
 
+    public EventList getAllEvents() {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT userId, eventName, startMonth, startDay, startYear, startHour, startMinute" +
+                    ", endMonth, endDay, endYear, endHour, endMinute FROM Events ");
+            s.execute();
             ResultSet results = s.getResultSet();
             ResultSetMetaData resultsMeta = s.getMetaData();
             int colCount = resultsMeta.getColumnCount();
@@ -462,7 +501,8 @@ public class DatabaseInterface {
 
             while (!results.isLast()) {
                 results.next();
-                Event e = new Event(getUser(results.getString(1)).getId(), results.getString(2), results.getTimestamp(3), results.getTimestamp(4));
+                Event e = new Event(getUserNameFromIdNum(results.getInt(1)), results.getString(2), results.getInt(3), results.getInt(4), results.getInt(5), results.getInt(6), results.getInt(7), results.getInt(8), results.getInt(9), results.getInt(10),
+                        results.getInt(11), results.getInt(12));
                 events.add(e);
             }
 
@@ -470,8 +510,42 @@ public class DatabaseInterface {
         } catch (SQLException e) {
             sqlException(e);
             return null;
-        } catch (MalformedEventException e) {
-            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Gets all events for a certain user
+     * @param userName The user to get the events for
+     * @return A list of events for the user
+     */
+    public EventList getEvents(String userName) {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT userId, eventName, startMonth, startDay, startYear, startHour, startMinute" +
+                    ", endMonth, endDay, endYear, endHour, endMinute FROM Events WHERE userId=?");
+            s.setInt(1, getIdOfUser(userName));
+            s.execute();
+            ResultSet results = s.getResultSet();
+            ResultSetMetaData resultsMeta = s.getMetaData();
+            int colCount = resultsMeta.getColumnCount();
+            EventList events = new EventList();
+            if (!results.isBeforeFirst()) {
+                return events;
+            }
+
+            while (!results.isLast()) {
+                results.next();
+                Event e = new Event(getUser(results.getInt(1)).getId(), results.getString(2),
+                        results.getInt(3), results.getInt(4), results.getInt(5),
+                        results.getInt(6), results.getInt(7), results.getInt(8),
+                        results.getInt(9), results.getInt(10), results.getInt(11),
+                        results.getInt(12));
+                events.add(e);
+            }
+
+            return events;
+        } catch (SQLException e) {
+            System.err.println("SQLE");
+            sqlException(e);
             return null;
         }
     }
@@ -480,7 +554,7 @@ public class DatabaseInterface {
         try {
             PreparedStatement s = sql.prepareStatement("SELECT friends FROM Users WHERE userId=?");
             s.setString(1, userName);
-
+            s.execute();
             FriendsList friendsList = new FriendsList();
 
             ResultSet results = s.getResultSet();
@@ -516,6 +590,7 @@ public class DatabaseInterface {
         try {
             PreparedStatement s = sql.prepareStatement("SELECT friends FROM Users WHERE userId=?");
             s.setString(1, userName);
+            s.execute();
 
             ResultSet results = s.getResultSet();
             ResultSetMetaData resultsMeta = s.getMetaData();
@@ -532,6 +607,32 @@ public class DatabaseInterface {
         }
     }
 
+    public Event getEvent(String userId, String eventName) {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT id, userId, eventName, startMonth, startDay, startYear, startHour, startMinute," +
+                    "endMonth, endDay, endYear, endHour, endMinute FROM Events WHERE eventName = ? AND userId = ?");
+            s.setString(1, eventName);
+            s.setInt(2, getIdOfUser(userId));
+            s.execute();
+            ResultSet results = s.getResultSet();
+            if (!results.isBeforeFirst()) {
+                return null;
+            } else {
+                results.next();
+                return new Event(results.getString(2), results.getString(3), results.getInt(4),
+                        results.getInt(5), results.getInt(6), results.getInt(7),
+                        results.getInt(8), results.getInt(9), results.getInt(10),
+                        results.getInt(11), results.getInt(12), results.getInt(13));
+            }
+
+
+
+        } catch (SQLException e) {
+            sqlException(e);
+            return null;
+        }
+    }
+
     /**
      * Runs if an <code>SQLException</code> occurs
      * @param e The exception that occurred
@@ -540,6 +641,7 @@ public class DatabaseInterface {
         System.err.println("SQLException: " + e.getMessage());
         System.err.println("SQLState: " + e.getSQLState());
         System.err.println("VendorError: " + e.getErrorCode());
-        System.exit(-1);
+        e.printStackTrace();
+//        System.exit(-1);
     }
 }
