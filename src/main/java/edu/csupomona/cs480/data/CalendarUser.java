@@ -24,27 +24,6 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
 		return true;
 	}
 
-//	private int findIndexWhereEventBelongs(Event e) {
-//		for(int i = 0; i < schedule.size(); i++) {
-//			Event current = schedule.get(i);
-//			int result = e.compareTo(current);
-//			if(result == 0) {
-//				//Event and current are at the same times
-//				//Can't add event due to scheduling conflict
-//				return -1;
-//			}
-//			else if(result < 0) {
-//				//Event is before result
-//				return i;
-//			}
-//			else {
-//				//Event is after result
-//			}
-//		}
-//		//Event is after all the events in schedule
-//		return schedule.size();
-//	}
-
 	@Override
 	public boolean removeEvent(Event e) {
 		return schedule.remove(e);
