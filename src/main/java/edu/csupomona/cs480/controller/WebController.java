@@ -66,7 +66,7 @@ public class WebController {
 
 	@Autowired
 	private CalendarUserManager calendarUserManager;
-	
+
 	//Can we create a new user from the url? Set false if we implement registering.
 	private static final boolean CREATE_USER_FROM_URL = true;
 
@@ -200,26 +200,36 @@ public class WebController {
 		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter(userId);
 		if (userInstance != null) {
 			modelAndView.addObject("currentUser", userId);
+			modelAndView.addObject( "friends", userInstance.getFriends() );
 			return modelAndView;
 		} else {
 			return error();
 		}
 	}
 
-	@RequestMapping(value="/Frienduler/user/{userId}/{friendName}", method = RequestMethod.POST)
-	void addFriend(@PathVariable("userId") String userId,
-					  @PathVariable("friendName") String friendName) {
+	@RequestMapping(value="/Frienduler/user/{userId}/addFriend/addingFriend", method = RequestMethod.POST)
+	ModelAndView addFriend(@PathVariable("userId") String userId,
+					  @RequestParam("name") String friendName) throws SQLException {
 		IndividualUser user = databaseInterface.getUser(userId);
 		if (user != null) {
 			FriendsList friends = user.getFriends();
 			IndividualUser fri = databaseInterface.getUser(friendName);
 			if (fri != null) {
 				if (!friends.contains(fri) && !friends.toString().contains(String.valueOf(fri.getIdNum()))) {
+					System.out.printf( "Adding friend %s to %s\n", fri.getId(), userId );
 					friends.add(fri);
 					databaseInterface.updateUser(user);
 				}
 			}
+			else{
+				System.out.println( "Friend not found" );
+			}
 		}
+		else
+		{
+			System.out.println( "User Not Found" );
+		}
+		return userMainPage( userId );
 	}
 
 	@RequestMapping(value="/Frienduler/user/{userId}/{friendName}", method = RequestMethod.DELETE)
@@ -244,7 +254,8 @@ public class WebController {
 		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
 		if( userInstance != null ) {
 			modelAndView.addObject( "friends", userInstance.getFriends() );
-			modelAndView.addObject("userId", userId );
+			modelAndView.addObject( "userId", userId );
+			modelAndView.addObject( "events", new EventList() );
 			return modelAndView;
 		}
 		else {
@@ -270,6 +281,7 @@ public class WebController {
 		modelAndView.addObject( "userId", userInstance.getUserId() );
 		modelAndView.addObject( "events", userInstance.getSchedule() );
 		modelAndView.addObject( "friends", userInstance.getFriends() );
+		System.out.println( Arrays.toString( userInstance.getFriends().toArray() ) );
 		return modelAndView;
 	}
 
@@ -292,7 +304,7 @@ public class WebController {
 		modelAndView.addObject("userId", userId );
 		return modelAndView;
 	}
-	
+
 	@RequestMapping( value = "/Frienduler/user/{userId}/createEvent", method = RequestMethod.POST )
 	void addEvent( @PathVariable("userId") String userId,
 				   @RequestParam("eventName") String eventName,
@@ -351,6 +363,20 @@ public class WebController {
 	void deleteEvent(@PathVariable("userId") String userId,
 					 @PathVariable("eventName") String eventName) {
 		System.out.println(calendarUserManager.removeEvent(userId, eventName));
+	}
+
+	@RequestMapping( value = "/Frienduler/user/{userId}/compare/result", method = RequestMethod.POST )
+	ModelAndView compareResult( @PathVariable( "userId" ) String userId,
+								@RequestParam("friendsToCompare") String[] friends ) throws MalformedEventException {
+		ModelAndView modelAndView = new ModelAndView( "compare" );
+		PersonOnlineObjectPresenter poop = new PersonOnlineObjectPresenter( userId );
+		ArrayList<CalendarUser> calanderUsers = new ArrayList<CalendarUser>();
+		for( String friend: friends ) {
+			calanderUsers.add( calendarUserManager.getUser( friend ) );
+		}
+		modelAndView.addObject( "events", calendarUserManager.compareSchedule( calanderUsers ) );
+		modelAndView.addObject( "friends", poop.getFriends() );
+		return modelAndView;
 	}
 
 

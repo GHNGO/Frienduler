@@ -29,7 +29,7 @@ function addEvent(userName) {
                 // }
             });
     } else {
-        alert("Invalid user Id");
+        alert("One or more fields are missing!");
     }
 }
 

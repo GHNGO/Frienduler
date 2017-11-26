@@ -46,9 +46,9 @@
         	<td>${event.name}</td>
         	<td>${event.startDate}</td>
         	<td>${event.startTime}</td>
-            <td>${event.endDate}</td>
+          <td>${event.endDate}</td>
         	<td>${event.endTime}</td>
-            <td><input type="button" class="buttoner" onclick="deleteEvent('${userId}', '${event.name}')" value="Delete Event"/></td>
+          <td><input type="button" class="buttoner" onclick="deleteEvent('${userId}', '${event.name}')" value="Delete Event"/></td>
       	</tr>
       </#list>
       </tbody>
