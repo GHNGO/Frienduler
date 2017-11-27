@@ -17,7 +17,7 @@
   </#list>
 </div>
 <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
-<object align="left"><a href="/Frienduler/addFriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+<object align="left"><a href="/Frienduler/user/${userId}/addFriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
 <object align="center"><a href="/Frienduler/user/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id="main">
   <section class="wrapper">
@@ -28,28 +28,22 @@
         <table cellpadding="0" cellspacing="0" border="0">
           <thead>
           <tr>
-
             <th>Add</th>
             <th>Friends</th>
-
-
           </tr>
-
           </thead>
         </table>
       </div>
       <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" border="0">
           <tbody>
-          <form>
+          <form id="friendsToCompare">
           	<#list friends as friend>
             	<tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="${friend.firstName} ${friend.lastName}"/></td><td>${friend.firstName} ${friend.lastName}</td>
             </#list>
             </tr>
             <td>
-           
-              <input type="button" class="buttoner" name="submit" value="Compare"/>
-    
+              <input type="button" class="buttoner" name="submit" value="Compare" action="return getFriendsToCompare(${userId})" />
             </td>
             <td></td>
           </form>
@@ -64,7 +58,6 @@
         <table cellpadding="0" cellspacing="0" border="0" >
           <thead>
           <tr>
-
             <th>Event</th>
             <th>Begin Date</th>
             <th>End Date</th>
@@ -78,20 +71,14 @@
         <table cellpadding="0" cellspacing="0" border="0">
           <tbody>
           <tr>
-            <td>Party</td>
-            <td>11/20/2018 </td>
-            <td>11/22/2018</td>
-            <td>5:30 PM</td>
-            <td>8:00 PM</td>
+            <#list events as event>
+              <td>${event.name}</td>
+              <td>${event.startDate}</td>
+              <td>${event.startTime}</td>
+              <td>${event.endDate}</td>
+              <td>${event.endTime}</td>
+            </#list>
           </tr>
-          <tr>
-            <td>Camping trip</td>
-            <td>10/10/2018 </td>
-            <td>10/12/2018</td>
-            <td></td>
-            <td></td>
-          </tr>
-
           </tbody>
         </table>
       </div>
@@ -106,6 +93,21 @@
     function closeNav() {
       document.getElementById("mySidenav").style.width = "0";
       document.getElementById("main").style.marginRight = "0";
+    }
+    function getFriendsToCompare( userName ) {
+      var friends = document.getElementById( "friendsToCompare" );
+      var friendsChecked = [];
+      for( var i = 0; i < friends.length; i++ ){
+        if( friends[i].checked ){
+          friendsChecked.push( friends[i] );
+        }
+      }
+      $.ajax(
+        {
+          type : "POST",
+          url  : "/Frienduler/user/" + userName + "/compare/result",
+          data : { "friendsToCompare" : friendsChecked }
+        });
     }
   </script>
 </div>

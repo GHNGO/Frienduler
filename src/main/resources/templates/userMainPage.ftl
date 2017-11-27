@@ -5,6 +5,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="/assets/css/tealBody.css">
+  <script src="/js/addEventPage.js"></script>
 	<link href="/js/tealBody.css" rel="stylesheet">
 </head>
 
@@ -21,17 +22,17 @@
 <object align="center"><a href="/Frienduler/user/${userId}/createEvent"><input type="button" class="buttoner" value="Create Event"/></a></object>
 <div id = "main">
   <section>
-  <!--for demo wrap-->
-  <h1>Events for ${userId}</h1>
+  <h1>Events for ${userFullName}</h1>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
       <tr>
         <th>Event</th>
-        <th>Begin Date</th>
-        <th>End Date</th>
+        <th>Start Date</th>
         <th>Start Time</th>
+        <th>End Date</th>
         <th>End Time</th>
+        <th>Delete Event</th>
       </tr>
       </thead>
     </table>
@@ -43,9 +44,10 @@
     	<tr>
         	<td>${event.name}</td>
         	<td>${event.startDate}</td>
-        	<td>${event.endDate}</td>
         	<td>${event.startTime}</td>
+            <td>${event.endDate}</td>
         	<td>${event.endTime}</td>
+          <td><input type="button" class="buttoner" onclick="deleteEvent('${userId}', '${event.name}')" value="Delete Event"/></td>
       	</tr>
       </#list>
       </tbody>

@@ -64,8 +64,8 @@ public class PersonOnlineObjectPresenter {
 	  return schedule;
   }
 
-  public ArrayList<IndividualUser> getFriends() {
-    ArrayList<IndividualUser> friends = currentUser.getFriends();
+  public FriendsList getFriends() {
+    FriendsList friends = currentUser.getFriends();
     return friends;
   }
   
@@ -76,5 +76,9 @@ public class PersonOnlineObjectPresenter {
   
   public String getUserId() {
 	  return currentUser.getId();
+  }
+
+  public String getFullName() {
+      return currentUser.getFirstName() + " " + currentUser.getLastName();
   }
 }

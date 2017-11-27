@@ -34,10 +34,9 @@
 <body class="pritty-body">
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a>Friend 1</a>
-  <a>Friend 2</a>
-  <a>Friend 3</a>
-  <a>Wumbo</a>
+  <#list friends as friend>
+    <a>${friend.firstName} ${friend.lastName}</a>
+  </#list>
 </div>
 
 <section class="banner" id="top">
@@ -51,12 +50,12 @@
         <section id="first-tab-group" class="tabgroup">
           <div id="tab1">
             <div class="submit-form">
-              <form id="form-submit" action="" method="get">
+              <form id="form-submit" action="/Frienduler/user/${userId}/addFriend/addingFriend" method="post">
                 <div class="row">
                   <div class="col-md-12">
                     <fieldset>
                       <label>Add friends:</label>
-                      <input type="text" class="form-control date" placeholder="Friend name..." required="" onchange='this.form.()'>
+                      <input type="text" class="form-control date" placeholder="Friend name..." required="" onchange='this.form.()' id="name" name="name">
                     </fieldset>
                   </div>
                   <div class="col-md-6">
@@ -114,7 +113,7 @@
     </div>
   </div>
   <div class="col-md-6 col-md-offset-3" >
-    <object align="center"><a href="/Frienduler/"><input type="button" class="buttoner" value="Return to Home"/></a></object>
+    <object align="center"><a href="/Frienduler/user/${currentUser}/"><input type="button" class="buttoner" value="Return to Home"/></a></object>
   </div>
 </section>
 <script>

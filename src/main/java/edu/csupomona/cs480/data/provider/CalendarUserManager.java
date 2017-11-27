@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 
-import edu.csupomona.cs480.database.DatabaseInterface;
 import edu.csupomona.cs480.database.MalformedEventException;
 import freemarker.template.Configuration;
 import freemarker.template.Version;
@@ -239,36 +238,34 @@ public boolean checkTimeAvailableForUser(String user, String timeSlot) {
   }
 
   public boolean removeUserFromGroup(String user, String group) {
-    GroupUser g = getGroup(group);
-    //group exists
-    if(g != null) {
-    	IndividualUser u = getUser(user);
-    	// user exists and user is member of group
-    	if (u != null && databaseInterface.getGroupsMemberOf(u).contains(g)) {
-    	    boolean b = g.removeUser(u);
-    	    databaseInterface.updateGroup(g);
-            return b;
-        } else {
-    	    return false;
-        }
-    }
-    return false;
+      GroupUser g = getGroup(group);
+      //group exists
+      if(g != null) {
+          IndividualUser u = getUser(user);
+          // user exists and user is member of group
+          if (u != null && databaseInterface.getGroupsMemberOf(u).contains(g)) {
+              boolean b = g.removeUser(u);
+              databaseInterface.updateGroup(g);
+              return b;
+          } else {
+              return false;
+          }
+      }
+      return false;
+  }
+
+  public PersonOnlineObjectPresenter generatePersonOnlineObjectPresenter(String id) {
+      IndividualUser i = getUser(id);
+      //Do not create a PersonOnlineObjectPresenter
+      //if the user id does not correspond to a user
+      if(i == null) {
+          return null;
+      }
+      PersonOnlineObjectPresenter userInstance= new PersonOnlineObjectPresenter(id);
+      return userInstance;
   }
   
-  
- public PersonOnlineObjectPresenter generatePersonOnlineObjectPresenter(String id) {
-	 IndividualUser i = getUser(id);
-	 //Do not create a PersonOnlineObjectPresenter 
-	 //if the user id does not correspond to a user
-	 if(i == null) {
-		 return null;
-	 }
-	 PersonOnlineObjectPresenter userInstance= new PersonOnlineObjectPresenter(id);
-	 
-	 return userInstance;
- }
-
- public boolean addEvent(String userId, Event e) throws MalformedEventException {
+  public boolean addEvent(String userId, Event e) throws MalformedEventException {
       IndividualUser user = getUser(userId);
       if (user == null) {
           return false;
@@ -282,9 +279,9 @@ public boolean checkTimeAvailableForUser(String user, String timeSlot) {
               return false;
           }
       }
- }
+  }
 
- public boolean removeEvent(String userId, String eventName) {
+  public boolean removeEvent(String userId, String eventName) {
       IndividualUser user = getUser(userId);
       if (user == null) {
           return false;
@@ -297,5 +294,5 @@ public boolean checkTimeAvailableForUser(String user, String timeSlot) {
               return false;
           }
       }
- }
+  }
 }
