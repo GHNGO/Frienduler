@@ -5,6 +5,7 @@ import edu.csupomona.cs480.data.Number;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import edu.csupomona.cs480.links.provider.LinkManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 @Configuration
 @EnableAutoConfiguration
@@ -59,7 +61,7 @@ public class App {
             System.err.println("SQLException: " + e.getMessage());
             System.err.println("SQLState: " + e.getSQLState());
             System.err.println("VendorError: " + e.getErrorCode());
-            System.exit(-1);
+//            System.exit(-1);
             return null;
         }
     }

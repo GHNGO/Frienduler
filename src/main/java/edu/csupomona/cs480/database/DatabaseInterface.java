@@ -45,6 +45,7 @@ public class DatabaseInterface {
             s.setString(3, u.getLastName());
             s.setString(4, u.getFriends().toString());
             s.execute();
+            s.close();
 
         } catch (SQLException e) {
             sqlException(e);
@@ -82,6 +83,8 @@ public class DatabaseInterface {
 
             s.setString(2, group.getMembers().toString());
             s.execute();
+
+            s.close();
         } catch (SQLException e) {
             sqlException(e);
         }
@@ -105,18 +108,20 @@ public class DatabaseInterface {
             PreparedStatement s = sql.prepareStatement("SELECT id, userName, firstName, lastName, friends FROM Users WHERE userName=?;");
             s.setString(1,userId);
 
-            if (s.execute()) {
-                ResultSet results = s.getResultSet();
-                if (!results.isBeforeFirst()) {
-                    return null;
-                } else {
-                    results.next();
-                    IndividualUser u;
-                    u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5), getEvents(userId));
-                    return u;
-                }
-            } else {
+            s.execute();
+
+
+            ResultSet results = s.getResultSet();
+            if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return null;
+            } else {
+                results.next();
+                IndividualUser u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5), getEvents(userId));
+                results.close();
+                s.close();
+                return u;
             }
 
         } catch (SQLException e) {
@@ -130,18 +135,18 @@ public class DatabaseInterface {
             PreparedStatement s = sql.prepareStatement("SELECT id, userName, firstName, lastName, friends FROM Users WHERE id=?;");
             s.setInt(1,id);
 
-            if (s.execute()) {
-                ResultSet results = s.getResultSet();
-                if (!results.isBeforeFirst()) {
-                    return null;
-                } else {
-                    results.next();
-                    IndividualUser u;
-                    u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
-                    return u;
-                }
-            } else {
+            s.execute();
+            ResultSet results = s.getResultSet();
+            if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return null;
+            } else {
+                results.next();
+                IndividualUser u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
+                results.close();
+                s.close();
+                return u;
             }
 
         } catch (SQLException e) {
@@ -155,16 +160,19 @@ public class DatabaseInterface {
             PreparedStatement s = sql.prepareStatement("SELECT id, userName FROM Users WHERE id=?;");
             s.setInt(1,id);
 
-            if (s.execute()) {
-                ResultSet results = s.getResultSet();
-                if (!results.isBeforeFirst()) {
-                    return "";
-                } else {
-                    results.next();
-                    return results.getString(2);
-                }
-            } else {
+            s.execute();
+
+            ResultSet results = s.getResultSet();
+            if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return "";
+            } else {
+                results.next();
+                String res = results.getString(2);
+                results.close();
+                s.close();
+                return res;
             }
 
         } catch (SQLException e) {
@@ -181,18 +189,23 @@ public class DatabaseInterface {
     public GroupUser getGroup(String groupId) {
         try {
             PreparedStatement s = sql.prepareStatement("SELECT id, groupName, members FROM Groups WHERE groupName=?;");
-            s.setString(1,groupId);
+            s.setString(1, groupId);
 
-            if (s.execute()) {
-                ResultSet results = s.getResultSet();
-                if (!results.isBeforeFirst()) {
-                    return null;
-                } else {
-                    results.next();
-                    return new GroupUser(results.getInt(1), results.getString(2), results.getString(3));
-                }
-            } else {
+            s.execute();
+
+            ResultSet results = s.getResultSet();
+            if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return null;
+            } else {
+                results.next();
+                int r1 = results.getInt(1);
+                String r2 = results.getString(2);
+                String r3 = results.getString(3);
+                results.close();
+                s.close();
+                return new GroupUser(r1, r2, r3);
             }
         } catch (SQLException e) {
             sqlException(e);
@@ -204,16 +217,18 @@ public class DatabaseInterface {
         try{
             PreparedStatement s = sql.prepareStatement("SELECT id FROM Users WHERE userName=?");
             s.setString(1, userId);
-            if (s.execute()) {
-                ResultSet results = s.getResultSet();
-                if (!results.isBeforeFirst()) {
-                    return -1;
-                } else {
-                    results.next();
-                    return results.getInt(1);
-                }
-            } else {
+            s.execute();
+            ResultSet results = s.getResultSet();
+            if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return -1;
+            } else {
+                results.next();
+                int id = results.getInt(1);
+                results.close();
+                s.close();
+                return id;
             }
         } catch (SQLException e) {
             sqlException(e);
@@ -241,6 +256,7 @@ public class DatabaseInterface {
             s.setString(3, user.getFirstName());
             s.setString(4, user.getLastName());
             s.execute();
+            s.close();
         } catch (SQLException e) {
             sqlException(e);
         }
@@ -264,6 +280,8 @@ public class DatabaseInterface {
             s.setString(1, group.getId());
             s.setInt(2, group.getIdNum());
             s.execute();
+
+            s.close();
         } catch (SQLException e) {
             sqlException(e);
         }
@@ -292,6 +310,8 @@ public class DatabaseInterface {
             s.setString(3, friends.toString());
             s.setString(4, userName);
             s.execute();
+
+            s.close();
         } catch (SQLException e) {
             sqlException(e);
         }
@@ -310,6 +330,8 @@ public class DatabaseInterface {
             s.setString(2, lastName);
             s.setString(3, userName);
             s.execute();
+
+            s.close();
         } catch (SQLException e) {
             sqlException(e);
         }
@@ -328,6 +350,8 @@ public class DatabaseInterface {
 
             s.setString(1, group.getMembers().toString());
             s.execute();
+
+            s.close();
         } catch (SQLException e) {
             sqlException(e);
         }
@@ -360,6 +384,9 @@ public class DatabaseInterface {
             ResultSet results = s.getResultSet();
             ArrayList<GroupUser> groups = new ArrayList<>();
             if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
+
                 return groups;
             }
 
@@ -368,6 +395,10 @@ public class DatabaseInterface {
                 GroupUser u = new GroupUser(results.getInt(1), results.getString(2));
                 groups.add(u);
             }
+
+            s.close();
+            results.close();
+
             return groups;
         } catch (SQLException e) {
             sqlException(e);
@@ -384,23 +415,24 @@ public class DatabaseInterface {
             PreparedStatement s = sql.prepareStatement("SELECT id, userName, firstName, lastName FROM Users ");
             s.execute();
             ResultSet results = s.getResultSet();
-            ResultSetMetaData resultsMeta = s.getMetaData();
-            int colCount = resultsMeta.getColumnCount();
             ArrayList<IndividualUser> users = new ArrayList<>();
             if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return users;
             }
 
             while (!results.isLast()) {
                 results.next();
                 IndividualUser u = new IndividualUser(results.getInt(1), results.getString(2), results.getString(3), results.getString(4));
-//                for (int i = 1; i <= colCount; i++) {
-//                    System.out.print(results.getString(i) + " ");
-//                }
-//                System.out.println();
+
                 users.add(u);
-//                System.out.println(u);
+
             }
+
+            results.close();
+            s.close();
+
             return users;
         } catch (SQLException e) {
             sqlException(e);
@@ -420,8 +452,8 @@ public class DatabaseInterface {
     /**
      * Adds an event to the database
      * @param linkedUserId Username that the event is for
-     * @param startDate Start date for the event in the format "MM:DD:YY"
-     * @param endDate End date for the event in the format "MM:DD:YY"
+     * @param startDate Start date for the event in the format "MM/DD/YY"
+     * @param endDate End date for the event in the format "MM/DD/YY"
      * @param startTime Start time for the event in the format "hh:mm"
      * @param endTime End time for the event in the format "hh:mm"
      * @throws MalformedEventException if the dates or times are not in the correct formatting
@@ -470,6 +502,7 @@ public class DatabaseInterface {
             s.setInt(11, endHour);
             s.setInt(12, endMin);
             s.execute();
+            s.close();
         } catch (SQLException e) {
             sqlException(e);
         }
@@ -481,10 +514,12 @@ public class DatabaseInterface {
             s.setInt(1, getIdOfUser(userId));
             s.setString(2, eventName);
             s.execute();
+            s.close();
         } catch (SQLException e) {
             sqlException(e);
         }
     }
+
 
     public EventList getAllEvents() {
         try {
@@ -492,10 +527,11 @@ public class DatabaseInterface {
                     ", endMonth, endDay, endYear, endHour, endMinute FROM Events ");
             s.execute();
             ResultSet results = s.getResultSet();
-            ResultSetMetaData resultsMeta = s.getMetaData();
-            int colCount = resultsMeta.getColumnCount();
+
             EventList events = new EventList();
             if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return events;
             }
 
@@ -505,6 +541,9 @@ public class DatabaseInterface {
                         results.getInt(11), results.getInt(12));
                 events.add(e);
             }
+
+            results.close();
+            s.close();
 
             return events;
         } catch (SQLException e) {
@@ -525,8 +564,7 @@ public class DatabaseInterface {
             s.setInt(1, getIdOfUser(userName));
             s.execute();
             ResultSet results = s.getResultSet();
-            ResultSetMetaData resultsMeta = s.getMetaData();
-            int colCount = resultsMeta.getColumnCount();
+
             EventList events = new EventList();
             if (!results.isBeforeFirst()) {
                 return events;
@@ -541,6 +579,9 @@ public class DatabaseInterface {
                         results.getInt(12));
                 events.add(e);
             }
+            results.close();
+            s.close();
+            events.sort();
 
             return events;
         } catch (SQLException e) {
@@ -552,21 +593,24 @@ public class DatabaseInterface {
 
     public FriendsList getFriends(String userName) {
         try {
-            PreparedStatement s = sql.prepareStatement("SELECT friends FROM Users WHERE userId=?");
+            PreparedStatement s = sql.prepareStatement("SELECT friends FROM Users WHERE userName=?");
             s.setString(1, userName);
             s.execute();
             FriendsList friendsList = new FriendsList();
 
             ResultSet results = s.getResultSet();
-            ResultSetMetaData resultsMeta = s.getMetaData();
-            int colCount = resultsMeta.getColumnCount();
+
             if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return friendsList;
             }
 
             while (!results.isLast()) {
                 results.next();
                 String st = results.getString(1);
+                results.close();
+                s.close();
                 if (st.equals("{}")) {
                     return friendsList;
                 }
@@ -578,6 +622,8 @@ public class DatabaseInterface {
                     }
                 }
             }
+            results.close();
+            s.close();
 
             return friendsList;
         } catch (SQLException e) {
@@ -588,19 +634,25 @@ public class DatabaseInterface {
 
     public String getFriendsAsString(String userName) {
         try {
-            PreparedStatement s = sql.prepareStatement("SELECT friends FROM Users WHERE userId=?");
+            PreparedStatement s = sql.prepareStatement("SELECT friends FROM Users WHERE userName=?");
             s.setString(1, userName);
             s.execute();
 
             ResultSet results = s.getResultSet();
-            ResultSetMetaData resultsMeta = s.getMetaData();
-            int colCount = resultsMeta.getColumnCount();
+
+
+
             if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return "";
             }
 
             results.next();
-            return results.getString(1);
+            String friendsString = results.getString(1);
+            results.close();
+            s.close();
+            return friendsString;
         } catch (SQLException e) {
             sqlException(e);
             return null;
@@ -614,15 +666,27 @@ public class DatabaseInterface {
             s.setString(1, eventName);
             s.setInt(2, getIdOfUser(userId));
             s.execute();
+
             ResultSet results = s.getResultSet();
+
             if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
                 return null;
             } else {
                 results.next();
-                return new Event(results.getString(2), results.getString(3), results.getInt(4),
-                        results.getInt(5), results.getInt(6), results.getInt(7),
-                        results.getInt(8), results.getInt(9), results.getInt(10),
-                        results.getInt(11), results.getInt(12), results.getInt(13));
+                int[] resInts = new int[10];
+                String r1 = results.getString(2);
+                String r2 = results.getString(3);
+                for (int i = 0; i < resInts.length; i++) {
+                    resInts[i] = results.getInt(i+4);
+                }
+
+                results.close();
+                s.close();
+
+                return new Event(r1,r2,resInts[0], resInts[1], resInts[2], resInts[3], resInts[4], resInts[5], resInts[6],
+                        resInts[7], resInts[8], resInts[9]);
             }
 
 
@@ -630,6 +694,88 @@ public class DatabaseInterface {
         } catch (SQLException e) {
             sqlException(e);
             return null;
+        }
+    }
+
+    public Event getEvent(String userId, String eventName, int[] startDateAndTime, int[] endDateAndTime) {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT id, userId, eventName, startMonth, startDay, startYear, startHour, startMinute," +
+                    "endMonth, endDay, endYear, endHour, endMinute FROM Events WHERE eventName = ? AND userId = ? AND startMonth=? " +
+                    "AND startDay=? AND startYear=? AND startHour=? AND startMinute=? AND endMonth=? AND endDay=? AND endYear=? " +
+                    "AND endHour=? AND endMinute=?");
+            s.setString(1, eventName);
+            s.setInt(2, getIdOfUser(userId));
+
+            for (int i = 0; i < startDateAndTime.length; i++) {
+                s.setInt(i+3, startDateAndTime[i]);
+                s.setInt(i+8, endDateAndTime[i]);
+            }
+            System.out.println(s.toString());
+
+            s.execute();
+
+            ResultSet results = s.getResultSet();
+
+            if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
+                return null;
+            } else {
+                results.next();
+                int[] resInts = new int[10];
+                String r1 = results.getString(2);
+                String r2 = results.getString(3);
+                for (int i = 0; i < resInts.length; i++) {
+                    resInts[i] = results.getInt(i+4);
+                }
+
+                results.close();
+                s.close();
+
+                return new Event(r1,r2,resInts[0], resInts[1], resInts[2], resInts[3], resInts[4], resInts[5], resInts[6],
+                        resInts[7], resInts[8], resInts[9]);
+            }
+
+
+
+        } catch (SQLException e) {
+            sqlException(e);
+            return null;
+        }
+    }
+
+    public void deleteEvent(String userId, String eventName, int[] startTime, int[] endTime) {
+        try{
+            PreparedStatement s = sql.prepareStatement("DELETE FROM Events WHERE eventName = ? AND userId = ? AND " +
+                    "startHour=? AND startMinute=? AND endHour=? AND endMinute=?");
+            s.setString(1, eventName);
+            s.setInt(2, getIdOfUser(userId));
+
+            for (int i = 0; i < startTime.length; i++) {
+                s.setInt(i+3, startTime[i]);
+                s.setInt(i+5, endTime[i]);
+            }
+
+            s.execute();
+            s.close();
+        } catch (SQLException e) {
+            sqlException(e);
+        }
+    }
+
+    public boolean closeConnection() {
+        System.out.println("Closing SQL Connection");
+        try {
+            if (this.sql.isClosed()) {
+                return false;
+            } else {
+                this.sql.close();
+                return true;
+            }
+
+        } catch (SQLException e) {
+            sqlException(e);
+            return false;
         }
     }
 

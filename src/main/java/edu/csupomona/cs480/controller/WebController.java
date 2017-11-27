@@ -279,6 +279,7 @@ public class WebController {
 			}
 		}
 		modelAndView.addObject( "userId", userInstance.getUserId() );
+		modelAndView.addObject("userFullName", userInstance.getFullName());
 		modelAndView.addObject( "events", userInstance.getSchedule() );
 		modelAndView.addObject( "friends", userInstance.getFriends() );
 		System.out.println( Arrays.toString( userInstance.getFriends().toArray() ) );

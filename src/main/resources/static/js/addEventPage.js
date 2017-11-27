@@ -36,6 +36,7 @@ function addEvent(userName) {
 function deleteEvent(userName, eventName) {
 
     if (userName && eventName) {
+
         $.ajax(
             {
                 type : "DELETE",
@@ -46,7 +47,9 @@ function deleteEvent(userName, eventName) {
                     alert("Event deleted successfully");
                     location.reload();
                 },
-                error: function (jqXHR, exception) {
+                error: function (jqXHR, exception, ex) {
+                    console.log(exception);
+                    console.log(ex);
                     alert("Failed to delete the event.");
                 }
             });
