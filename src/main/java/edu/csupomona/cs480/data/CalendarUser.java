@@ -1,6 +1,7 @@
 package edu.csupomona.cs480.data;
 
 import edu.csupomona.cs480.data.provider.EventList;
+import edu.csupomona.cs480.util.EventListHelper;
 
 public abstract class CalendarUser extends User implements CalendarUserInterface{
 	private EventList schedule;
@@ -47,4 +48,17 @@ public abstract class CalendarUser extends User implements CalendarUserInterface
 		this.schedule = schedule;
 		return oldschedule;
     }
+
+	public boolean isUserFreeAtTime(Event e) {
+		boolean isFree = true;
+		for(int i = 0; i < schedule.size(); i++) {
+			Event current = schedule.get(i);
+			boolean eventsHaveTimeConflict = EventListHelper.hasTimeConflict(e, current);
+			if(eventsHaveTimeConflict) {
+				isFree = false;
+				i = schedule.size();
+			}
+		}
+		return isFree;
+	}
 }

@@ -9,10 +9,10 @@ import edu.csupomona.cs480.data.provider.EventList;
 
 public class EventListHelper {
 	/**
-	 *
 	 * @param events
 	 * @return EventList of free times up to a week
 	 */
+	/*
 	public static EventList findFreeTimes(EventList events) {
 		EventList freeTimes = findFreeTimes(events, 0, 0, 1, 0, 0, 0);
 		return freeTimes;
@@ -28,6 +28,7 @@ public class EventListHelper {
 	 * @return EventList of Events that represent free time up to the amount of time specified
 	 * by the parameters, weeks, days, hours, minutes from current time
 	 */
+	/*
 	public static EventList findFreeTimes(EventList events, int years, int months, int weeks, int days, int hours, int minutes) {
 		// TODO Auto-generated method stub
 		EventList freeTimes = new EventList();
@@ -45,6 +46,7 @@ public class EventListHelper {
 		}
 		return freeTimes;
 	}
+	*/
 
 	/**
 	 * @param time is in the format
@@ -70,6 +72,34 @@ public class EventListHelper {
 	public static String[] addTime(String[] startTime, int years, int months, int weeks, int days, int hours,
 			int minutes) {
 		int[] times = convertTimeStringArrayToIntArray(startTime);
+		times = addTime(times, years, months, weeks, days, hours, minutes);
+		String mmDDYY = months + "/" + days + "/" + years;
+		String hhMM = hours + ":" + minutes; 
+		
+		String[] calculated = {mmDDYY, hhMM};
+		return calculated;
+	}
+	
+	
+	public static String[] formatIntArrayToStringArray(int[] time) {
+		String mmDDYY = time[0] + "/" + time[1] + "/" + time[2];
+		String hhMM = time[3] + ":" + time[4]; 
+		
+		String[] calculated = {mmDDYY, hhMM};
+		return calculated;
+	}
+	/**
+	 * 
+	 * @param times
+	 * @param years
+	 * @param months
+	 * @param weeks
+	 * @param days
+	 * @param hours
+	 * @param minutes
+	 * @return int[] of {month, day, year, hour, min}
+	 */
+	public static int[] addTime(int[] times, int years, int months, int weeks, int days, int hours, int minutes) {
 		months += times[0];
 		days += times[1];
 		years += times[2];
@@ -98,38 +128,99 @@ public class EventListHelper {
 			months = months%12;
 		}
 		
-		String mmDDYY = months + "/" + days + "/" + years;
-		String hhMM = hours + ":" + minutes; 
-		
-		String[] calculated = {mmDDYY, hhMM};
-		return calculated;
+		int[] val = {months, days, years, hours, minutes};
+		return val;
 	}
 
 	//check if time slot is occupied by any of the events in an EventList
 	public static boolean timeOccupied(EventList events, String timeSlot) {
+		Event e2 = convertStringToEvent(timeSlot);
 		for(int i = 0; i <  events.size(); i++) {
 			Event e = events.get(i);
-			boolean isOccupied = eventContainsTime(e, timeSlot);
-			if(isOccupied) {
+			boolean hasConflict = hasTimeConflict(e, e2);
+			if(hasConflict) {
 				return true;
 			}
 		}
 		return false;
 	}
-
-	public static boolean eventContainsTime(Event event, String timeSlot) {
+	
+	private static Event convertStringToEvent(String timeSlot) {
 		// TODO Auto-generated method stub
-		/*
-		 * Parses Time into a String array
-		 * currentTime[0] is month/day/year
-		 * currentTime[1] is hour:min
-		 */
-		String[] currentTime = getCurrentTime(); 
-		
-		
-		return false;
+		return null;
+	}
+
+	//check if events have a time conflict
+	public static boolean hasTimeConflict(Event event, Event event2) {
+		int comparison = event.compareTo(event2);
+		if(comparison == -1) { 
+			//event starts before event2
+			if(hasOverlap(event.getEndTime(),event2.getStartTime())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else if(comparison == 0){
+			//event and event2 start at the same time
+			if(hasOverlap(event.getStartTime(), event2.getStartTime())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			//event 2 starts before event
+			if(hasOverlap(event2.getEndTime(), event.getStartTime())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 	}
 	
+	public static boolean hasOverlap(String endTime, String startTime) {
+		// {hh, mm}
+		int[] t1 = convertToHoursAndMinutes(endTime);
+		int[] t2 = convertToHoursAndMinutes(startTime);
+		
+		if(t1[0] > t2[0]) {
+			//hours of endTime is greater than hours of start time
+			return true;
+		}
+		else if(t1[0] == t2[0]) {
+			//hours are the same, need to compare minutes
+			if(t1[1] > t2[1]) {
+				//minutes of endTime is greater than minutes of start time
+				return true;
+			}
+			else if(t1[1] == t2[1]) {
+				//minutes are the same
+				// end time and start time are continuous
+				return false;
+			}
+			else {
+				//minutes of start time are after minutes of end time
+				return true;
+			}
+		}
+		else {
+			//hours of start time are after hours of end time
+			return true;
+		}
+	}
+
+	public static int[] convertToHoursAndMinutes(String time) {
+		int[] times = new int[2];
+		String[] arr = time.split(":");
+		times[0] = Integer.getInteger(arr[0]);
+		times[1] = Integer.getInteger(arr[1]);
+		return times;
+	}
+
 	public static String[] getCurrentTime() {
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 		String[] time = parseIntoDateAndTime(currentTime);
