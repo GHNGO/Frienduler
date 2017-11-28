@@ -214,8 +214,8 @@ public class EventListHelper {
 	public static int[] convertToHoursAndMinutes(String time) {
 		int[] times = new int[2];
 		String[] arr = time.split(":");
-		times[0] = Integer.getInteger(arr[0]);
-		times[1] = Integer.getInteger(arr[1]);
+		times[0] = Integer.parseInt(arr[0]);
+		times[1] = Integer.parseInt(arr[1]);
 		return times;
 	}
 
