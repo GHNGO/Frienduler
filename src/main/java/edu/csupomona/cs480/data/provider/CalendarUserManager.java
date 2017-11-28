@@ -102,6 +102,18 @@ public class CalendarUserManager {
         }
     }
 
+    public boolean updateUser(String userId, String firstName, String lastName) {
+        IndividualUser iUser = getUser(userId);
+        if (iUser == null) {
+            return false;
+        }
+        iUser.setFirstName(firstName);
+        iUser.setLastName(lastName);
+        updateCache(iUser);
+        databaseInterface.updateUser(iUser);
+        return true;
+    }
+
     /**
      * Adds a blank group
      * @param group group name to add
@@ -232,9 +244,13 @@ public class CalendarUserManager {
         } else {
             //user exists so we can retrieve them
             IndividualUser ind = databaseInterface.getUser(user);
-            userCache.put(ind.getId(), ind);
-            userNumericalCache.put(ind.getIdNum(), ind);
-            return ind;
+            if (ind == null) {
+                return null;
+            } else {
+                userCache.put(ind.getId(), ind);
+                userNumericalCache.put(ind.getIdNum(), ind);
+                return ind;
+            }
         }
     }
 

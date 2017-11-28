@@ -129,7 +129,7 @@ public class WebController {
 	 * @return
 	 */
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.POST)
-	void addUser(@PathVariable("userId") String id,
+	void addUserOld(@PathVariable("userId") String id,
 					   @RequestParam("firstName") String firstName,
 					   @RequestParam("lastName") String lastName) throws SQLException{
 		calendarUserManager.addUser(id, firstName, lastName);
@@ -289,25 +289,34 @@ public class WebController {
 
 	@RequestMapping( value = "/Frienduler/user/{userId}", method = RequestMethod.GET)
 	ModelAndView userMainPage(@PathVariable("userId") String userId ) throws SQLException {
-		ModelAndView modelAndView = new ModelAndView("userMainPage");
-		PersonOnlineObjectPresenter userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
-		if( userInstance == null ) {
-			System.out.println( "[WebController] Cannot find user." );
-			if( CREATE_USER_FROM_URL ) {
-				System.out.println("CREATEUSERFROMURL");
-				calendarUserManager.addUser( userId );
-				userInstance = calendarUserManager.generatePersonOnlineObjectPresenter( userId );
-			}
-			else {
-				return error();
-			}
-		}
-		modelAndView.addObject( "userId", userInstance.getUserId() );
-		modelAndView.addObject("userFullName", userInstance.getFullName());
-		modelAndView.addObject( "events", userInstance.getSchedule() );
-		modelAndView.addObject( "friends", userInstance.getFriends() );
-		System.out.println( "Friends of " + userId + ": " + Arrays.toString( userInstance.getFriends().toArray() ) );
-		return modelAndView;
+	    ModelAndView modelAndView;
+	    if (CREATE_USER_FROM_URL) {
+            if (calendarUserManager.getUser(userId) == null) {
+                modelAndView = new ModelAndView("registerUser");
+                modelAndView.addObject("userId", userId);
+                return modelAndView;
+            }
+            modelAndView = new ModelAndView("userMainPage");
+            IndividualUser userInstance = calendarUserManager.getUser(userId);
+            modelAndView.addObject( "userId", userInstance.getId() );
+            modelAndView.addObject("userFullName", userInstance.getFullName());
+            modelAndView.addObject( "events", userInstance.getSchedule() );
+            modelAndView.addObject( "friends", userInstance.getFriends() );
+            System.out.println( "Friends of " + userId + ": " + Arrays.toString( userInstance.getFriends().toArray() ) );
+            return modelAndView;
+        } else {
+	         if (calendarUserManager.getUser(userId) != null) {
+                modelAndView = new ModelAndView("userMainPage");
+                IndividualUser userInstance = calendarUserManager.getUser(userId);
+                modelAndView.addObject( "userId", userInstance.getId() );
+                modelAndView.addObject("userFullName", userInstance.getFullName());
+                modelAndView.addObject( "events", userInstance.getSchedule() );
+                modelAndView.addObject( "friends", userInstance.getFriends() );
+                System.out.println( "Friends of " + userId + ": " + Arrays.toString( userInstance.getFriends().toArray() ) );
+                return modelAndView;
+            }
+            return error();
+        }
 	}
 
 	@RequestMapping( value = "/Frienduler/listUsers", method = RequestMethod.GET )
@@ -407,6 +416,9 @@ public class WebController {
 	@RequestMapping( value = "/Frienduler/user/{userId}/manage", method = RequestMethod.GET )
 	ModelAndView manageUser(@PathVariable("userId") String userId) {
 		ModelAndView modelAndView = new ModelAndView("manageUser");
+		modelAndView.addObject("userId", userId);
+		modelAndView.addObject("friends", calendarUserManager.getUser(userId).getFriends());
+		modelAndView.addObject("userObject", calendarUserManager.getUser(userId));
 		return modelAndView;
 	}
 
@@ -429,6 +441,21 @@ public class WebController {
                             @PathVariable("userId") String userId) {
 	    return calendarUserManager.removeUserFromGroup(userId, groupId);
     }
+
+    @RequestMapping(value = "/Frienduler/user/{userId}", method = RequestMethod.POST)
+    boolean updateUser(@PathVariable("userId") String userId,
+                    @RequestParam("firstName") String firstName,
+                    @RequestParam("lastName") String lastName) {
+	    return calendarUserManager.updateUser(userId, firstName, lastName);
+    }
+
+    @RequestMapping(value = "/Frienduler/newUser/{userId}", method = RequestMethod.POST)
+    boolean addUser(@PathVariable("userId") String userId,
+                    @RequestParam("firstName") String firstName,
+                    @RequestParam("lastName") String lastName) {
+	    return calendarUserManager.addUser(userId, firstName, lastName);
+    }
+
 
 
 	/************ A3 Added Methods ************/

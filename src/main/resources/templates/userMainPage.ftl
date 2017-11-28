@@ -55,7 +55,15 @@
   </div>
 </section>
 
-  <object align="center"><a href="/Frienduler/user/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
+  <div align="center" style="text-align:center">
+      <object style="display:inline;"><a href="/"><input type="button" class="buttoner" value="Go to Homepage"/></a></object>
+
+      <object style="display:inline;"><a href="/Frienduler/user/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
+
+      <object style="display:inline;"><a href="/Frienduler/user/${userId}/manage"><input type="button" class="buttoner" value="Manage User"/></a></object>
+  </div>
+
+
 
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="src/main/resources/static/assets/js/CompDex"></script>
