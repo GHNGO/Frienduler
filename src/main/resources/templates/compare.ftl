@@ -60,8 +60,8 @@
           <tr>
             <th>Event</th>
             <th>Begin Date</th>
+            <th>Begin Time</th>
             <th>End Date</th>
-            <th>Start Time</th>
             <th>End Time</th>
           </tr>
           </thead>
