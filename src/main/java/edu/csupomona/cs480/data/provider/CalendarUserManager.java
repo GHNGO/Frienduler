@@ -159,7 +159,7 @@ public class CalendarUserManager {
         int numMinutes = 24 * 2 * 30 * daysToCheck;
         for(int j = 0; j < numMinutes; j+=30) {
             //calculate time slot
-            timeSlotBegin = EventListHelper.addTime(timeSlotBegin, 0, 0, 0, 0, 0, j);
+            timeSlotEnd = EventListHelper.addTime(timeSlotBegin, 0, 0, 0, 0, 0, j);
 
             // Generate Event Representing Free Time
             // String[] formatted as MM/DD/YY, HH:MM
@@ -176,7 +176,8 @@ public class CalendarUserManager {
                     k = users.size();
                 }
             }
-
+            timeSlotBegin = timeSlotEnd;
+            
             if(allUsersFree) {
                 freeTimeSlots.add(e);
             }
