@@ -57,12 +57,12 @@ public class EventListHelper {
 		String[] hourMinutes = time[1].split(":");
 		int[] times = new int[5];
 		
-		times[0] = Integer.getInteger(monthDayYear[0]);
-		times[1] = Integer.getInteger(monthDayYear[1]);
-		times[2] = Integer.getInteger(monthDayYear[2]);
+		times[0] = Integer.parseInt(monthDayYear[0]);
+		times[1] = Integer.parseInt(monthDayYear[1]);
+		times[2] = Integer.parseInt(monthDayYear[2]);
 		
-		times[3] = Integer.getInteger(hourMinutes[0]);
-		times[4] = Integer.getInteger(hourMinutes[1]);
+		times[3] = Integer.parseInt(hourMinutes[0]);
+		times[4] = Integer.parseInt(hourMinutes[1]);
 		
 		return times;
 	}

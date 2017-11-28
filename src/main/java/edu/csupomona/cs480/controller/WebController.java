@@ -66,6 +66,8 @@ public class WebController {
 
 	//Can we create a new user from the url? Set false if we implement registering.
 	private static final boolean CREATE_USER_FROM_URL = true;
+	
+	private EventList compareResult = null;
 
 	/**
 	 * This is a simple example of how the HTTP API works.
@@ -272,7 +274,12 @@ public class WebController {
 		if( userInstance != null ) {
 			modelAndView.addObject( "friends", userInstance.getFriends() );
 			modelAndView.addObject( "userId", userId );
-			modelAndView.addObject( "events", new EventList() );
+			if( compareResult == null ) {
+				modelAndView.addObject( "events", new EventList() );
+			}
+			else {
+				modelAndView.addObject( "events", compareResult );
+			}
 			return modelAndView;
 		}
 		else {
@@ -379,17 +386,22 @@ public class WebController {
 	}
 
 	@RequestMapping( value = "/Frienduler/user/{userId}/compare/result", method = RequestMethod.POST )
-	ModelAndView compareResult( @PathVariable( "userId" ) String userId,
-								@RequestParam("friendsToCompare") String[] friends ) throws MalformedEventException {
+	void compareResult( @PathVariable( "userId" ) String userId,
+								@RequestParam("friendsToCompare[]") String[] friends ) throws MalformedEventException {
+		System.out.println( Arrays.toString( friends ) );
 		ModelAndView modelAndView = new ModelAndView( "compare" );
 		PersonOnlineObjectPresenter poop = new PersonOnlineObjectPresenter( userId );
 		ArrayList<CalendarUser> calanderUsers = new ArrayList<CalendarUser>();
 		for( String friend: friends ) {
 			calanderUsers.add( calendarUserManager.getUser( friend ) );
 		}
-		modelAndView.addObject( "events", calendarUserManager.compareSchedule( calanderUsers ) );
-		modelAndView.addObject( "friends", poop.getFriends() );
-		return modelAndView;
+		EventList el = calendarUserManager.compareSchedule( calanderUsers );
+		/*
+		for( Event event: el ) {
+			System.out.println( event );
+		}
+		*/
+		compareResult = el;
 	}
 
 	@RequestMapping( value = "/Frienduler/user/{userId}/manage", method = RequestMethod.GET )

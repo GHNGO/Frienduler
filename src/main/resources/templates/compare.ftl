@@ -39,11 +39,11 @@
           <tbody>
           <form id="friendsToCompare">
           	<#list friends as friend>
-            	<tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="${friend.firstName} ${friend.lastName}"/></td><td>${friend.firstName} ${friend.lastName}</td>
+            	<tr><td><input class="Checkedbox" type="checkbox" name="friend[]" value="${friend.firstName} ${friend.lastName}" id="${friend.id}"/></td><td>${friend.firstName} ${friend.lastName}</td>
             </#list>
             </tr>
             <td>
-              <input type="button" class="buttoner" name="submit" value="Compare" action="return getFriendsToCompare(${userId})" />
+              <input type="button" class="buttoner" name="submit" value="Compare" onclick="getFriendsToCompare('${userId}')" />
             </td>
             <td></td>
           </form>
@@ -70,15 +70,15 @@
       <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" border="0">
           <tbody>
-          <tr>
-            <#list events as event>
+          <#list events as event>
+          	<tr>
               <td>${event.name}</td>
               <td>${event.startDate}</td>
               <td>${event.startTime}</td>
               <td>${event.endDate}</td>
               <td>${event.endTime}</td>
-            </#list>
-          </tr>
+          	</tr>
+          </#list>
           </tbody>
         </table>
       </div>
@@ -95,19 +95,22 @@
       document.getElementById("main").style.marginRight = "0";
     }
     function getFriendsToCompare( userName ) {
-      var friends = document.getElementById( "friendsToCompare" );
+      var friendForm = $('#friendsToCompare');
+      var friends = friendForm[0];
       var friendsChecked = [];
       for( var i = 0; i < friends.length; i++ ){
         if( friends[i].checked ){
-          friendsChecked.push( friends[i] );
+          friendsChecked.push( friends[i].id );
         }
       }
       $.ajax(
         {
           type : "POST",
           url  : "/Frienduler/user/" + userName + "/compare/result",
-          data : { "friendsToCompare" : friendsChecked }
+          data : { "friendsToCompare" : friendsChecked },
+          success: function(result){ location.reload(); }
         });
+        
     }
   </script>
 </div>
