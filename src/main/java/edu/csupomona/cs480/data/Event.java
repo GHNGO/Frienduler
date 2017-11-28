@@ -47,6 +47,14 @@ public class Event implements Comparable {
 		this.endDate = date;
 	}
 	
+	public Event(String name, String startTime, String endTime, String startDate, String endDate) {
+		this.setName(name);
+		this.setStartTime(startTime);
+		this.setEndTime(endTime);
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
 	public Event(String linkedUserId, String name, int startMonth, int startDay, int startYear, int startHour, int startMinute, int endMonth, int endDay, int endYear, int endHour, int endMinute) {
 		String stMonth = (startMonth < 10) ? ("0" + String.valueOf(startMonth)) : (String.valueOf(startMonth));
 		String stDay = (startDay < 10) ? ("0" + String.valueOf(startDay)) : (String.valueOf(startDay));

@@ -211,6 +211,27 @@ public class EventListHelper {
 		}
 	}
 
+	public static boolean timesAreContinuous(String endTime, String startTime) {
+		// {hh, mm}
+		int[] t1 = convertToHoursAndMinutes(endTime);
+		int[] t2 = convertToHoursAndMinutes(startTime);
+		
+		if(t1[0] == t2[0]) {
+			//hours are the same, need to compare minutes
+			if(t1[1] == t2[1]) {
+				//minutes are the same
+				// end time and start time are continuous
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public static int[] convertToHoursAndMinutes(String time) {
 		int[] times = new int[2];
 		String[] arr = time.split(":");
@@ -253,5 +274,31 @@ public class EventListHelper {
 		ret[0] = formDate;
 		ret[1] = formTime;
 		return ret;
+	}
+
+	public static EventList mergeContinuousEvents(EventList freeTimeSlots) {
+		freeTimeSlots.sort();
+		if(freeTimeSlots.size() > 0) {
+			Event prev = freeTimeSlots.get(0);
+			for(int i = 1; i < freeTimeSlots.size(); i ++) {
+				Event e = freeTimeSlots.get(i);
+				if(isContinuous(prev, e)) {
+					
+				}
+			}
+		}
+		return freeTimeSlots;
+	}
+
+	public static boolean isContinuous(Event prev, Event e) {
+		if(prev.getEndDate().equals(e.getStartDate())){
+			return timesAreContinuous(prev.getEndTime(), e.getStartTime());
+		}
+		else if() {
+			
+		}
+		else {
+			return false;
+		}
 	}
 }

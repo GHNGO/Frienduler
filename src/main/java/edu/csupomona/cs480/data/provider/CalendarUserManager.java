@@ -168,17 +168,18 @@ public class CalendarUserManager {
         int[] timeSlotBegin = EventListHelper.convertTimeStringArrayToIntArray(startTime);
         int[] timeSlotEnd = EventListHelper.addTime(timeSlotBegin, 0, 0, 0, 0, intervalHours, intervalMinutes);
 
+        int interval = intervalHours * 60 + intervalMinutes;
         int numMinutes = 24 * 2 * 30 * daysToCheck;
-        for(int j = 0; j < numMinutes; j+=30) {
+        for(int j = 0; j < numMinutes; j+= interval) {
             //calculate time slot
-            timeSlotEnd = EventListHelper.addTime(timeSlotBegin, 0, 0, 0, 0, 0, j);
+            timeSlotEnd = EventListHelper.addTime(timeSlotBegin, 0, 0, 0, 0, 0, interval);
 
             // Generate Event Representing Free Time
             // String[] formatted as MM/DD/YY, HH:MM
             String[] beginTime = EventListHelper.formatIntArrayToStringArray(timeSlotBegin);
             String[] endTime = EventListHelper.formatIntArrayToStringArray(timeSlotEnd);
             //Event e = new Event("Free Time", start, end, date);
-            Event e = new Event("Free Time", beginTime[1], endTime[1], beginTime[0]);
+            Event e = new Event("Free Time", beginTime[1], endTime[1], beginTime[0], endTime[0]);
 
             boolean allUsersFree = true;
             for(int k = 0; k < users.size(); k++) {
@@ -194,7 +195,12 @@ public class CalendarUserManager {
                 freeTimeSlots.add(e);
             }
         }
-
+        
+        freeTimeSlots = EventListHelper.mergeContinuousEvents(freeTimeSlots);
+        
+        
+        System.out.println("Comparing events");
+        System.out.println(freeTimeSlots.toString());
         return freeTimeSlots;
     }
 

@@ -55,7 +55,6 @@ public class PersonOnlineObjectPresenter {
   
   //calls CalendarUserManager's getScheduleForUser(on the user parameter)
   public String getStringScheduleForUser(String user) {
-    //TODO:
     String schedule = cum.getStringScheduleForUser(user);
     return schedule;
   }
