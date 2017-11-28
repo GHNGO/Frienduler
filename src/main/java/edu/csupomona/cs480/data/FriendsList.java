@@ -40,4 +40,10 @@ public class FriendsList extends ArrayList<IndividualUser> {
             else return 0;
         });
     }
+
+    @Override
+    public boolean add(IndividualUser user) {
+        System.out.println("Adding " + user.id + " to friends list");
+        return super.add(user);
+    }
 }
