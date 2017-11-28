@@ -320,17 +320,24 @@ public class DatabaseInterface {
      * @param firstName New First Name
      * @param lastName New Last Name
      */
-    public void updateUser(String userName, String firstName, String lastName) {
+    public boolean updateUser(String userName, String firstName, String lastName) {
         try{
             PreparedStatement s = sql.prepareStatement("UPDATE Users SET firstName=?, lastName=? WHERE userName=?");
             s.setString(1, firstName);
             s.setString(2, lastName);
             s.setString(3, userName);
-            s.execute();
+            int i = s.executeUpdate();
+            if (i >= 1) {
+                s.close();
+                return true;
+            } else {
+                s.close();
+                return false;
+            }
 
-            s.close();
         } catch (SQLException e) {
             sqlException(e);
+            return false;
         }
     }
 

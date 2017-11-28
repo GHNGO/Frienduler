@@ -12,12 +12,13 @@ function addFriend(userName) {
                 data : {
                 },
                 success : function(result) {
+                    alert("Successfully added friend");
                     location.reload();
                 },
                 error: function (jqXHR, exception, ex) {
-                    alert(exception);
-                    alert(ex);
-                    alert("Failed to add the friend. Please check the inputs.");
+                    //alert(exception);
+                    //alert(ex);
+                    //alert("Failed to add the friend. Please check the inputs.");
                 }
             });
     } else {
@@ -38,7 +39,7 @@ function removeFriend(userName) {
                 data : {
                 },
                 success : function(result) {
-                    // alert(result);
+                     alert("Successfully removed friend");
                     location.reload();
                 }
                 // error: function (jqXHR, exception, ex) {
@@ -79,7 +80,6 @@ function addGroup() {
 function addFriendToGroup() {
     var groupName = $('#group_select').val();
     var friendName = $('#friend_id_add_group').val();
-    // console.log("Running addFriendToGroup");
     if (groupName && friendName) {
         $.ajax(
             {
@@ -89,11 +89,12 @@ function addFriendToGroup() {
 
                 },
                 success : function(result) {
+                    alert("Successfully added friend to group");
                     location.reload();
                 }, error: function(jqXHR, exception, ex) {
-                    console.log(exception);
-                    console.log(ex);
-                alert("Failed to add user to group, please check inputs");
+                    // console.log(exception);
+                    // console.log(ex);
+                // alert("Failed to add user to group, please check inputs");
                 location.reload();
             }
             }
@@ -115,6 +116,7 @@ function addSelfToGroup(userName) {
 
                 },
                 success : function(result) {
+                    alert("Successfully added yourself to the group");
                     location.reload();
                 }, error: function(jqXHR, exception, ex) {
                 alert("Failed to add user to group, please check inputs");

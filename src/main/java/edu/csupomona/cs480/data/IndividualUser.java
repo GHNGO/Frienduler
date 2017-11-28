@@ -153,6 +153,10 @@ public class IndividualUser extends CalendarUser{
 		this.lastName = lastName;
 	}
 
+	public String getFullName() {
+		return "" + firstName + " " + lastName;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		IndividualUser userComp = (IndividualUser) obj;
