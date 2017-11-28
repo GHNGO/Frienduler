@@ -274,17 +274,19 @@ public class EventListHelper {
 	}
 
 	public static boolean isContinuous(Event prev, Event e) {
+		/*
 		if(prev.getEndDate().equals(e.getStartDate())){
 			return timesAreContinuous(prev.getEndTime(), e.getStartTime());
 		}
-		/*
 		else if(daysAreContiuous(prev.getEndDate(),e.getStartDate())) {
 			return timesAreContinuous(prev.getEndTime(), e.getStartTime());
 		}
-		*/
+		
 		else {
 			return false;
 		}
+		*/
+		return timesAreContinuous(prev.getEndTime(), e.getStartTime());
 	}
 
 	private static boolean daysAreContiuous(String endDate, String startDate) {
