@@ -16,10 +16,7 @@ function addUser(userName) {
                     alert("Successfully registered user");
                     location.replace("/Frienduler/user/" + userName);
                 }, error : function(e, ex, exception) {
-                    alert(e);
-                    alert(ex);
-                    alert(exception);
-                    alert("ERROR");
+                location.replace("/Frienduler/user/" + userName);
             }
             }
         );

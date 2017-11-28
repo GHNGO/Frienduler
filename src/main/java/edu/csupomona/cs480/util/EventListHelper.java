@@ -4,47 +4,10 @@ import edu.csupomona.cs480.data.Event;
 import edu.csupomona.cs480.data.provider.EventList;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
 public class EventListHelper {
-	/**
-	 * @param events
-	 * @return EventList of free times up to a week
-	 */
-	/*
-	public static EventList findFreeTimes(EventList events) {
-		EventList freeTimes = findFreeTimes(events, 0, 0, 1, 0, 0, 0);
-		return freeTimes;
-	}
-	
-	/**
-	 * 
-	 * @param events
-	 * @param weeks
-	 * @param days
-	 * @param hours
-	 * @param minutes
-	 * @return EventList of Events that represent free time up to the amount of time specified
-	 * by the parameters, weeks, days, hours, minutes from current time
-	 */
-	/*
-	public static EventList findFreeTimes(EventList events, int years, int months, int weeks, int days, int hours, int minutes) {
-		// TODO Auto-generated method stub
-		EventList freeTimes = new EventList();
-		String[] startTime = getCurrentTime();
-		String[] stopTime = addTime(startTime, years, months, weeks, days, hours, minutes);
-		
-		for(int i = 0; i < events.size(); i++) {
-			Event e = events.get(i);
-			
-			String event1EndTime = e.getEndTime();
-			String event2StartTime = e.getStartTime();
-			String startDay = e.getStartDate();
-			String endDay = e.getEndDate();
-			
-		}
-		return freeTimes;
-	}
-	*/
 
 	/**
 	 * @param time is in the format
@@ -113,23 +76,26 @@ public class EventListHelper {
 			days += hours/24;
 			hours = hours%24;
 		}
-		if(days >= 7) {
-			weeks += days/7;
-			days = days%7;
+		int numberOfDays = 30;
+		if(days >= numberOfDays) {
+			months += days/numberOfDays;
+			days = (days%numberOfDays)+1;
 		}
-		if(weeks >= 4) {
-			months += weeks/4;
-			weeks = weeks%4;
-		}
-		if(months >= 12) {
+		if(months > 12) {
 			years += months/12;
-			months = months%12;
+			months = (months%12) + 1;
 		}
 		
+
 		int[] val = {months, days, years, hours, minutes};
 		return val;
 	}
 
+	private static Calendar convertToCalendar(int[] mdyhm) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(mdyhm[2], mdyhm[0], mdyhm[1], mdyhm[3], mdyhm[4]);
+		return cal;
+	}
 	//check if time slot is occupied by any of the events in an EventList
 	public static boolean timeOccupied(EventList events, String timeSlot) {
 		Event e2 = convertStringToEvent(timeSlot);
@@ -235,8 +201,8 @@ public class EventListHelper {
 	public static int[] convertToHoursAndMinutes(String time) {
 		int[] times = new int[2];
 		String[] arr = time.split(":");
-		times[0] = Integer.getInteger(arr[0]);
-		times[1] = Integer.getInteger(arr[1]);
+		times[0] = Integer.parseInt(arr[0]);
+		times[1] = Integer.parseInt(arr[1]);
 		return times;
 	}
 
@@ -252,10 +218,12 @@ public class EventListHelper {
 	 * array[1] is hour:min
 	 */
 	public static String[] parseIntoDateAndTime(Timestamp s) {
-		String[] ret = new String[2];
-
 		String startStr = s.toString();
+		return parseIntoDateAndTime(startStr);
+	}
 
+	public static String[] parseIntoDateAndTime(String startStr) {
+		String[] ret = new String[2];
 		String[] splitDT = startStr.split(" ");
 		String date = splitDT[0];
 		String time = splitDT[1];
@@ -275,30 +243,57 @@ public class EventListHelper {
 		ret[1] = formTime;
 		return ret;
 	}
-
+	
 	public static EventList mergeContinuousEvents(EventList freeTimeSlots) {
 		freeTimeSlots.sort();
 		if(freeTimeSlots.size() > 0) {
 			Event prev = freeTimeSlots.get(0);
+			int count = 0;
 			for(int i = 1; i < freeTimeSlots.size(); i ++) {
 				Event e = freeTimeSlots.get(i);
+				
 				if(isContinuous(prev, e)) {
-					
+					freeTimeSlots.remove(prev);
+					freeTimeSlots.remove(e);
+					Event merged = mergeEvents(prev, e);
+					freeTimeSlots.add(i-1, merged);
+					i--;
+					prev = merged;
+				}
+				else {
+					prev = e;
 				}
 			}
 		}
 		return freeTimeSlots;
 	}
 
+	private static Event mergeEvents(Event prev, Event e) {
+		Event ret = new Event(prev.getName(), prev.getStartTime(), e.getEndTime(), prev.getStartDate(), e.getEndDate());
+		return ret;
+	}
+
 	public static boolean isContinuous(Event prev, Event e) {
 		if(prev.getEndDate().equals(e.getStartDate())){
 			return timesAreContinuous(prev.getEndTime(), e.getStartTime());
 		}
-		else if() {
-			
+		/*
+		else if(daysAreContiuous(prev.getEndDate(),e.getStartDate())) {
+			return timesAreContinuous(prev.getEndTime(), e.getStartTime());
 		}
+		*/
 		else {
 			return false;
 		}
+	}
+
+	private static boolean daysAreContiuous(String endDate, String startDate) {
+		/*
+		int[] 
+		if(endDate.indexOf("12/31")) {
+			
+		}
+		*/
+		return false;
 	}
 }

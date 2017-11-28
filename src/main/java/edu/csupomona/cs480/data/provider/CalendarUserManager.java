@@ -166,7 +166,7 @@ public class CalendarUserManager {
         String[] startTime = EventListHelper.getCurrentTime();
         //int[] of {month, day, year, hour, min}
         int[] timeSlotBegin = EventListHelper.convertTimeStringArrayToIntArray(startTime);
-        int[] timeSlotEnd = EventListHelper.addTime(timeSlotBegin, 0, 0, 0, 0, intervalHours, intervalMinutes);
+        int[] timeSlotEnd;
 
         int interval = intervalHours * 60 + intervalMinutes;
         int numMinutes = 24 * 2 * 30 * daysToCheck;
