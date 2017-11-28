@@ -1,7 +1,5 @@
 package edu.csupomona.cs480.util;
 
-import java.lang.NumberFormatException;
-
 public class JarodClass<E, F> {
 	public long add(E a, F b) {
 		try {

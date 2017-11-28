@@ -1,13 +1,13 @@
 package edu.csupomona.cs480.data;
 
-import edu.csupomona.cs480.App;
+import edu.csupomona.cs480.data.provider.CalendarUserManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GroupUser extends CalendarUser {
 	GroupMembersList members;
-	
+
 	public GroupUser() {
 		super("");
 		members = new GroupMembersList();
@@ -27,8 +27,9 @@ public class GroupUser extends CalendarUser {
 		members = new GroupMembersList();
 		if (!users.equals("{}")) {
 			String[] s = users.split("[{},]");
+			System.out.println(Arrays.toString(s));
 			for (int i = 1; i < s.length; i++) {
-				IndividualUser u = App.sqlInterface().getUser(s[i]);
+				IndividualUser u = CalendarUserManager.getInstance().getUser(Integer.parseInt(s[i]));
 				if (u != null) {
 					members.add(u);
 				}
@@ -55,27 +56,32 @@ public class GroupUser extends CalendarUser {
 
 	public GroupUser(int id, String groupId, ArrayList<IndividualUser> userList) {
 		super(groupId);
-		GroupMembersList userListCopy = (GroupMembersList) userList.clone();
-		members = userListCopy;
+		members = (GroupMembersList) userList;
 		this.idNum = id;
 	}
 	
 	public boolean addUser(IndividualUser ind) {
-		int index = findIndexOfUser(ind);
-		if(index == -1) {
+		if (this.getMembers().contains(ind)) {
+			return false;
+		} else {
 			members.add(ind);
 			return true;
 		}
-		return false;
+//		int index = findindexofuser(ind);
+//		if(index == -1) {
+//			members.add(ind);
+//			return true;
+//		}
+//		return false;
 	}
 	
-	public boolean removeUser(IndividualUser ind) {
-		int index = findIndexOfUser(ind);
-		if(index == -1) {
-			return false;
+	public String removeUser(IndividualUser ind) {
+		if (members.contains(ind)) {
+			members.remove(ind);
+			return "" + ind.getId() + " was successfully removed from group " + this.id;
+		} else {
+			return "" + ind.getId() + " was not a member of group " + this.getId();
 		}
-		members.remove(index);
-		return true;
 	}
 
 	private int findIndexOfUser(IndividualUser ind) {

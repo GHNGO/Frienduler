@@ -3,7 +3,6 @@ package edu.csupomona.cs480.data;
 import edu.csupomona.cs480.database.MalformedEventException;
 import edu.csupomona.cs480.util.EventListHelper;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;

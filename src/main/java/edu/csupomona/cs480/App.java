@@ -1,24 +1,20 @@
 package edu.csupomona.cs480;
 
-import edu.csupomona.cs480.database.DatabaseInterface;
 import edu.csupomona.cs480.data.Number;
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
 import edu.csupomona.cs480.data.provider.CalendarUserManager;
 import edu.csupomona.cs480.data.provider.FSUserManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.database.DatabaseInterface;
 import edu.csupomona.cs480.links.provider.LinkManager;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 @Configuration
 @EnableAutoConfiguration

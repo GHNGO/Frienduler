@@ -40,7 +40,7 @@
 <section class="banner" id="top">
   <br>
   <span style="color:white;cursor:pointer;" onclick="openNav()"> <object align="right"><input type="button" class="buttoner" value="&#9776; Friends List"/></object></span>
-  <object align="left"><a href="/Frienduler/user/${userId}/addFriend"><input type="button" class="buttoner" value="Add Friends/Groups"/></a></object>
+  <object align="left"><a href="/Frienduler/user/${userId}/manageFriendsAndGroups"><input type="button" class="buttoner" value="Manage Friends/Groups"/></a></object>
   <object align="center"><a href="/Frienduler/user/${userId}/compare"><input type="button" class="buttoner" value="Compare Schedules"/></a></object>
   <div id = "main">
     <div class="container">

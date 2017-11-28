@@ -1,11 +1,11 @@
 package edu.csupomona.cs480.data.provider;
 
+import edu.csupomona.cs480.data.Event;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
-
-import edu.csupomona.cs480.data.Event;
 
 /**
  * List of Events to allow for easier string readout

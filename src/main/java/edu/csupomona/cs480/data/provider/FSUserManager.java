@@ -1,15 +1,14 @@
 package edu.csupomona.cs480.data.provider;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.csupomona.cs480.data.User;
+import edu.csupomona.cs480.data.UserMap;
+import edu.csupomona.cs480.util.ResourceResolver;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import edu.csupomona.cs480.data.User;
-import edu.csupomona.cs480.data.UserMap;
-import edu.csupomona.cs480.util.ResourceResolver;
 
 /**
  * The implementation of {@link UserManager} interface

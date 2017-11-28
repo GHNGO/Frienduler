@@ -1,8 +1,8 @@
 package edu.csupomona.cs480.data.provider;
 
-import java.util.List;
-
 import edu.csupomona.cs480.data.User;
+
+import java.util.List;
 
 public interface UserManager {
 

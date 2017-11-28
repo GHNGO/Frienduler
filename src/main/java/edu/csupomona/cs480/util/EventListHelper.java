@@ -1,11 +1,9 @@
 package edu.csupomona.cs480.util;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.sql.Timestamp;
-
 import edu.csupomona.cs480.data.Event;
 import edu.csupomona.cs480.data.provider.EventList;
+
+import java.sql.Timestamp;
 
 public class EventListHelper {
 	/**

@@ -20,4 +20,24 @@ public class FriendsList extends ArrayList<IndividualUser> {
         m = m + "}";
         return m;
     }
+
+    @Override
+    public boolean contains(Object o) {
+        IndividualUser compared = (IndividualUser) o;
+
+        for (IndividualUser u: this) {
+            if (u.getId().equals(compared.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void sort() {
+        super.sort((o1, o2) -> {
+            if (o1.idNum < o2.idNum) return -1;
+            else if (o1.idNum > o2.idNum) return 1;
+            else return 0;
+        });
+    }
 }

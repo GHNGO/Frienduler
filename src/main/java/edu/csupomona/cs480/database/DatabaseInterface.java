@@ -1,14 +1,11 @@
 package edu.csupomona.cs480.database;
 
-import edu.csupomona.cs480.data.Event;
-import edu.csupomona.cs480.data.FriendsList;
-import edu.csupomona.cs480.data.GroupUser;
-import edu.csupomona.cs480.data.IndividualUser;
+import edu.csupomona.cs480.data.*;
+import edu.csupomona.cs480.data.provider.CalendarUserManager;
 import edu.csupomona.cs480.data.provider.EventList;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
 
 
 /**
@@ -343,11 +340,11 @@ public class DatabaseInterface {
      */
     public void updateGroup(GroupUser group) {
         try{
-            PreparedStatement s = sql.prepareStatement("UPDATE Groups SET members=? WHERE groupName=? AND id=?");
+            PreparedStatement s = sql.prepareStatement("UPDATE Groups SET members=? WHERE groupName=?");
 
             s.setString(2, group.getId());
-            s.setInt(3, group.getIdNum());
 
+            System.out.println(group.getMembers().toString());
             s.setString(1, group.getMembers().toString());
             s.execute();
 
@@ -371,7 +368,7 @@ public class DatabaseInterface {
      * @param user User to look up information for
      * @return <code>ArrayList</code> of <code>GroupUser</code> objects that this user is a member of.
      */
-    public ArrayList<GroupUser> getGroupsMemberOf(IndividualUser user) {
+    public GroupList getGroupsMemberOf(IndividualUser user) {
         try{
             int idNum = user.getIdNum();
             PreparedStatement s = sql.prepareStatement("SELECT id, groupName FROM Groups WHERE members REGEXP ?");
@@ -382,7 +379,7 @@ public class DatabaseInterface {
             s.execute();
 
             ResultSet results = s.getResultSet();
-            ArrayList<GroupUser> groups = new ArrayList<>();
+            GroupList groups = new GroupList();
             if (!results.isBeforeFirst()) {
                 results.close();
                 s.close();
@@ -434,6 +431,61 @@ public class DatabaseInterface {
             s.close();
 
             return users;
+        } catch (SQLException e) {
+            sqlException(e);
+            return null;
+        }
+    }
+
+    public ArrayList<GroupUser> listAllGroups() {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT id, groupName, members FROM Groups ");
+            s.execute();
+            ResultSet results = s.getResultSet();
+            ArrayList<GroupUser> groups = new ArrayList<>();
+            if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
+                return groups;
+            }
+
+            while (!results.isLast()) {
+                results.next();
+                GroupUser group = new GroupUser(results.getInt(1), results.getString(2), results.getString(3));
+                groups.add(group);
+            }
+
+            results.close();
+            s.close();
+
+            return groups;
+        } catch (SQLException e) {
+            sqlException(e);
+            return null;
+        }
+    }
+
+    public ArrayList<String> listAllGroupNames() {
+        try {
+            PreparedStatement s = sql.prepareStatement("SELECT id, groupName FROM Groups ");
+            s.execute();
+            ResultSet results = s.getResultSet();
+            ArrayList<String> groupNames = new ArrayList<>();
+            if (!results.isBeforeFirst()) {
+                results.close();
+                s.close();
+                return groupNames;
+            }
+
+            while (!results.isLast()) {
+                results.next();
+                groupNames.add(results.getString(2));
+            }
+
+            results.close();
+            s.close();
+
+            return groupNames;
         } catch (SQLException e) {
             sqlException(e);
             return null;
@@ -572,7 +624,7 @@ public class DatabaseInterface {
 
             while (!results.isLast()) {
                 results.next();
-                Event e = new Event(getUser(results.getInt(1)).getId(), results.getString(2),
+                Event e = new Event(userName, results.getString(2),
                         results.getInt(3), results.getInt(4), results.getInt(5),
                         results.getInt(6), results.getInt(7), results.getInt(8),
                         results.getInt(9), results.getInt(10), results.getInt(11),
@@ -606,7 +658,7 @@ public class DatabaseInterface {
                 return friendsList;
             }
 
-            while (!results.isLast()) {
+            while (!results.isClosed() && !results.isLast()) {
                 results.next();
                 String st = results.getString(1);
                 results.close();
@@ -616,7 +668,7 @@ public class DatabaseInterface {
                 }
                 String[] str = st.split("[{},]");
                 for (int i = 1; i < str.length; i++) {
-                    IndividualUser u = getUser(Integer.parseInt(str[i]));
+                    IndividualUser u = CalendarUserManager.getInstance().getUser(Integer.parseInt(str[i]));
                     if (u != null) {
                         friendsList.add(u);
                     }
@@ -624,7 +676,6 @@ public class DatabaseInterface {
             }
             results.close();
             s.close();
-
             return friendsList;
         } catch (SQLException e) {
             sqlException(e);
@@ -644,7 +695,7 @@ public class DatabaseInterface {
 
             if (!results.isBeforeFirst()) {
                 results.close();
-                s.close();
+                s.close(); System.out.println("Closing SQL Connection");
                 return "";
             }
 
@@ -652,11 +703,25 @@ public class DatabaseInterface {
             String friendsString = results.getString(1);
             results.close();
             s.close();
+
             return friendsString;
         } catch (SQLException e) {
             sqlException(e);
             return null;
         }
+    }
+
+    public ArrayList<IndividualUser> getListUsersNotFriends(String userName) {
+        IndividualUser user = CalendarUserManager.getInstance().getUser(userName);
+        FriendsList friends = user.getFriends();
+        ArrayList<IndividualUser> userList = CalendarUserManager.getInstance().getAllUsers();
+        ArrayList<IndividualUser> usersNotFriends = new ArrayList<>();
+        for (IndividualUser u : userList) {
+            if (!userName.equals(u.getId()) && !friends.contains(u)) {
+                usersNotFriends.add(u);
+            }
+        }
+        return usersNotFriends;
     }
 
     public Event getEvent(String userId, String eventName) {
@@ -697,74 +762,8 @@ public class DatabaseInterface {
         }
     }
 
-    public Event getEvent(String userId, String eventName, int[] startDateAndTime, int[] endDateAndTime) {
-        try {
-            PreparedStatement s = sql.prepareStatement("SELECT id, userId, eventName, startMonth, startDay, startYear, startHour, startMinute," +
-                    "endMonth, endDay, endYear, endHour, endMinute FROM Events WHERE eventName = ? AND userId = ? AND startMonth=? " +
-                    "AND startDay=? AND startYear=? AND startHour=? AND startMinute=? AND endMonth=? AND endDay=? AND endYear=? " +
-                    "AND endHour=? AND endMinute=?");
-            s.setString(1, eventName);
-            s.setInt(2, getIdOfUser(userId));
-
-            for (int i = 0; i < startDateAndTime.length; i++) {
-                s.setInt(i+3, startDateAndTime[i]);
-                s.setInt(i+8, endDateAndTime[i]);
-            }
-            System.out.println(s.toString());
-
-            s.execute();
-
-            ResultSet results = s.getResultSet();
-
-            if (!results.isBeforeFirst()) {
-                results.close();
-                s.close();
-                return null;
-            } else {
-                results.next();
-                int[] resInts = new int[10];
-                String r1 = results.getString(2);
-                String r2 = results.getString(3);
-                for (int i = 0; i < resInts.length; i++) {
-                    resInts[i] = results.getInt(i+4);
-                }
-
-                results.close();
-                s.close();
-
-                return new Event(r1,r2,resInts[0], resInts[1], resInts[2], resInts[3], resInts[4], resInts[5], resInts[6],
-                        resInts[7], resInts[8], resInts[9]);
-            }
-
-
-
-        } catch (SQLException e) {
-            sqlException(e);
-            return null;
-        }
-    }
-
-    public void deleteEvent(String userId, String eventName, int[] startTime, int[] endTime) {
-        try{
-            PreparedStatement s = sql.prepareStatement("DELETE FROM Events WHERE eventName = ? AND userId = ? AND " +
-                    "startHour=? AND startMinute=? AND endHour=? AND endMinute=?");
-            s.setString(1, eventName);
-            s.setInt(2, getIdOfUser(userId));
-
-            for (int i = 0; i < startTime.length; i++) {
-                s.setInt(i+3, startTime[i]);
-                s.setInt(i+5, endTime[i]);
-            }
-
-            s.execute();
-            s.close();
-        } catch (SQLException e) {
-            sqlException(e);
-        }
-    }
-
     public boolean closeConnection() {
-        System.out.println("Closing SQL Connection");
+        System.out.println("Closing SQL Connections");
         try {
             if (this.sql.isClosed()) {
                 return false;

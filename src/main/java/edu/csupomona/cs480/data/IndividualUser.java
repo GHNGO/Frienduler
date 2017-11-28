@@ -1,6 +1,7 @@
 package edu.csupomona.cs480.data;
 
 import edu.csupomona.cs480.App;
+import edu.csupomona.cs480.data.provider.CalendarUserManager;
 import edu.csupomona.cs480.data.provider.EventList;
 
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ public class IndividualUser extends CalendarUser{
 
 	private String firstName;
 	private String lastName;
+
+	ArrayList<String> list;
 
 	FriendsList friends;
 	ArrayList<GroupUser> groupsJoined;
@@ -19,6 +22,7 @@ public class IndividualUser extends CalendarUser{
 		this.lastName = lastName;
 		this.idNum = idNum;
 
+		list = new ArrayList<>();
 		FriendsList friendsList = new FriendsList();
 
 		if (friends.equals("{}")) {
@@ -26,10 +30,10 @@ public class IndividualUser extends CalendarUser{
 		} else {
 			String[] s = friends.split("[{},]");
 			for (int i = 1; i < s.length; i++) {
-				IndividualUser u = App.sqlInterface().getUser(Integer.parseInt(s[i]));
-				if (u != null) {
-					friendsList.add(u);
-				}
+				list.add(App.sqlInterface().getUserNameFromIdNum(Integer.parseInt(s[i])));
+//				if (u != null) {
+//					friendsList.add(u);
+//				}
 			}
 		}
 
@@ -59,7 +63,7 @@ public class IndividualUser extends CalendarUser{
 		} else {
 			String[] s = friends.split("[{},]");
 			for (int i = 1; i < s.length; i++) {
-				IndividualUser u = App.sqlInterface().getUser(Integer.parseInt(s[i]));
+				IndividualUser u = CalendarUserManager.getInstance().getUser(Integer.parseInt(s[i]));
 				if (u != null) {
 					friendsList.add(u);
 				}
@@ -98,6 +102,12 @@ public class IndividualUser extends CalendarUser{
 	}
 	
 	public FriendsList getFriends() {
+		if (list != null) {
+			for (String s : list) {
+				friends.add(CalendarUserManager.getInstance().getUser(s));
+			}
+		}
+
 		return friends;
 	}
 	public void setFriends(FriendsList friends) {
@@ -111,21 +121,11 @@ public class IndividualUser extends CalendarUser{
 	}
 	
 	public boolean addFriend(IndividualUser ind) {
-		int index = findIndexOfUser(ind);
-		if(index == -1) {
-			friends.add(ind);
-			return true;
-		}
-		return false;
+		return !friends.contains(ind) && friends.add(ind);
 	}
 	
 	public boolean removeFriend(IndividualUser ind) {
-		int index = findIndexOfUser(ind);
-		if(index == -1) {
-			return false;
-		}
-		friends.remove(index);
-		return true;
+		return friends.contains(ind) && friends.remove(ind);
 	}
 
 	private int findIndexOfUser(IndividualUser ind) {
@@ -153,4 +153,10 @@ public class IndividualUser extends CalendarUser{
 		this.lastName = lastName;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		IndividualUser userComp = (IndividualUser) obj;
+
+		return userComp.id == this.id;
+	}
 }
