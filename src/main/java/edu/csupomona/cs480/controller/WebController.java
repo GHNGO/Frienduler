@@ -131,8 +131,8 @@ public class WebController {
 	 */
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.POST)
 	void addUser(@PathVariable("userId") String id,
-					   @RequestParam("firstName") String firstName,
-					   @RequestParam("lastName") String lastName) throws SQLException{
+							 @RequestParam("firstName") String firstName,
+							 @RequestParam("lastName") String lastName) throws SQLException{
 		databaseInterface.addUser(id, firstName, lastName);
 	}
 
@@ -209,7 +209,7 @@ public class WebController {
 
 	@RequestMapping(value="/Frienduler/user/{userId}/addFriend/addingFriend", method = RequestMethod.POST)
 	ModelAndView addFriend(@PathVariable("userId") String userId,
-					  @RequestParam("name") String friendName) throws SQLException {
+												 @RequestParam("name") String friendName) throws SQLException {
 		IndividualUser user = databaseInterface.getUser(userId);
 		if (user != null) {
 			FriendsList friends = user.getFriends();
@@ -234,7 +234,7 @@ public class WebController {
 
 	@RequestMapping(value="/Frienduler/user/{userId}/{friendName}", method = RequestMethod.DELETE)
 	void deleteFriend(@PathVariable("userId") String userId,
-					  @PathVariable("friendName") String friendName) {
+										@PathVariable("friendName") String friendName) {
 		IndividualUser user = databaseInterface.getUser(userId);
 		if (user != null) {
 			FriendsList friends = user.getFriends();
@@ -308,11 +308,11 @@ public class WebController {
 
 	@RequestMapping( value = "/Frienduler/user/{userId}/createEvent", method = RequestMethod.POST )
 	void addEvent( @PathVariable("userId") String userId,
-				   @RequestParam("eventName") String eventName,
-				   @RequestParam("startDate") String startDate,
-				   @RequestParam("startTime") String startTime,
-				   @RequestParam("endDate") String endDate,
-				   @RequestParam("endTime") String endTime) throws MalformedEventException {
+								 @RequestParam("eventName") String eventName,
+								 @RequestParam("startDate") String startDate,
+								 @RequestParam("startTime") String startTime,
+								 @RequestParam("endDate") String endDate,
+								 @RequestParam("endTime") String endTime) throws MalformedEventException {
 		System.err.println("Running addEvent");
 		if (startDate.contains("-") && endDate.contains("-")) {
 			String[] startDateSplit = startDate.split("-");
@@ -330,16 +330,15 @@ public class WebController {
 		} else {
 			calendarUserManager.addEvent(userId, new Event(userId, eventName, startTime, endTime, startDate, endDate));
 		}
-
 	}
 
 	@RequestMapping( value = "/Frienduler/user/{userId}/event/{eventName}", method = RequestMethod.POST )
 	void addEventNameInPath( @PathVariable("userId") String userId,
-				   @PathVariable("eventName") String eventName,
-				   @RequestParam("startDate") String startDate,
-				   @RequestParam("startTime") String startTime,
-				   @RequestParam("endDate") String endDate,
-				   @RequestParam("endTime") String endTime) throws MalformedEventException {
+													 @PathVariable("eventName") String eventName,
+													 @RequestParam("startDate") String startDate,
+													 @RequestParam("startTime") String startTime,
+													 @RequestParam("endDate") String endDate,
+													 @RequestParam("endTime") String endTime) throws MalformedEventException {
 		System.err.println("Running addEvent");
 		if (startDate.contains("-") && endDate.contains("-")) {
 			String[] startDateSplit = startDate.split("-");
@@ -362,13 +361,13 @@ public class WebController {
 
 	@RequestMapping( value="/Frienduler/user/{userId}/event/{eventName}", method=RequestMethod.DELETE)
 	void deleteEvent(@PathVariable("userId") String userId,
-					 @PathVariable("eventName") String eventName) {
+									 @PathVariable("eventName") String eventName) {
 		System.out.println(calendarUserManager.removeEvent(userId, eventName));
 	}
 
 	@RequestMapping( value = "/Frienduler/user/{userId}/compare/result", method = RequestMethod.POST )
 	ModelAndView compareResult( @PathVariable( "userId" ) String userId,
-								@RequestParam("friendsToCompare") String[] friends ) throws MalformedEventException {
+															@RequestParam("friendsToCompare") String[] friends ) throws MalformedEventException {
 		ModelAndView modelAndView = new ModelAndView( "compare" );
 		PersonOnlineObjectPresenter poop = new PersonOnlineObjectPresenter( userId );
 		ArrayList<CalendarUser> calanderUsers = new ArrayList<CalendarUser>();
@@ -377,6 +376,12 @@ public class WebController {
 		}
 		modelAndView.addObject( "events", calendarUserManager.compareSchedule( calanderUsers ) );
 		modelAndView.addObject( "friends", poop.getFriends() );
+		return modelAndView;
+	}
+
+	@RequestMapping( value = "/Frienduler/user/{userId}/manage", method = RequestMethod.GET )
+	ModelAndView manageUser(@PathVariable("userId") String userId) {
+		ModelAndView modelAndView = new ModelAndView("manageUser");
 		return modelAndView;
 	}
 
@@ -389,7 +394,7 @@ public class WebController {
 	@RequestMapping(value = "/cs480/genn", method = RequestMethod.GET)
 	String returnDateAndTime() {
 		Date dNow = new Date( );
-	    SimpleDateFormat ft = new SimpleDateFormat ("EEE, MMM d, yyyy 'at' hh:mm:ss a zzz");
+		SimpleDateFormat ft = new SimpleDateFormat ("EEE, MMM d, yyyy 'at' hh:mm:ss a zzz");
 
 		return ("You ran this page on: " + ft.format(dNow));
 	}
@@ -428,7 +433,7 @@ public class WebController {
 	//Connor Baskin A4
 	@RequestMapping(value="/cs480/addNumber", method=RequestMethod.POST)
 	String addNumber(
-		@RequestParam("number") String number) {
+			@RequestParam("number") String number) {
 		if (number == null || number.equals("")) {
 			return "You must have the number to add as a parameter of the request";
 		} else {
@@ -499,13 +504,13 @@ public class WebController {
 		return "Your text has been sucessfully dumped! Have a good day!";
 	}
 	//Jack Zhang A4
-		@RequestMapping( value = "/cs480/test", method = RequestMethod.GET )
-		String watchtests() throws InterruptedException {
-			IStopWatch stopWatch = CStopWatchFactory.getStopWatchBuilder().build();
-			stopWatch.startGlobal();
-			Thread.sleep(999);
-			stopWatch.stopGlobal();
-			return stopWatch.toString();
-		}
+	@RequestMapping( value = "/cs480/test", method = RequestMethod.GET )
+	String watchtests() throws InterruptedException {
+		IStopWatch stopWatch = CStopWatchFactory.getStopWatchBuilder().build();
+		stopWatch.startGlobal();
+		Thread.sleep(999);
+		stopWatch.stopGlobal();
+		return stopWatch.toString();
+	}
 
 }

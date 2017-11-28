@@ -169,6 +169,17 @@ p {
 
 }
 
+.banners {
+	min-height:100%;
+	background:linear-gradient(90deg,rgba(37,196,129,0.5),rgba(0,128,255,0.5)),url(../assets/img/desk.jpg);
+	background-size:cover;
+
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	text-align: center;
+}
+
 .banner .left-side {
 	text-align: left;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -200,6 +211,43 @@ p {
 
 
 .banner .submit-form {
+	text-align: left;
+	margin: 155px 0px;
+	background-color: rgba(250, 250, 250, 0.95);
+	padding: 30px;
+}
+
+.banners .left-side {
+	text-align: left;
+	background-color: rgba(0, 0, 0, 0.5);
+	height: 100%;
+	margin-left: -100vh;
+	padding-left: 100vh;
+}
+
+.banners .page-direction-button {
+	margin-top: 120px;
+}
+
+.banners .logo img {
+	padding-top: 60px;
+	max-width: 200%;
+}
+
+.banners .tabs-content {
+	margin-top: 120px;
+}
+
+.banners .tabs-content h4 {
+	margin-top: 0px;
+	margin-bottom: 40px;
+	font-size: 24px;
+	color: #fff;
+	font-weight: 700;
+}
+
+
+.banners .submit-form {
 	text-align: left;
 	margin: 155px 0px;
 	background-color: rgba(250, 250, 250, 0.95);
@@ -1025,4 +1073,13 @@ footer p em {
 
 
 
+}
+
+h1{
+	font-size: 30px;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 300;
+	text-align: center;
+	margin-bottom: 15px;
 }
