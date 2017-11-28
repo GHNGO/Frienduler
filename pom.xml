@@ -97,11 +97,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.8-dmr</version>
 		</dependency>
-        <dependency>
-            <groupId>edu.csupomona.cs</groupId>
-            <artifactId>cs480</artifactId>
-            <version>1.0</version>
-        </dependency>
 
     </dependencies>
 
